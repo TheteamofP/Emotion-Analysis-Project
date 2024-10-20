@@ -1,6 +1,6 @@
 # Emotion-Analysis-Project
 
-<font color="#87CEEB"><font size="6"><font face="微软雅黑">**团队作业1——团队展示&选题**</font></font></font>   
+# 团队作业1——团队展示&选题
 
  
 | 软件工程 | [<font color="#87CEEB">班级链接](https://edu.cnblogs.com/campus/gdgy/CSGrade22-12) |
