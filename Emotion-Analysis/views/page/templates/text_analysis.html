@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>文本分析</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <noscript><link rel="stylesheet" href="/static/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+         <header id="header">
+            <div class="logo">
+                <span class="icon fa-gem"></span>
+            </div>
+            <div class="content">
+                <div class="inner">
+                    <h1>文本分析</h1>
+                    <p>选择单项分析或多项分析来分析文本的情感倾向</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#single_analysis">单项分析</a></li>
+                    <li><a href="#batch_analysis">多项分析</a></li>
+                    <li><a href="{{ url_for('home') }}">返回主页</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+            <article id="single_analysis">
+                <h2 class="major">单项分析</h2>
+                <form id="singleAnalysisForm" method="post">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="single_text">要分析的文本</label>
+                            <input type="text" id="single_text" name="text" required>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><button type="submit">开始分析</button></li>
+                    </ul>
+                </form>
+                <div id="single_result"></div> <!-- 用于显示单项分析结果 -->
+            </article>
+
+            <article id="batch_analysis">
+                <h2 class="major">多项分析</h2>
+                <form id="batchAnalysisForm" method="post">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="batch_text">批量分析文本（每行一个句子）</label>
+                            <textarea id="batch_text" name="batch_text" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><button type="submit">开始批量分析</button></li>
+                    </ul>
+                </form>
+                <div id="batch_result"></div>
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">&copy; 2024 情感分析系统</p>
+        </footer>
+
+    </div>
+
+    <!-- BG -->
+    <div id="bg"></div>
+
+    <!-- Scripts -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/browser.min.js"></script>
+    <script src="/static/js/breakpoints.min.js"></script>
+    <script src="/static/js/util.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+        const singleAnalysisUrl = "{{ url_for('page.text_analysis_single') }}";
+        const batchAnalysisUrl = "{{ url_for('page.text_analysis_batch') }}";
+    </script>
+    <script src="/static/js/analysis.js"></script>
+
+</body>
+</html>
