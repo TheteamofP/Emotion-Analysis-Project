@@ -1,15 +1,14 @@
-from flask import Flask, render_template
-from views.page import page
+# Flask应用的入口
+from flask import Flask
 
 app = Flask(__name__)
 
-app.register_blueprint(page.pb)
 
 @app.route('/')
-def home():
-    return render_template('index.html')
-
+def hello_world():  # put application's code here
+    return 'Hello World!'
 
 
 if __name__ == '__main__':
     app.run()
+
