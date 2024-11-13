@@ -3,7 +3,7 @@ from PIL import Image, ImageEnhance
 from matplotlib import pyplot as plt
 from wordcloud import WordCloud, ImageColorGenerator
 # import concurrent.futures
-# import jieba
+import jieba
 from utils.logger_config import logger  # 导入配置好的logger对象
 
 
@@ -18,9 +18,9 @@ def load_text_data(file_path):
 
 
 # 中文分词
-# def cut_words(text):
-#     seg_list = jieba.cut(text, cut_all=False)
-#     return " ".join(seg_list)
+def cut_words(text):
+    seg_list = jieba.cut(text, cut_all=False)
+    return " ".join(seg_list)
 
 
 # 加载停用词列表
@@ -81,14 +81,14 @@ def beautify_images(filename, save_path=''):
     image = Image.open(f"{save_path}{filename}.png")
 
     # 调整图片的对比度、色彩饱和度和锐度
-    contrast = 1.1          # 对比度增强10%
-    color = 1.1             # 色彩饱和度增强10%
-    sharp = 1.3             # 锐度增强30%
+    contrast = 1.3          # 对比度增强30%
+    color = 1.3             # 色彩饱和度增强30%
+    sharp = 1.5             # 锐度增强50%
 
     img_contrast = ImageEnhance.Contrast(image).enhance(contrast)
     img_color = ImageEnhance.Color(img_contrast).enhance(color)
     img_sharp = ImageEnhance.Sharpness(img_color).enhance(sharp)
-    img_sharp.save(f"{save_path}{filename}_beautified.png")
+    img_sharp.save(f"{save_path}{filename}.png")
     # 将美化后的PNG文件保存为PDF格式
     # img_sharp.save(f"{save_path}{filename}_beautified.pdf",
     # "PDF", resolution=dpi)
@@ -98,15 +98,14 @@ def beautify_images(filename, save_path=''):
 def wordcloud_generator(sentiment, file_info, save_path, font_path, stopwords):
     try:
         # 读取文本数据与读取异常处理
-        text_data = load_text_data(file_info['text'])
-        if text_data is None:
+        words = load_text_data(file_info['text'])
+        if words is None:
             logger.error(f"未能加载数据文件: {file_info['text']},"
                          f" 中断该文件的词云图生成")
             return
 
-        # # 中文分词
-        # words = cut_words(text_data)
-        words = text_data
+        # 中文分词
+        words = cut_words(words)
 
         # 引进背景图片与图片颜色
         bg_image = imageio.imread((file_info['background']))
@@ -130,23 +129,24 @@ def wordclouds_generator():
     # 定义文本数据文件路径
     data_files = {
         'positive': {
-            'text': '../data/positive_data.csv',
-            'background': '../images/wordcloud_backgrounds'
+            'text': '../data/positive_data_for_wordcloud.csv',
+            'background': '../wordcloud_backgrounds'
                           '/positive_background.png'
         },
         'negative': {
-            'text': '../data/negative_data.csv',
-            'background': '../images/wordcloud_backgrounds'
+            'text': '../data/negative_data_for_wordcloud.csv',
+            'background': '../wordcloud_backgrounds'
                           '/negative_background.png'
         },
         'neutral': {
-            'text': '../data/neutral_data.csv',
-            'background': '../images/wordcloud_backgrounds'
+            'text': '../data/neutral_data_for_wordcloud.csv',
+            'background': '../wordcloud_backgrounds'
                           '/neutral_background.png'
         },
         'all': {
-            'text': '../data/preprocess_data.csv',
-            'background': '../images/wordcloud_backgrounds/all_background.png'
+            'text': '../data/preprocess_data_for_wordcloud.csv',
+            'background': '../wordcloud_backgrounds'
+                          '/all_background.png'
         }
     }
 
@@ -155,7 +155,7 @@ def wordclouds_generator():
     font_path = '../static/fonts/NotoSansSC-Regular.ttf'
 
     # 加载停用词列表
-    stopwords = load_stopwords('../static/stopwords/stopwords.txt')
+    stopwords = load_stopwords('../stopwords/stopwords.txt')
     # 并行生成不同文本数据的词云图
     # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     #     for sentiment, file_info in data_files.items():
