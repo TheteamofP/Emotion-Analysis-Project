@@ -1,4 +1,0 @@
-﻿2024-11-13 12:46:58,724 - logger_config.py[line:31] - INFO: this is a logger info message
-2024-11-13 12:46:58,725 - logger_config.py[line:32] - WARNING: this is a logger warning message
-2024-11-13 12:46:58,726 - logger_config.py[line:33] - ERROR: this is a logger error message
-2024-11-13 12:46:58,726 - logger_config.py[line:34] - CRITICAL: this is a logger critical message

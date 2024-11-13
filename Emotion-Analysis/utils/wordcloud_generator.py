@@ -1,12 +1,10 @@
-# 词云图生成模块
-# import jieba
-# import concurrent.futures
 import imageio.v2 as imageio
-# 导入配置好的logger对象
-from logger_config import logger  
 from PIL import Image, ImageEnhance
 from matplotlib import pyplot as plt
 from wordcloud import WordCloud, ImageColorGenerator
+# import concurrent.futures
+# import jieba
+from utils.logger_config import logger  # 导入配置好的logger对象
 
 
 # 读取文本数据
@@ -48,18 +46,18 @@ def generate_wordcloud(text, font_path, mask, stopwords, image_color):
     # 微软雅黑：msyh.ttc
     wc = WordCloud(
         font_path=font_path,
-        background_color="white",           # 设置背景颜色
-        color_func=image_color,             # 设置字体颜色,将上面模板图像生成的颜色传入词云
-        max_words=250,                      # 最多显示的词数
-        max_font_size=250,                  # 字体最大值
-        min_font_size=30,                   # 字体最小值
-        random_state=60,                    # 设置随机种子以获得可重复的结果
-        width=2000, height=1800,            # 设置图片的尺寸
-        margin=1,                           # 设置词与词之间的距离
+        background_color="white",       # 设置背景颜色
+        color_func=image_color,         # 设置字体颜色,将上面模板图像生成的颜色传入词云
+        max_words=250,                  # 最多显示的词数
+        max_font_size=250,              # 字体最大值
+        min_font_size=30,               # 字体最小值
+        random_state=60,                # 设置随机种子以获得可重复的结果
+        width=2000, height=1800,        # 设置图片的尺寸
+        margin=1,                       # 设置词与词之间的距离
         stopwords=stopwords,
         mask=mask,
-        prefer_horizontal=1.0,             # 词语横排显示的概率
-        scale=3                             # 增加 scale 参数以提高输出图像的分辨率
+        prefer_horizontal=1.0,           # 词语横排显示的概率
+        scale=3                          # 增加 scale 参数以提高输出图像的分辨率
     )
     return wc.generate(text)
 
@@ -70,16 +68,16 @@ def save_wordcloud(wc, filename, dpi, save_path=''):
     plt.close('all')
     # 使用Agg后端避免启动GUI
     plt.switch_backend('Agg')
-    plt.figure(figsize=(20, 18), dpi=dpi)  # 设置图像尺寸和 DPI
-    plt.imshow(wc, interpolation='bilinear')  # 使用抗锯齿插值
+    plt.figure(figsize=(20, 18), dpi=dpi)
+    plt.imshow(wc, interpolation='bilinear')
     plt.axis("off")
     plt.tight_layout(pad=0)
-    plt.savefig(f"{save_path}{filename}.png", dpi=dpi)  # 保存为 PNG 格式
-    # plt.savefig(f"{save_path}{filename}.pdf", dpi=dpi)  # 保存为 PDF 格式，无像素化问题
+    plt.savefig(f"{save_path}{filename}.png", dpi=dpi)
+    # plt.savefig(f"{save_path}{filename}.pdf", dpi=dpi)  # PDF 格式，无像素化问题
 
 
 # 美化词云图
-def beautify_images(filename, dpi, save_path=''):
+def beautify_images(filename, save_path=''):
     image = Image.open(f"{save_path}{filename}.png")
 
     # 调整图片的对比度、色彩饱和度和锐度
@@ -92,7 +90,8 @@ def beautify_images(filename, dpi, save_path=''):
     img_sharp = ImageEnhance.Sharpness(img_color).enhance(sharp)
     img_sharp.save(f"{save_path}{filename}_beautified.png")
     # 将美化后的PNG文件保存为PDF格式
-    # img_sharp.save(f"{save_path}{filename}_beautified.pdf", "PDF", resolution=dpi)
+    # img_sharp.save(f"{save_path}{filename}_beautified.pdf",
+    # "PDF", resolution=dpi)
 
 
 # 单个文件的词云图生成
@@ -101,7 +100,8 @@ def wordcloud_generator(sentiment, file_info, save_path, font_path, stopwords):
         # 读取文本数据与读取异常处理
         text_data = load_text_data(file_info['text'])
         if text_data is None:
-            logger.error(f"未能加载数据文件: {file_info['text']}, 中断该文件的词云图生成")
+            logger.error(f"未能加载数据文件: {file_info['text']},"
+                         f" 中断该文件的词云图生成")
             return
 
         # # 中文分词
@@ -109,15 +109,17 @@ def wordcloud_generator(sentiment, file_info, save_path, font_path, stopwords):
         words = text_data
 
         # 引进背景图片与图片颜色
-        bg_image = imageio.imread((file_info['background']))  # 使用 PIL 读取背景图片
+        bg_image = imageio.imread((file_info['background']))
         bg_image_color = ImageColorGenerator(bg_image)
         # # 将 PIL 图像对象转换为 NumPy 数组
         # bg_image_array = np.array(bg_image)
 
         # 创建，保存并优化词云图
-        wordcloud = generate_wordcloud(words, font_path, bg_image, stopwords, bg_image_color)
-        save_wordcloud(wordcloud, f'wordcloud_{sentiment}', dpi=300, save_path=save_path)
-        beautify_images(f'wordcloud_{sentiment}', 300, save_path)
+        wordcloud = generate_wordcloud(words, font_path, bg_image, stopwords,
+                                       bg_image_color)
+        save_wordcloud(wordcloud, f'wordcloud_{sentiment}', dpi=300,
+                       save_path=save_path)
+        beautify_images(f'wordcloud_{sentiment}', save_path)
     except Exception as e:
         logger.error(f"生成 {sentiment} 词云图时发生错误: {e}")
 
@@ -129,15 +131,18 @@ def wordclouds_generator():
     data_files = {
         'positive': {
             'text': '../data/positive_data.csv',
-            'background': '../images/wordcloud_backgrounds/positive_background.png'
+            'background': '../images/wordcloud_backgrounds'
+                          '/positive_background.png'
         },
         'negative': {
             'text': '../data/negative_data.csv',
-            'background': '../images/wordcloud_backgrounds/negative_background.png'
+            'background': '../images/wordcloud_backgrounds'
+                          '/negative_background.png'
         },
         'neutral': {
             'text': '../data/neutral_data.csv',
-            'background': '../images/wordcloud_backgrounds/neutral_background.png'
+            'background': '../images/wordcloud_backgrounds'
+                          '/neutral_background.png'
         },
         'all': {
             'text': '../data/preprocess_data.csv',
@@ -147,17 +152,18 @@ def wordclouds_generator():
 
     # 定义保存和字体路径
     save_path = '../output/wordclouds/'
-    font_path = '../fonts/NotoSansSC-Regular.ttf'
+    font_path = '../static/fonts/NotoSansSC-Regular.ttf'
 
     # 加载停用词列表
-    stopwords = load_stopwords('../stopwords/stopwords.txt')
-
+    stopwords = load_stopwords('../static/stopwords/stopwords.txt')
     # 并行生成不同文本数据的词云图
     # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     #     for sentiment, file_info in data_files.items():
-    #         executor.submit(wordcloud_generator, sentiment, file_info, save_path, font_path, stopwords)
+    #         executor.submit(wordcloud_generator, sentiment, file_info,
+    #         save_path, font_path, stopwords)
     for sentiment, file_info in data_files.items():
-        wordcloud_generator(sentiment, file_info, save_path, font_path, stopwords)
+        wordcloud_generator(sentiment, file_info, save_path, font_path,
+                            stopwords)
 
 
 if __name__ == "__main__":
