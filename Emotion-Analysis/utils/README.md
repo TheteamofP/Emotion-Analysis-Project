@@ -1,3 +1,0 @@
-
-
-通过对比传统nlp模型与transformer框架进行对比后发现 transformer的acc远高于传统nlp模型。

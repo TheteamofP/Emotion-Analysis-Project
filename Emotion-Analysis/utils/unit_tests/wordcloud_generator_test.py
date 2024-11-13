@@ -1,10 +1,10 @@
-import unittest
-# unittest.mock用于编写和运行测试用例
-from unittest.mock import patch, mock_open
 import os
-from utils.wordcloud_generator import (load_text_data, load_stopwords, generate_wordcloud, save_wordcloud,
+import unittest
+from unittest.mock import patch, mock_open  # unittest.mock用于编写和运行测试用例
+from utils.wordcloud_generator import (load_text_data, load_stopwords,
+                                       generate_wordcloud, save_wordcloud,
                                        beautify_images, wordcloud_generator)
-                                    # , cut_words
+# , cut_words
 
 
 class TestWordCloudModule(unittest.TestCase):
@@ -48,7 +48,8 @@ class TestWordCloudModule(unittest.TestCase):
 
     # 测试load_stopwords函数是否正确读取停用词列表
     def test_load_stopwords(self):
-        with patch('builtins.open', mock_open(read_data='stopword1\nstopword2')):
+        with patch('builtins.open', mock_open(read_data='stopword1'
+                                                        '\nstopword2')):
             result = load_stopwords('./tests_data/test_stopwords.txt')
             self.assertEqual(result, {'stopword1', 'stopword2'})
 
@@ -71,7 +72,8 @@ class TestWordCloudModule(unittest.TestCase):
     # 测试save_wordcloud函数是否正确保存词云图像
     def test_save_wordcloud(self):
         # 测试保存词云图函数
-        wc = generate_wordcloud('Hello World', 'simkai.ttf', None, set(), None)
+        wc = generate_wordcloud('Hello World', 'simkai.ttf',
+                                None, set(), None)
         save_wordcloud(wc, 'test_wordcloud', 300, './tests_data/')
         self.assertTrue(os.path.exists('./tests_data/test_wordcloud.png'))
 
@@ -80,7 +82,8 @@ class TestWordCloudModule(unittest.TestCase):
         wc = generate_wordcloud('Hello World', 'simkai.ttf', None, set(), None)
         save_wordcloud(wc, 'test_wordcloud', 300, './tests_data/')
         beautify_images('test_wordcloud', 300, './tests_data/')
-        self.assertTrue(os.path.exists('./tests_data/test_wordcloud_beautified.png'))
+        self.assertTrue(os.path.exists('./tests_data'
+                                       '/test_wordcloud_beautified.png'))
 
     # 测试wordcloud_generator函数是否正确生成并保存词云图像
     def test_wordcloud_generator(self):
@@ -93,7 +96,8 @@ class TestWordCloudModule(unittest.TestCase):
         font_path = 'simkai.ttf'
         stopwords = set()
         wordcloud_generator('test_sentiment', file_info, save_path, font_path, stopwords)
-        self.assertTrue(os.path.exists('./tests_data/wordcloud_test_sentiment.png'))
+        self.assertTrue(os.path.exists('./tests_data'
+                                       '/wordcloud_test_sentiment.png'))
 
 
 if __name__ == '__main__':
