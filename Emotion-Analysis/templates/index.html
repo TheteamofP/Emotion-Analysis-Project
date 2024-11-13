@@ -29,7 +29,7 @@
                                 <li><a href="#intro">项目介绍</a></li>
                                 <li><a href="#text_analysis">文本分析</a></li>
                                 <li><a href="#topic_analysis">爬虫分析</a></li>
-                                <li><a href="#">AI建议</a></li>
+                                <li><a href="#gpt_suggestion">AI建议</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -97,8 +97,24 @@
 
                             </article>
 
-
-
+                         <!-- AI 建议 -->
+                            <article id="gpt_suggestion">
+                                <h2 class="major">AI 建议</h2>
+                                <div id="chat-container" class="chat-container"></div>
+                                <div id="typing-indicator" class="typing-indicator">AI 正在思考...</div>
+                                <form id="gpt-form">
+                                    <div class="fields">
+                                        <div class="field">
+                                            <label for="text">输入消息</label>
+                                            <textarea id="text" name="text" rows="3" style="height: 300px" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="submit">发送消息</button>
+                                        <button type="button" id="clear-chat">清空对话</button>
+                                    </div>
+                                </form>
+                            </article>
 
 
 
@@ -125,6 +141,12 @@
                   const singleAnalysisUrl = "{{ url_for('page.text_analysis') }}";
             </script>
             <script src="/static/js/analysis.js"></script>
+
+            <script>
+                const gptSuggestionUrl = "{{ url_for('page.gpt_suggestion') }}";
+            </script>
+            <script src="/static/js/gptChat.js"></script>
+
 
 
 
@@ -174,7 +196,6 @@
                 }
 
                 $(document).ready(function() {
-                    // 设置URL验证
                     setupUrlValidation('topic_url', 'topic_url_preview', 'topic_url_validation', 'topic_submit');
 
 
@@ -205,6 +226,14 @@
 
                                     resultHTML += '<button id="gpt_suggest" style="display:block;">点击查看AI助手建议</button>';
                                     $('#topic_result').html(resultHTML);
+
+                                     $('#gpt_suggest').on('click', function() {
+                                        var resultText = $('#topic_result .result-content').text();
+                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请对此进行分析和建议";
+
+                                        window.open('{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion', '_blank');
+										//window.location.href = '{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion';
+                                    });
 
 
                                 }
