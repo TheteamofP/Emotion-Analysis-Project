@@ -39,24 +39,27 @@ COOKIES_ENABLED = False
 TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=AqzItcpERSRncgfjCZPczes-KRr42yTKgqFPHbm7QwBvoNb8eB4tqbFp-F5CsEkncIEfsUbrJQNxUr4PASYxlZM.; SINAGLOBAL=6119462789861.474.1730040034674; ALF=1734005870; SUB=_2A25KNzc-DeRhGeBN7FUZ-CzEyjiIHXVpTTb2rDV8PUJbkNAbLWLfkW1NRDwy-I0O1adphGDLXMzROdCh9-f2D5Fj; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF30phkrMm8z.FbwdOzBlmJ5JpX5KMhUgL.Foq0S0MR1hzReKB2dJLoI7p39g4_qg4.Ug4DdJ.t; WBPSESS=mrYjkxQaCtAUTyP-YmCbdzbXx7p1BwGpxOFCP-0UaUQ_VwPVGujJD8ZAC-wNDz4VPg4aqSi-sBH7e1y8CFnUqCoH_82jF8wUMlQpHjD3yXLNmnEQmhBgqHHcSsDF2owoV-SREXeuv-0YxNQen-T1FA==; ULV=1731509151437:3:2:2:6820767867987.472.1731509151399:1731427839841; XSRF-TOKEN=ii6Qj8Lqt85MfRepc4dwpOOy'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=AqzItcpERSRncgfjCZPczes-KRr42yTKgqFPHbm7QwBvoNb8eB4tqbFp-F5CsEkncIEfsUbrJQNxUr4PASYxlZM.; SINAGLOBAL=6119462789861.474.1730040034674; ALF=1734005870; SUB=_2A25KNzc-DeRhGeBN7FUZ-CzEyjiIHXVpTTb2rDV8PUJbkNAbLWLfkW1NRDwy-I0O1adphGDLXMzROdCh9-f2D5Fj; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF30phkrMm8z.FbwdOzBlmJ5JpX5KMhUgL.Foq0S0MR1hzReKB2dJLoI7p39g4_qg4.Ug4DdJ.t; _s_tentry=weibo.com; Apache=5626154480135.792.1731574771719; ULV=1731574771739:5:4:4:5626154480135.792.1731574771719:1731550746542; UOR=,,www.bing.com'}
 
 
-KEYWORD_LIST = ['jennie', 'kim jennie']
+KEYWORD_LIST = ['jennie', 'blackpink', 'kimjenni']
 
-REGION = []
+REGIONS = ['广东', '北京']
 
 # 要搜索的微博类型，0代表搜索全部微博，1代表搜索全部原创微博，2代表热门微博，3代表关注人微博，4代表认证用户微博，5代表媒体微博，6代表观点微博
 WEIBO_TYPE = 0
 
 # 筛选结果微博中必需包含的内容，0代表不筛选，获取全部微博，1代表搜索包含图片的微博，2代表包含视频的微博，3代表包含音乐的微博，4代表包含短链接的微博
-CONTAIN_TYPE = 1
+CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
 START_DATE = '2024-11-13'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
 END_DATE = '2024-11-14'
 
+# 进一步细分搜索的阈值，若结果页数大于等于该值，则认为结果没有完全展示，细分搜索条件重新搜索以获取更多微博。数值越大速度越快，也越有可能漏掉微博；数值越小速度越慢，获取的微博就越多。
+# 建议数值大小设置在40到50之间。
+FURTHER_THRESHOLD = 46
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
