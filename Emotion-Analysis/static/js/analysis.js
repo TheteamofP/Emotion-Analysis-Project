@@ -1,15 +1,29 @@
 $(document).ready(function() {
+    const submitButton = document.getElementById('text_submit');
+    const textarea = document.getElementById('single_text');
+
+    // 检查文本框是否为空
+    function checkFormValidity() {
+        submitButton.disabled = textarea.value.trim() === ''; // 如果文本框为空，禁用按钮
+    }
+
+    // 页面加载时立即检查一次按钮状态
+    checkFormValidity();
+
+    // 监听文本框输入事件
+    textarea.addEventListener('input', function() {
+        checkFormValidity();
+        autoResizeTextarea(this); // 调用自动调整文本框高度
+    });
+
+    // 监听表单提交
     $('#singleAnalysisForm').on('submit', function(event) {
         event.preventDefault();
         singleAnalysisSubmit();
     });
-
-    // 监听单项分析的文本区域内容变化，动态调整高度
-    $('#single_text').on('input', function() {
-        autoResizeTextarea(this);
-    });
 });
 
+// 单项分析的提交函数
 function singleAnalysisSubmit() {
     var formData = $('#singleAnalysisForm').serialize();
 
@@ -26,7 +40,6 @@ function singleAnalysisSubmit() {
         }
     });
 }
-
 
 // 自动调整文本框高度的函数
 function autoResizeTextarea(textarea) {
