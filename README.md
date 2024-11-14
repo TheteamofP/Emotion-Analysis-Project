@@ -1,5 +1,7 @@
 # Emotion-Analysis-Project
 
+# 项目冲刺集合贴：https://www.cnblogs.com/doublettian75/p/18535611
+
 ### 队名：p人大联盟
 
 |队员|学号|
