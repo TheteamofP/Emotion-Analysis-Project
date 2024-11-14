@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>情感分析系统</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<span class="icon fa-gem"></span>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>情感分析系统</h1>
+								<p>自动从社交媒体、客户评论等文本数据中识别用户情感倾向，帮助企业及时把握市场反馈、提升客户满意度，并进行舆情管理</p>
+                            </div>
+						</div>
+						<nav>
+							<ul>
+                                <li><a href="#intro">项目介绍</a></li>
+                                <li><a href="#text_analysis">文本分析</a></li>
+                                <li><a href="#topic_analysis">爬虫分析</a></li>
+                                <li><a href="#gpt_suggestion">AI建议</a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Intro -->
+							<article id="intro">
+								<h2 class="major">项目介绍</h2>
+								<span class="image main"><img src="/static/images/pic04.jpg" alt="" /></span>
+								<p>随着社交媒体和在线评论平台的迅猛发展，用户在社交网络、电子商务网站、论坛等平台上发布大量的文本评论和反馈。</p>
+								<p>系统实现目标为对用户输入的想要分析的微博词条网址链接里的文字数据进行情感分析，然后得出关于该微博词条的情感是正向，负向还是中立结果，并给出关于该词条的文字数据的词云图。</p>
+							</article>
+
+
+                        <!-- 文本分析 -->
+                            <article id="text_analysis">
+                                <h2 class="major">文本分析</h2>
+                                <form id="singleAnalysisForm" method="post">
+                                    <div class="fields">
+                                        <div class="field">
+                                            <label for="single_text">要分析的文本</label>
+                                            <textarea id="single_text" name="text" required style="overflow: hidden"></textarea>
+                                        </div>
+                                    </div>
+                                    <ul class="actions">
+                                        <li><button type="submit">开始分析</button></li>
+                                    </ul>
+                                </form>
+                                <div id="single_result"></div>
+                            </article>
+
+
+                         <!-- 话题分析 -->
+                            <article id="topic_analysis">
+                                <h2 class="major">话题分析</h2>
+                                <form id="topicAnalysisForm" method="post">
+                                    <div class="fields">
+                                        <div class="field">
+                                                <label for="topic_cookie">COOKIE</label>
+                                                <input type="text" id="topic_cookie" name="cookie" required>
+                                        </div>
+                                        <div class="field">
+                                                <label for="topic_keyword">关键词</label>
+                                                <input type="text" id="topic_keyword" name="keyword" required>
+                                        </div>
+                                        <div class="field">
+                                            <label for="topic_url">话题链接</label>
+                                            <input type="text" id="topic_url" name="url" required>
+                                            <div class="url-preview-container">
+                                                <span class="preview-label">URL 预览</span>
+                                                <div id="topic_url_preview" class="url-preview empty">等待输入...</div>
+                                                <div id="topic_url_validation" class="validation-message"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <ul class="actions">
+                                        <li><button type="submit" id="topic_submit" disabled>开始分析</button></li>
+                                    </ul>
+
+                                </form>
+                                <div id="topic_result"></div>
+
+                            </article>
+
+                         <!-- AI 建议 -->
+                            <article id="gpt_suggestion">
+                                <h2 class="major">AI 建议</h2>
+                                <div id="chat-container" class="chat-container"></div>
+                                <div id="typing-indicator" class="typing-indicator">AI 正在思考...</div>
+                                <form id="gpt-form">
+                                    <div class="fields">
+                                        <div class="field">
+                                            <label for="text">输入消息</label>
+                                            <textarea id="text" name="text" rows="3" style="height: 300px" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="submit">发送消息</button>
+                                        <button type="button" id="clear-chat">清空对话</button>
+                                    </div>
+                                </form>
+                            </article>
+
+
+
+					</div>
+
+				<!-- Footer -->
+                <footer id="footer">
+                    <p class="copyright">&copy; 2024 情感分析系统</p>
+                </footer>
+
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/browser.min.js"></script>
+			<script src="/static/js/breakpoints.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
+
+            <script>
+                  const singleAnalysisUrl = "{{ url_for('page.text_analysis') }}";
+            </script>
+            <script src="/static/js/analysis.js"></script>
+
+            <script>
+                const gptSuggestionUrl = "{{ url_for('page.gpt_suggestion') }}";
+            </script>
+            <script src="/static/js/gptChat.js"></script>
+
+
+
+
+            <!-- topic -->
+            <script>
+                function validateUrl(url) {
+                    try {
+                        const urlObj = new URL(url);
+                        return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
+                    } catch (e) {
+                        return false;
+                    }
+                }
+
+                function setupUrlValidation(inputId, previewId, validationId, submitButtonId) {
+                    const input = document.getElementById(inputId);
+                    const preview = document.getElementById(previewId);
+                    const validation = document.getElementById(validationId);
+                    const submitButton = document.getElementById(submitButtonId);
+
+                    let timeoutId;
+
+                    input.addEventListener('input', function() {
+                        clearTimeout(timeoutId);
+                        timeoutId = setTimeout(() => {
+                            const url = this.value.trim();
+
+                            if (url === '') {
+                                preview.textContent = '等待输入...';
+                                preview.className = 'url-preview empty';
+                                validation.className = 'validation-message';
+                                validation.textContent = '';
+                                submitButton.disabled = true;
+                                return;
+                            }
+
+                            preview.textContent = url;
+                            preview.className = 'url-preview';
+
+                            const isValid = validateUrl(url);
+                            preview.className = 'url-preview ' + (isValid ? 'valid' : 'invalid');
+                            validation.className = 'validation-message ' + (isValid ? 'valid' : 'invalid');
+                            validation.textContent = isValid ? 'URL格式正确' : 'URL格式不正确';
+                            submitButton.disabled = !isValid;
+                        }, 300);
+                    });
+                }
+
+                $(document).ready(function() {
+                    setupUrlValidation('topic_url', 'topic_url_preview', 'topic_url_validation', 'topic_submit');
+
+
+                    $('#topicAnalysisForm').on('submit', function(event) {
+                        event.preventDefault();
+                        var formData = $(this).serialize();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ url_for("page.spider_analysis_topic") }}',
+                            data: formData,
+                            success: function(response) {
+                                console.log("话题分析返回的数据：", response);
+                                if(response.error) {
+                                    $('#topic_result').html('<h3 class="error">' + response.error + '</h3>');
+                                } else {
+                                    // 构建并显示话题分析结果
+                                    let resultHTML = '<h3>话题分析结果:</h3>';
+                                    resultHTML += '<div class="result-content">';
+                                    resultHTML += '<p>分析链接: ' + response.result.url + '</p>';
+                                    //resultHTML += '<p>COOKIE: ' + response.result.cookie + '</p>';
+                                    resultHTML += '<p>关键词: ' + response.result.keyword + '</p>';
+                                    resultHTML += '<p>讨论数量: ' + response.result.discussion_count + '</p>';
+                                    resultHTML += '<p>参与人数: ' + response.result.participant_count + '</p>';
+                                    resultHTML += '<p>话题热度: ' + response.result.popularity_score + '</p>';
+                                    resultHTML += '<p>情感倾向: ' + response.result.sentiment + '</p>';
+                                    resultHTML += '</div>';
+
+                                    resultHTML += '<button id="gpt_suggest" style="display:block;">点击查看AI助手建议</button>';
+                                    $('#topic_result').html(resultHTML);
+
+                                     $('#gpt_suggest').on('click', function() {
+                                        var resultText = $('#topic_result .result-content').text();
+                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请对此进行分析和建议";
+
+                                        window.open('{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion', '_blank');
+										//window.location.href = '{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion';
+                                    });
+
+
+                                }
+                            },
+                            error: function(xhr) {
+                                $('#topic_result').html('<h3 class="error">分析失败，请重试</h3>');
+                            }
+                        });
+                    });
+                });
+            </script>
+
+
+	</body>
+</html>
