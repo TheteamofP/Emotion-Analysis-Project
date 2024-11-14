@@ -1,9 +1,7 @@
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from time import strftime
-
 import scrapy
 from scrapy.utils.project import get_project_settings
-
 
 
 class SearchSpider(scrapy.Spider):
@@ -47,8 +45,6 @@ class SearchSpider(scrapy.Spider):
                     region_url = f"{base_url}{keyword}&region=custom:{region_code}:1000{weibo_type}{contain_type}&timescope=custom:{start_str}:{end_str}"
                     yield scrapy.Request(url=region_url, callback=self.parse,
                                          meta={'keyword': keyword, 'region': region_name})
-
-
 
     def parse(self, response):
         keyword = response.meta.get('keyword')

@@ -1,0 +1,10 @@
+﻿2024-11-13 19:36:19,111 - logger_config.py[line:31] - INFO: this is a logger info message
+2024-11-13 19:36:19,111 - logger_config.py[line:32] - WARNING: this is a logger warning message
+2024-11-13 19:36:19,112 - logger_config.py[line:33] - ERROR: this is a logger error message
+2024-11-13 19:36:19,112 - logger_config.py[line:34] - CRITICAL: this is a logger critical message
+2024-11-13 19:36:25,245 - __init__.py[line:113] - DEBUG: Building prefix dict from the default dictionary ...
+2024-11-13 19:36:25,247 - __init__.py[line:132] - DEBUG: Loading model from cache C:\Users\DoubleT\AppData\Local\Temp\jieba.cache
+2024-11-13 19:36:25,876 - __init__.py[line:164] - DEBUG: Loading model cost 0.630 seconds.
+2024-11-13 19:36:25,912 - __init__.py[line:166] - DEBUG: Prefix dict has been built successfully.
+2024-11-13 19:36:25,950 - wordcloud_generator.py[line:32] - ERROR: 文件 non_existent_file.txt 未找到。
+2024-11-13 19:36:25,956 - wordcloud_generator.py[line:16] - ERROR: 文件 non_existent_file.txt 未找到。

@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 
-from utils.mappings import weibo_type_mapping, contain_type_mapping
+from visualization.mappings import weibo_type_mapping, contain_type_mapping
 
 def update_settings(setting_name, new_value, file_path="settings.py"):
     """在 settings.py 中更新指定的配置项"""
