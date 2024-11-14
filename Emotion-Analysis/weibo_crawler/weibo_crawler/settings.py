@@ -39,10 +39,10 @@ COOKIES_ENABLED = False
 TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=AqzItcpERSRncgfjCZPczes-KRr42yTKgqFPHbm7QwBvoNb8eB4tqbFp-F5CsEkncIEfsUbrJQNxUr4PASYxlZM.; SINAGLOBAL=6119462789861.474.1730040034674; ALF=1734005870; SUB=_2A25KNzc-DeRhGeBN7FUZ-CzEyjiIHXVpTTb2rDV8PUJbkNAbLWLfkW1NRDwy-I0O1adphGDLXMzROdCh9-f2D5Fj; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF30phkrMm8z.FbwdOzBlmJ5JpX5KMhUgL.Foq0S0MR1hzReKB2dJLoI7p39g4_qg4.Ug4DdJ.t; WBPSESS=mrYjkxQaCtAUTyP-YmCbdzbXx7p1BwGpxOFCP-0UaUQ_VwPVGujJD8ZAC-wNDz4VPg4aqSi-sBH7e1y8CFnUqCoH_82jF8wUMlQpHjD3yXLNmnEQmhBgqHHcSsDF2owoV-SREXeuv-0YxNQen-T1FA==; ULV=1731509151437:3:2:2:6820767867987.472.1731509151399:1731427839841; XSRF-TOKEN=ii6Qj8Lqt85MfRepc4dwpOOy'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'mweibo_short_token=9b2d1c35aa; XSRF-TOKEN=15c31a; _T_WM=80085920593; WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5z5Z0v84wIB6-Em2Gk.ks_5NHD95Qc1Kn71h.fSK.4Ws4Dqcj9i--fi-ihi-2fi--ciKLhiKnReo2NS0.4SBtt; M_WEIBOCN_PARAMS=uicode%3D20000174; SSOLoginState=1731576088; SUB=_2A25KMbFHDeRhGeBH41IZ-SvJwjWIHXVpT0yPrDV6PUJbktAGLW-jkW1NQbiraGUx9y3mOL6o3D_a7gi6ruso_xTU; ALF=1734168088; MLOGIN=1; SCF=AtjiDlX4BUB7AxD8xGzj315vIC_y5cC-9nUzZi8vS8hxZ9k0SB4z8hQcSxgWx3tS9zRc_EjBo3kLntr-x1we00w.'}
 
 
-KEYWORD_LIST = ['jennie', 'kim jennie']
+KEYWORD_LIST = ['特斯拉使用，马斯克']
 
 REGION = []
 
@@ -50,12 +50,12 @@ REGION = []
 WEIBO_TYPE = 0
 
 # 筛选结果微博中必需包含的内容，0代表不筛选，获取全部微博，1代表搜索包含图片的微博，2代表包含视频的微博，3代表包含音乐的微博，4代表包含短链接的微博
-CONTAIN_TYPE = 1
+CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-11-13'
+START_DATE = '2024-1-1'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-11-14'
+END_DATE = '2024-5-20'
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
