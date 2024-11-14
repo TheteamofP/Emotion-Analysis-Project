@@ -644,6 +644,8 @@ input, select, textarea {
 		position: relative;
 	}
 
+	/*
+
 		.image:before {
 			pointer-events: none;
 			background-image: url("../images/overlay.png");
@@ -658,6 +660,9 @@ input, select, textarea {
 			top: 0;
 			width: 100%;
 		}
+
+
+	 */
 
 		.image img {
 			border-radius: 4px;
@@ -703,6 +708,47 @@ input, select, textarea {
 			.image.main img {
 				width: 100%;
 			}
+
+
+/****************************新增**************************************/
+
+
+		.image-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+			gap: 1rem;
+			margin: 2rem 0;
+		}
+
+		.image-grid .image {
+			position: relative;
+			overflow: hidden;
+			border-radius: 4px;
+		}
+
+		.image-grid .image img {
+			display: block;
+			width: 100%;
+			border-radius: 4px;
+		}
+
+		/* 移动端优化 */
+		@media screen and (max-width: 736px) {
+			.image-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media screen and (max-width: 480px) {
+			.image-grid {
+				gap: 0.5rem;
+				margin: 1.5rem 0;
+			}
+		}
+
+
+/****************************新增**************************************/
+
 
 		@media screen and (max-width: 736px) {
 

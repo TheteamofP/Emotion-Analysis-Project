@@ -9,7 +9,6 @@ pb = Blueprint('page', __name__, url_prefix='/page', template_folder='templates'
 
 @pb.route('/text_analysis', methods=['POST'])
 def text_analysis():
-    result = None
     text = request.form.get('text')
     if text == '测试':
         result = '正面'
@@ -20,13 +19,10 @@ def text_analysis():
 
 @pb.route('/spider_analysis/topic', methods=['POST'])
 def spider_analysis_topic():
-    result = None
-    url = request.form.get('url')
     cookie = request.form.get('cookie')
     keyword = request.form.get('keyword')
 
     analysis_result = {
-        'url': url,
         'cookie': cookie,
         'keyword': keyword,
         'discussion_count': 120,
