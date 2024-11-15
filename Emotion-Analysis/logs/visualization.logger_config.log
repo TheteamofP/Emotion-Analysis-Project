@@ -1,8 +1,0 @@
-﻿2024-11-14 22:23:33,131 - __init__.py[line:113] - DEBUG: Building prefix dict from the default dictionary ...
-2024-11-14 22:23:33,635 - __init__.py[line:146] - DEBUG: Dumping model to file cache C:\Users\Vert\AppData\Local\Temp\jieba.cache
-2024-11-14 22:23:33,718 - __init__.py[line:164] - DEBUG: Loading model cost 0.587 seconds.
-2024-11-14 22:23:33,719 - __init__.py[line:166] - DEBUG: Prefix dict has been built successfully.
-2024-11-14 22:28:16,304 - __init__.py[line:113] - DEBUG: Building prefix dict from the default dictionary ...
-2024-11-14 22:28:16,307 - __init__.py[line:132] - DEBUG: Loading model from cache C:\Users\Vert\AppData\Local\Temp\jieba.cache
-2024-11-14 22:28:17,142 - __init__.py[line:164] - DEBUG: Loading model cost 0.837 seconds.
-2024-11-14 22:28:17,142 - __init__.py[line:166] - DEBUG: Prefix dict has been built successfully.
