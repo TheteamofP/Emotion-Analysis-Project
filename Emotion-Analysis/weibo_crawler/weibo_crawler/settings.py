@@ -39,12 +39,14 @@ COOKIES_ENABLED = False
 TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'mweibo_short_token=9b2d1c35aa; XSRF-TOKEN=15c31a; _T_WM=80085920593; WEIBOCN_FROM=1110006030; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5z5Z0v84wIB6-Em2Gk.ks_5NHD95Qc1Kn71h.fSK.4Ws4Dqcj9i--fi-ihi-2fi--ciKLhiKnReo2NS0.4SBtt; M_WEIBOCN_PARAMS=uicode%3D20000174; SSOLoginState=1731576088; SUB=_2A25KMbFHDeRhGeBH41IZ-SvJwjWIHXVpT0yPrDV6PUJbktAGLW-jkW1NQbiraGUx9y3mOL6o3D_a7gi6ruso_xTU; ALF=1734168088; MLOGIN=1; SCF=AtjiDlX4BUB7AxD8xGzj315vIC_y5cC-9nUzZi8vS8hxZ9k0SB4z8hQcSxgWx3tS9zRc_EjBo3kLntr-x1we00w.'}
+
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=AqzItcpERSRncgfjCZPczes-KRr42yTKgqFPHbm7QwBvoNb8eB4tqbFp-F5CsEkncIEfsUbrJQNxUr4PASYxlZM.; SINAGLOBAL=6119462789861.474.1730040034674; ALF=1734005870; SUB=_2A25KNzc-DeRhGeBN7FUZ-CzEyjiIHXVpTTb2rDV8PUJbkNAbLWLfkW1NRDwy-I0O1adphGDLXMzROdCh9-f2D5Fj; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF30phkrMm8z.FbwdOzBlmJ5JpX5KMhUgL.Foq0S0MR1hzReKB2dJLoI7p39g4_qg4.Ug4DdJ.t; _s_tentry=weibo.com; Apache=5626154480135.792.1731574771719; ULV=1731574771739:5:4:4:5626154480135.792.1731574771719:1731550746542; UOR=,,www.bing.com'}
 
 
-KEYWORD_LIST = ['特斯拉使用，马斯克']
+KEYWORD_LIST = ['jennie', 'blackpink', 'kimjenni']
 
-REGION = []
+
+REGIONS = ['广东', '北京']
 
 # 要搜索的微博类型，0代表搜索全部微博，1代表搜索全部原创微博，2代表热门微博，3代表关注人微博，4代表认证用户微博，5代表媒体微博，6代表观点微博
 WEIBO_TYPE = 0
@@ -57,6 +59,9 @@ START_DATE = '2024-1-1'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
 END_DATE = '2024-5-20'
 
+# 进一步细分搜索的阈值，若结果页数大于等于该值，则认为结果没有完全展示，细分搜索条件重新搜索以获取更多微博。数值越大速度越快，也越有可能漏掉微博；数值越小速度越慢，获取的微博就越多。
+# 建议数值大小设置在40到50之间。
+FURTHER_THRESHOLD = 46
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
