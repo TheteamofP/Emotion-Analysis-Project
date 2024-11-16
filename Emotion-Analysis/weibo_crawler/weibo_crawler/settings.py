@@ -55,7 +55,7 @@ WEIBO_TYPE = 0
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-10-27'
+START_DATE = '2024-10-26'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
 END_DATE = '2024-11-11'
 

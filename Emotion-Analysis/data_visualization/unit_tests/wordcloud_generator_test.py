@@ -1,9 +1,10 @@
 import os
 import unittest
 from unittest.mock import patch, mock_open  # unittest.mock用于编写和运行测试用例
-from data_visualization.wordcloud_generator import (load_text_data, load_stopwords,
-                                                    generate_wordcloud, save_wordcloud,
-                                                    beautify_images, cut_words)
+from data_visualization.wordcloud_generator import (load_text_data,
+                                                    generate_wordcloud,
+                                                    save_wordcloud,
+                                                    beautify_images)
 
 
 class TestWordCloudModule(unittest.TestCase):
@@ -40,40 +41,20 @@ class TestWordCloudModule(unittest.TestCase):
             result = load_text_data('non_existent_file.txt')
             self.assertIsNone(result)
 
-    # 测试cut_words函数
-    def test_cut_words(self):
-        text = '这是一个测试文本'
-        result = cut_words(text)
-        self.assertEqual(result, '这是 一个 测试 文本')
-
-    # 测试load_stopwords函数是否正确读取停用词列表
-    def test_load_stopwords(self):
-        with patch('builtins.open', mock_open(read_data='测试'
-                                                        '\n文本')):
-            result = load_stopwords('test_stopwords.txt')
-            self.assertEqual(result, {'测试', '文本'})
-
-    # 测试load_stopwords函数在文件不存在时的行为
-    def test_load_stopwords_file_not_found(self):
-        with patch('builtins.open', side_effect=FileNotFoundError):
-            result = load_stopwords('non_existent_file.txt')
-            self.assertEqual(result, set())
-
     # 测试generate_wordcloud函数是否正确生成词云对象
     def test_generate_wordcloud(self):
         text = '你好测试'
         font_path = 'simkai.ttf'
         mask = None
-        stopwords = set()
         image_color = None
-        wc = generate_wordcloud(text, font_path, mask, stopwords, image_color)
+        wc = generate_wordcloud(text, font_path, mask, image_color)
         self.assertIsNotNone(wc)
 
     # 测试save_wordcloud函数是否正确保存词云图像
     def test_save_wordcloud(self):
         # 测试保存词云图函数
         wc = generate_wordcloud('你好测试', 'simkai.ttf',
-                                None, set(), None)
+                                None,None)
         save_wordcloud(wc, 'test_wordcloud', 300,
                        '')
         self.assertTrue(os.path.exists('test_wordcloud.png'))
@@ -81,7 +62,7 @@ class TestWordCloudModule(unittest.TestCase):
     # 测试beautify_images函数是否正确保存美化的词云图像
     def test_beautify_images(self):
         wc = generate_wordcloud('你好测试', 'simkai.ttf',
-                                None, set(), None)
+                                None,None)
         save_wordcloud(wc, 'test_wordcloud', 300,
                        '')
         beautify_images('test_wordcloud', '')
