@@ -40,10 +40,10 @@ TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=AqzItcpERSRncgfjCZPczes-KRr42yTKgqFPHbm7QwBvoNb8eB4tqbFp-F5CsEkncIEfsUbrJQNxUr4PASYxlZM.; SINAGLOBAL=6119462789861.474.1730040034674; ALF=1734005870; SUB=_2A25KNzc-DeRhGeBN7FUZ-CzEyjiIHXVpTTb2rDV8PUJbkNAbLWLfkW1NRDwy-I0O1adphGDLXMzROdCh9-f2D5Fj; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WF30phkrMm8z.FbwdOzBlmJ5JpX5KMhUgL.Foq0S0MR1hzReKB2dJLoI7p39g4_qg4.Ug4DdJ.t; _s_tentry=weibo.com; Apache=5626154480135.792.1731574771719; ULV=1731574771739:5:4:4:5626154480135.792.1731574771719:1731550746542; UOR=,,www.bing.com'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1CcUq3sV3c5dtweyE_0KLzhDxG284iH-fa0mt9rzvZ8QI.; SINAGLOBAL=1916809708458.338.1719030194211; ULV=1719030194507:1:1:1:1916809708458.338.1719030194211:; XSRF-TOKEN=leS34tpkSNCooIyNs1lWoZsk; ALF=1734340131; SUB=_2A25KPBFzDeRhGeBH41IZ-SvJwjWIHXVpMCy7rDV8PUJbkNANLVP8kW1NQbiraJIO56R1nO7IKcvdFrbIaK6spUqB; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5z5Z0v84wIB6-Em2Gk.ks_5JpX5KzhUgL.Foq41h5R1K-f1K.2dJLoIp.LxK-LB.eLBK-LxKqL1-eL1hnEeKMN1K.f; WBPSESS=gvuJu6QavEC3mI3rC_-E-Sdspb8V7jjzIIioG6e921gUB7DUr-qNjW0QZkzIZ73eq2l8F2IkMqK-8M6GDeVd18lYZFA1tnDg2X90xur6mHhPcmoMIprtw0vD6WIMWEplAICaGXf3jI-eXpxK0bSTsw=='}
 
 
-KEYWORD_LIST = ['jennie', 'blackpink', 'kimjenni']
+KEYWORD_LIST = ['广东工业大学']
 
 
 REGIONS = ['广东', '北京']
@@ -55,9 +55,9 @@ WEIBO_TYPE = 0
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-1-1'
+START_DATE = '2024-10-26'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-5-20'
+END_DATE = '2024-10-26'
 
 # 进一步细分搜索的阈值，若结果页数大于等于该值，则认为结果没有完全展示，细分搜索条件重新搜索以获取更多微博。数值越大速度越快，也越有可能漏掉微博；数值越小速度越慢，获取的微博就越多。
 # 建议数值大小设置在40到50之间。

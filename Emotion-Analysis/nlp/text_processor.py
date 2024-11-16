@@ -9,9 +9,8 @@ import unicodedata
 # import torch.nn as nn
 # import torch.nn.functional as F
 from bs4 import BeautifulSoup
-from datetime import datetime
 
-from stopwords.get_stopwords import get_stopwords
+from nlp.stopwords.get_stopwords import get_stopwords
 from data_visualization.logger_config import logger
 
 
@@ -139,33 +138,6 @@ def text_processor():
             item['sentiment_label'] = None
             item['sentiment_score'] = 0
 
-            # 规范化 'create_at' 时间格式
-            if 'create_at' in item:
-                # 获取当前日期
-                current_date = datetime.now().date()
-                # 将当前日期格式化为字符串
-                current_date_str = current_date.strftime('%Y-%m-%d')
-                original_time = item['create_at']
-
-                if "今天" in original_time or "前" in original_time:
-                    formatted_time = current_date_str
-                else:
-                    try:
-                        # 尝试解析时间字符串，至少包含年月日
-                        parsed_time = datetime.strptime(original_time,
-                                                        '%m-%d')
-                        formatted_time = original_time
-                    except ValueError:
-                        # 解析时间字符串
-                        parsed_time = datetime.strptime(original_time,
-                                                        '%a %b %d %H'
-                                                        ':%M:%S %z %Y')
-                        # 格式化时间为年月日
-                        formatted_time = parsed_time.strftime('%Y-%m-%d')
-
-                # 更新 'create_at' 为规范化后的时间
-                item['create_at'] = formatted_time
-
     # 打印结果，查看前几行数据
     # for item in data_list[:5]:
     #     print(item)
@@ -185,7 +157,7 @@ def text_processor():
     # 去重
     all_words = list(set(all_words))
     print(all_words)
-    csv_file_path = '../visualization/all_words.csv'
+    csv_file_path = '../data_visualization/all_words.csv'
     with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.writer(csvfile)
         for word in all_words:

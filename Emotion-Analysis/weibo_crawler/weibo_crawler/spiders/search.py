@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 import csv
 import sys
-from datetime import datetime,timedelta
-=======
 from datetime import datetime, timedelta
->>>>>>> 6f0b6904580bf28d85f3af598065ebe455f5750c
 from time import strftime
 import scrapy
 from scrapy.utils.project import get_project_settings
