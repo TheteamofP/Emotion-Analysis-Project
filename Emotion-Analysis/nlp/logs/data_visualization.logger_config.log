@@ -1,0 +1,5 @@
+﻿2024-11-16 23:44:17,932 - __init__.py[line:113] - DEBUG: Building prefix dict from the default dictionary ...
+2024-11-16 23:44:17,933 - __init__.py[line:132] - DEBUG: Loading model from cache C:\Users\DoubleT\AppData\Local\Temp\jieba.cache
+2024-11-16 23:44:18,680 - __init__.py[line:164] - DEBUG: Loading model cost 0.748 seconds.
+2024-11-16 23:44:18,681 - __init__.py[line:166] - DEBUG: Prefix dict has been built successfully.
+2024-11-16 23:44:19,138 - text_processor.py[line:20] - ERROR: CSV File ../weibo_crawler/weibo_data.csv not found.
