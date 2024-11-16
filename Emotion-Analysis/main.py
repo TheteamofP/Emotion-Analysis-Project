@@ -8,10 +8,15 @@ from data_visualization.wordcloud_generator import wordclouds_generator
 
 
 # 改变运行目录并执行对应模块函数
-def change_directory_and_execute(original_dir, directory, func, *args):
+def change_directory_and_execute(original_dir, directory, func, *args, isScrapy):
     try:
         os.chdir(os.path.join(original_dir, directory))
         func(*args)
+        if isScrapy:
+            try:
+                subprocess.run(['scrapy', 'crawl', 'search'], check=True)
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Error executing Scrapy command: {e}")
     except Exception as e:
         logger.error(f"Error in {directory}: {e}")
         return False
@@ -29,22 +34,18 @@ def emotion_analyzer(cookie, keywords, start_date, end_date, regions,
     if not change_directory_and_execute(original_dir, 'weibo_crawler',
                                         main, cookie, keywords,
                                         start_date, end_date, regions,
-                                        weibo_type_input, contain_type_input):
-        return None
-
-    try:
-        subprocess.run(['scrapy', 'crawl', 'search'], check=True)
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Error executing Scrapy command: {e}")
+                                        weibo_type_input, contain_type_input,
+                                        isScrapy=True):
         return None
 
     if not change_directory_and_execute(original_dir, 'nlp',
-                                        text_processor):
+                                        text_processor,
+                                        isScrapy=False):
         return None
 
     if not change_directory_and_execute(original_dir,
                                         'data_visualization',
-                                        wordclouds_generator):
+                                        wordclouds_generator, isScrapy=False):
         return None
 
     logger.info("Emotion analysis completed successfully")

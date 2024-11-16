@@ -9,8 +9,8 @@ from data_visualization.logger_config import logger
 def get_stopwords():
     nltk.download('stopwords')
     # 路径处理
-    original_dir = os.getcwd()
-    os.chdir(os.path.join(original_dir, 'stopwords'))
+    # original_dir = os.getcwd()
+    # os.chdir(os.path.join(original_dir, 'stopwords'))
 
     try:
         with open('stopwords.txt', 'r', encoding='utf-8-sig') as f:
