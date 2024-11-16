@@ -5,6 +5,8 @@ import emoji
 import jieba
 import unicodedata
 from bs4 import BeautifulSoup
+from sklearn.model_selection import train_test_split
+
 from nlp.stopwords.get_stopwords import get_stopwords
 from data_visualization.logger_config import logger
 
@@ -97,6 +99,7 @@ def clean(text):
 # 数据预处理
 def process_data(data_list):
     all_texts = []
+    all_data = []  # 用于存储所有数据，包括文本和其他键值对
     all_words = set()
 
     for item in data_list:
@@ -105,6 +108,7 @@ def process_data(data_list):
         words = rm_stopwords(cut_words(text_value).split())
         item['text'] = " ".join(words)
         all_texts.append(item['text'])
+        all_data.append(item)  # 存储原始数据项
         all_words.update(words)
 
         item.pop('id', None)
@@ -112,7 +116,16 @@ def process_data(data_list):
         item['sentiment_label'] = None
         item['sentiment_score'] = 0
 
-    return all_texts, list(all_words)
+    # 划分数据集和测试集，同时保留所有其他键值对
+    train_data, test_data, train_texts, test_texts = train_test_split(
+        all_data, all_texts, test_size=0.2, random_state=42)
+
+    # 从训练集和测试集中提取文本
+    train_texts = [item['text'] for item in train_data]
+    test_texts = [item['text'] for item in test_data]
+
+    # all_texts,
+    return list(all_words), train_texts, test_texts
 
 
 # 存储整体文本数据字典给情感模型
@@ -143,21 +156,26 @@ def text_processor():
     data_list = load_scraped_data(csv_file_path)
 
     if data_list:
-        all_texts, all_words = process_data(data_list)
+        # all_texts
+        all_words, train_texts, test_texts = process_data(data_list)
 
-        save_to_csv(data_list, '../model/processed_data.csv',
-                    ['keyword', 'region', 'text', 'created_at',
-                     'source', 'sentiment_label', 'sentiment_score'])
+        # 保存训练集和测试集
+        save_words_to_csv(train_texts, '../model/train_texts.csv')
+        save_words_to_csv(test_texts, '../model/test_texts.csv')
 
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')
 
-        word_index = {word: i for i, word in enumerate(all_words)}
-        save_word_index_to_json(word_index, '../model/word_index.json')
+        # save_to_csv(data_list, '../model/processed_data.csv',
+        #             ['keyword', 'region', 'text', 'created_at',
+        #              'source', 'sentiment_label', 'sentiment_score'])
 
-        sequences = [[word_index[word] for word in text.split()] for text in
-                     all_texts]
-        save_words_to_csv(sequences, '../model/sequences.csv')
+        # word_index = {word: i for i, word in enumerate(all_words)}
+        # save_word_index_to_json(word_index, '../model/word_index.json')
+        #
+        # sequences = [[word_index[word] for word in text.split()] for text in
+        #              all_texts]
+        # save_words_to_csv(sequences, '../model/sequences.csv')
 
     # # 词汇表大小
     # vocab_size = len(word_index)
