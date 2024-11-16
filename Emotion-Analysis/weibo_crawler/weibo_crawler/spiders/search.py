@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-import csv
-import sys
-from datetime import datetime, timedelta
-=======
-
 import csv
 import sys
 from datetime import datetime,timedelta
 from ..utils.util import standardize_date
->>>>>>> 41fe4bd9c4b3741df1122ac805c46e17c8bd41ca
+
 from time import strftime
 import scrapy
 from scrapy.utils.project import get_project_settings
