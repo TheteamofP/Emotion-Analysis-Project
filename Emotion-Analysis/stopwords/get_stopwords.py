@@ -1,7 +1,7 @@
 import nltk
 from nltk.corpus import stopwords as nltk_stopwords
 
-from visualization.logger_config import logger
+from data_visualization.logger_config import logger
 
 
 def get_stopwords():
