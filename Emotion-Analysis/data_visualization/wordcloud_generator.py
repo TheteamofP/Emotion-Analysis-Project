@@ -1,4 +1,5 @@
 import csv
+import os
 
 import imageio.v2 as imageio
 from PIL import Image, ImageEnhance
@@ -35,7 +36,6 @@ def generate_wordcloud(text, font_path, mask, image_color):
         random_state=60,                # 设置随机种子以获得可重复的结果
         width=20, height=18,            # 设置图片的尺寸
         margin=1,                       # 设置词与词之间的距离
-        # stopwords=stopwords,
         mask=mask,
         prefer_horizontal=1.0,           # 词语横排显示的概率
         scale=3                          # 增加 scale 参数以提高输出图像的分辨率
