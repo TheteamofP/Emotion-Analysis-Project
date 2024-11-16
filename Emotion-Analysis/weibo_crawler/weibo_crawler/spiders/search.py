@@ -2,12 +2,11 @@ import csv
 import sys
 from datetime import datetime,timedelta
 from ..utils.util import standardize_date
-
-from time import strftime
 import scrapy
 from scrapy.utils.project import get_project_settings
 
 from ..utils.region import region_dict
+
 
 class SearchSpider(scrapy.Spider):
     name = "search"

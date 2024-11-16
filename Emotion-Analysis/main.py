@@ -3,16 +3,18 @@ import subprocess
 
 from weibo_crawler.weibo_crawler.update_settings import main
 from nlp.text_processor import text_processor
+# from model.svm import predict
 from data_visualization.logger_config import logger
 from data_visualization.wordcloud_generator import wordclouds_generator
 
 
 # 改变运行目录并执行对应模块函数
-def change_directory_and_execute(original_dir, directory, func, *args, isScrapy):
+def change_directory_and_execute(original_dir, directory, func, *args,
+                                 is_scrapy):
     try:
         os.chdir(os.path.join(original_dir, directory))
         func(*args)
-        if isScrapy:
+        if is_scrapy:
             try:
                 subprocess.run(['scrapy', 'crawl', 'search'], check=True)
             except subprocess.CalledProcessError as e:
@@ -35,18 +37,23 @@ def emotion_analyzer(cookie, keywords, start_date, end_date, regions,
                                         main, cookie, keywords,
                                         start_date, end_date, regions,
                                         weibo_type_input, contain_type_input,
-                                        isScrapy=True):
+                                        is_scrapy=True):
         return None
 
     if not change_directory_and_execute(original_dir, 'nlp',
                                         text_processor,
-                                        isScrapy=False):
+                                        is_scrapy=False):
         return None
 
     if not change_directory_and_execute(original_dir,
                                         'data_visualization',
-                                        wordclouds_generator, isScrapy=False):
+                                        wordclouds_generator, is_scrapy=False):
         return None
+
+    # if not change_directory_and_execute(original_dir,
+    #                                     'model',
+    #                                     predict, is_scrapy=False):
+    #     return None
 
     logger.info("Emotion analysis completed successfully")
     return 1

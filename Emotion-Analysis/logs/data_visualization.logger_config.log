@@ -1,2 +1,54 @@
 ﻿2024-11-16 19:44:46,732 - wordcloud_generator.py[line:23] - ERROR: File E:\github_repositories\Emotion-Analysis-Project\Emotion-Analysis\data_visualization\data_visualization\all_words.csv not found.
 2024-11-16 19:44:46,734 - wordcloud_generator.py[line:76] - ERROR: Failed to load data file: E:\github_repositories\Emotion-Analysis-Project\Emotion-Analysis\data_visualization\data_visualization\all_words.csv
+2024-11-17 00:47:34,216 - __init__.py[line:113] - DEBUG: Building prefix dict from the default dictionary ...
+2024-11-17 00:47:34,217 - __init__.py[line:132] - DEBUG: Loading model from cache C:\Users\DoubleT\AppData\Local\Temp\jieba.cache
+2024-11-17 00:47:34,987 - __init__.py[line:164] - DEBUG: Loading model cost 0.770 seconds.
+2024-11-17 00:47:34,988 - __init__.py[line:166] - DEBUG: Prefix dict has been built successfully.
+2024-11-17 00:47:35,410 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,425 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,431 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,437 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,444 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,449 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,456 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,461 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,467 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,471 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,477 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,482 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,487 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,492 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,496 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,500 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,503 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,510 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,513 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,518 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,522 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,526 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,530 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,534 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,538 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,542 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,546 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,549 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,552 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,554 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,558 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,561 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,563 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,566 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,569 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,571 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,574 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,576 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,584 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,587 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,591 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,594 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,598 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,602 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,605 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,609 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,612 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 00:47:35,615 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
