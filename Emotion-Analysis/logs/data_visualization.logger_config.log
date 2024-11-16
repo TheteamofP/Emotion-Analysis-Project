@@ -1,0 +1,2 @@
+﻿2024-11-16 19:44:46,732 - wordcloud_generator.py[line:23] - ERROR: File E:\github_repositories\Emotion-Analysis-Project\Emotion-Analysis\data_visualization\data_visualization\all_words.csv not found.
+2024-11-16 19:44:46,734 - wordcloud_generator.py[line:76] - ERROR: Failed to load data file: E:\github_repositories\Emotion-Analysis-Project\Emotion-Analysis\data_visualization\data_visualization\all_words.csv
