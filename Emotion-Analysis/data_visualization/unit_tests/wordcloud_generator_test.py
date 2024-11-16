@@ -1,9 +1,9 @@
 import os
 import unittest
 from unittest.mock import patch, mock_open  # unittest.mock用于编写和运行测试用例
-from visualization.wordcloud_generator import (load_text_data, load_stopwords,
-                                               generate_wordcloud, save_wordcloud,
-                                               beautify_images, cut_words)
+from data_visualization.wordcloud_generator import (load_text_data, load_stopwords,
+                                                    generate_wordcloud, save_wordcloud,
+                                                    beautify_images, cut_words)
 
 
 class TestWordCloudModule(unittest.TestCase):

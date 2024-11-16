@@ -1,6 +1,7 @@
 import json
 import re
 import csv
+
 import emoji
 import jieba
 import unicodedata
@@ -11,7 +12,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from stopwords.get_stopwords import get_stopwords
-from visualization.logger_config import logger
+from data_visualization.logger_config import logger
 
 
 # import jieba
@@ -124,7 +125,6 @@ def text_processor():
                 # 移除停用词
                 words = rm_stopwords(words)
                 item['text'] = " ".join(words)
-                # 保存处理后的文本
                 all_texts.append(item['text'])
                 # 将处理后的单词添加到 all_words 列表中
                 all_words.extend(words)
@@ -133,17 +133,18 @@ def text_processor():
                                f" dictionary.")
 
             # 删除 'id' 和 'user' 键值对
-            item.pop('id', None)  # 使用 pop 来避免 KeyError
+            item.pop('id', None)
             item.pop('user', None)
+            # 增加 'sentiment_label' 和 'sentiment_score'键值对
+            item['sentiment_label'] = None
+            item['sentiment_score'] = 0
 
             # 规范化 'create_at' 时间格式
             if 'create_at' in item:
                 # 获取当前日期
                 current_date = datetime.now().date()
-
                 # 将当前日期格式化为字符串
                 current_date_str = current_date.strftime('%Y-%m-%d')
-
                 original_time = item['create_at']
 
                 if "今天" in original_time or "前" in original_time:
@@ -171,9 +172,9 @@ def text_processor():
     #     print("-" * 50)
 
     # 保存处理后的数据到 CSV 文件
-    csv_file_path = '../visualization/processed_data.csv'
+    csv_file_path = '../model/processed_data.csv'
     fieldnames = ['keyword', 'region', 'text', 'created_at',
-                  'source']
+                  'source', 'sentiment_label', 'sentiment_score']
     with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         # 写入数据
@@ -181,7 +182,8 @@ def text_processor():
             writer.writerow(item)
 
     # 保存 all_words 为 CSV 文件
-    all_words = list(set(all_words))  # 去重
+    # 去重
+    all_words = list(set(all_words))
     print(all_words)
     csv_file_path = '../visualization/all_words.csv'
     with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
@@ -218,30 +220,17 @@ def text_processor():
     # vocab_size = len(word_index)
     # # 嵌入向量的维度
     # embedding_dim = 4
-    #
+
     # # 创建一个Embedding层
     # embedding = nn.Embedding(vocab_size, embedding_dim)
-    #
+
     # # 输入转换为索引
-    # input_sequences = [torch.tensor(sequence, dtype=torch.long) for sequence in
-    #                    sequences]
-    #
+    # input_sequences = [torch.tensor(sequence, dtype=torch.long) for sequence
+    #                    in sequences]
+
     # # 词嵌入
-    # embedding_sequences = [embedding(sequence) for sequence in input_sequences]
-
-    # 保存文本、情感标签和情感分数的列表
-    sentiment_results = []
-    for i, text in enumerate(all_texts):
-        sentiment_results.append({
-            'text': text,
-            'sentiment_label': None,
-            'sentiment_score': 0
-        })
-
-    # 保存情感分数与文本的字典为 JSON 文件
-    json_file_path = '../model/sentiment_results.json'
-    with open(json_file_path, 'w', encoding='utf-8-sig') as jsonfile:
-        json.dump(sentiment_results, jsonfile, ensure_ascii=False)
+    # embedding_sequences = [embedding(sequence) for sequence
+    #                        in input_sequences]
 
 
 if __name__ == "__main__":

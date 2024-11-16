@@ -5,7 +5,7 @@ from PIL import Image, ImageEnhance
 from matplotlib import pyplot as plt
 from wordcloud import WordCloud, ImageColorGenerator
 
-from logger_config import logger
+from data_visualization.logger_config import logger
 
 
 # 读取文本数据
@@ -97,7 +97,7 @@ def wordclouds_generator():
     data_files = {
         'positive': {
             'text': 'all_words.csv',
-            'background': 'wordcloud_backgrounds/positive_background(3).png'
+            'background': 'wordcloud_backgrounds/all_background(6).png'
         }
         # ,
         # 'negative': {

@@ -3,6 +3,7 @@ from datetime import datetime
 
 from visualization.mappings import weibo_type_mapping, contain_type_mapping
 
+
 def update_settings(setting_name, new_value, file_path="settings.py"):
     """在 settings.py 中更新指定的配置项"""
     # 使用正则表达式找到配置项并替换为新的值
@@ -26,15 +27,16 @@ def update_settings(setting_name, new_value, file_path="settings.py"):
         f.write(content)
 
 
-def main():
+def main(cookie, keywords, start_date, end_date, regions, weibo_type_input, contain_type_input):
     # 提示用户输入关键词列表和 Cookie等基础信息
-    cookie = input("请输入 Cookie: ")
-    keywords = input("请输入关键词列表，用逗号分隔: ")
-    start_date = input("请输入搜索的起始日期（格式 yyyy-mm-dd）：")
-    end_date = input("请输入搜索的终止日期（格式 yyyy-mm-dd）：")
-    regions = input("请输入想要筛选的微博发布的地区，用逗号分隔：")
-    weibo_type_input = input("请输入微博类型（全部微博，全部原创微博，热门微博，关注人微博，认证用户微博，媒体微博，观点微博）: ")
-    contain_type_input = input("请输入筛选类型（不筛选，包含图片，包含视频，包含音乐，包含短链接）: ")
+    # cookie = input("请输入 Cookie: ")
+    # keywords = input("请输入关键词列表，用逗号分隔: ")
+    # start_date = input("请输入搜索的起始日期（格式 yyyy-mm-dd）：")
+    # end_date = input("请输入搜索的终止日期（格式 yyyy-mm-dd）：")
+    # regions = input("请输入想要筛选的微博发布的地区，用逗号分隔：")
+    # weibo_type_input = input("请输入微博类型（全部微博，全部原创微博，热门微博，关注人"
+    #                          "微博，认证用户微博，媒体微博，观点微博）: ")
+    # contain_type_input = input("请输入筛选类型（不筛选，包含图片，包含视频，包含音乐，包含短链接）: ")
 
     # 检查日期格式是否符合要求
     try:
@@ -43,7 +45,6 @@ def main():
     except ValueError:
         print("日期格式错误，请使用 yyyy-mm-dd 格式")
         return
-
 
     # 将关键词转换为 Python 列表格式
     keyword_list = [kw.strip() for kw in keywords.split(",")]
@@ -55,7 +56,8 @@ def main():
 
     # 更新 DEFAULT_REQUEST_HEADERS 中的 'cookie' 字段
     default_request_headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                  "*/*;q=0.8",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7",
         "cookie": cookie
     }
@@ -69,7 +71,6 @@ def main():
     update_settings("START_DATE", f"'{start_date}'")
     update_settings("END_DATE", f"'{end_date}'")
 
-
     # 根据用户输入获取对应的数值
     weibo_type = weibo_type_mapping.get(weibo_type_input, 0)
     contain_type = contain_type_mapping.get(contain_type_input, 0)
@@ -82,4 +83,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # 提示用户输入关键词列表和 Cookie等基础信息
+    cookie = input("请输入 Cookie: ")
+    keywords = input("请输入关键词列表，用逗号分隔: ")
+    start_date = input("请输入搜索的起始日期（格式 yyyy-mm-dd）：")
+    end_date = input("请输入搜索的终止日期（格式 yyyy-mm-dd）：")
+    regions = input("请输入想要筛选的微博发布的地区，用逗号分隔：")
+    weibo_type_input = input("请输入微博类型（全部微博，全部原创微博，热门微博，关注人"
+                             "微博，认证用户微博，媒体微博，观点微博）: ")
+    contain_type_input = input("请输入筛选类型（不筛选，包含图片，包含视频，包含音乐，包含短链接）: ")
+    main(cookie, keywords, start_date, end_date, regions, weibo_type_input, contain_type_input)
