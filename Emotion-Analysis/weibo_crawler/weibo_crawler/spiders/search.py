@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 import csv
 import sys
 from datetime import datetime, timedelta
+=======
+
+import csv
+import sys
+from datetime import datetime,timedelta
+from ..utils.util import standardize_date
+>>>>>>> 41fe4bd9c4b3741df1122ac805c46e17c8bd41ca
 from time import strftime
 import scrapy
 from scrapy.utils.project import get_project_settings
@@ -193,8 +201,10 @@ class SearchSpider(scrapy.Spider):
             if is_long_weibo:
                 weibo['text'] = weibo['text'][:-4]  # 移除长微博末尾的省略符
             # 发布时间和来源
-            created_at = sel.xpath('.//div[@class="from"]/a[1]/text()').get()
-            weibo['created_at'] = created_at.strip() if created_at else None
+            created_at = sel.xpath(
+                './/div[@class="from"]/a[1]/text()').extract_first(
+            ).replace(' ', '').replace('\n', '').split('前')[0]
+            weibo['created_at'] = standardize_date(created_at) if created_at else None
             weibo['source'] = sel.xpath('.//div[@class="from"]/a[2]/text()').get()
 
             # 打印微博信息，验证数据抓取是否成功
