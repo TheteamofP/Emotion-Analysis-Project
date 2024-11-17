@@ -1078,7 +1078,7 @@ input, select, textarea {
 	}
 
 		input[type="submit"]:hover,
-		input[type="reset"]:hover,
+		/*input[type="reset"]:hover,*/
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
@@ -1086,7 +1086,7 @@ input, select, textarea {
 		}
 
 		input[type="submit"]:active,
-		input[type="reset"]:active,
+		/*input[type="reset"]:active,*/
 		input[type="button"]:active,
 		button:active,
 		.button:active {
@@ -1094,7 +1094,7 @@ input, select, textarea {
 		}
 
 		input[type="submit"].icon:before,
-		input[type="reset"].icon:before,
+		/*input[type="reset"].icon:before,*/
 		input[type="button"].icon:before,
 		button.icon:before,
 		.button.icon:before {
@@ -1102,7 +1102,7 @@ input, select, textarea {
 		}
 
 		input[type="submit"].fit,
-		input[type="reset"].fit,
+		/*input[type="reset"].fit,*/
 		input[type="button"].fit,
 		button.fit,
 		.button.fit {
@@ -1110,7 +1110,7 @@ input, select, textarea {
 		}
 
 		input[type="submit"].small,
-		input[type="reset"].small,
+		/*input[type="reset"].small,*/
 		input[type="button"].small,
 		button.small,
 		.button.small {
@@ -1120,7 +1120,7 @@ input, select, textarea {
 		}
 
 		input[type="submit"].primary,
-		input[type="reset"].primary,
+		/*input[type="reset"].primary,*/
 		input[type="button"].primary,
 		button.primary,
 		.button.primary {
@@ -1130,8 +1130,8 @@ input, select, textarea {
 		}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
-		input[type="reset"].disabled,
-		input[type="reset"]:disabled,
+		/*input[type="reset"].disabled,*/
+		/*input[type="reset"]:disabled,*/
 		input[type="button"].disabled,
 		input[type="button"]:disabled,
 		button.disabled,
@@ -1144,9 +1144,52 @@ input, select, textarea {
 		}
 
 	input[type="submit"],
-	input[type="reset"],
+	/*input[type="reset"],*/
 	input[type="button"],
 	button {
+		line-height: calc(2.75rem - 2px);
+	}
+
+	input[type="reset"] {
+		background: rgba(255, 0, 0, 0.1);
+		box-shadow: inset 0 0 0 1px rgba(255, 0, 0, 0.3);
+	}
+
+	input[type="reset"]:hover {
+		background: rgba(255, 0, 0, 0.2);
+	}
+
+	input[type="reset"]:active {
+		background-color: rgba(255, 255, 255, 0.175);
+	}
+
+	input[type="reset"].icon:before {
+		margin-right: 0.5em;
+	}
+
+	input[type="reset"].fit {
+		width: 100%;
+	}
+
+	input[type="reset"].small {
+		font-size: 0.6rem;
+		height: 2.0625rem;
+		line-height: 2.0625rem;
+	}
+
+	input[type="reset"].primary {
+		background-color: #ffffff;
+		color: #1b1f22 !important;
+		font-weight: 600;
+	}
+
+	input[type="reset"].disabled, input[type="reset"]:disabled {
+		pointer-events: none;
+		cursor: default;
+		opacity: 0.25;
+	}
+
+	input[type="reset"] {
 		line-height: calc(2.75rem - 2px);
 	}
 
@@ -1707,102 +1750,6 @@ input, select, textarea {
 		}
 
 
-		/* 新增 */
-
-        .field {
-            position: relative;
-        }
-
-        .url-preview-container {
-            margin-top: 15px;
-            background: rgba(27, 31, 34, 0.85);
-            border-radius: 6px;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-
-        .preview-label {
-            display: block;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 15px;
-        }
-
-        .url-preview {
-	        font: inherit;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            word-break: break-all;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .url-preview.empty {
-            color: rgba(255, 255, 255, 0.3);
-	        font: inherit;
-            font-size: 0.8em;
-        }
-
-        .url-preview.valid {
-            border-left-color: #4CAF50;
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .url-preview.invalid {
-            border-left-color: #f44336;
-            background: rgba(244, 67, 54, 0.1);
-        }
-
-        .validation-message {
-            margin-top: 10px;
-            font-size: 0.8em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0 15px;
-        }
-
-        .validation-message::before {
-            content: '';
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .validation-message.valid {
-            color: #4CAF50;
-        }
-
-        .validation-message.valid::before {
-            background-color: #4CAF50;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-
-        .validation-message.invalid {
-            color: #f44336;
-        }
-
-        .validation-message.invalid::before {
-            background-color: #f44336;
-            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
-        }
-
-        button[type="submit"] {
-            transition: all 0.3s ease;
-        }
-
-        button[type="submit"]:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
 
 		/** AI 对话 **/
     .chat-container {
@@ -1903,3 +1850,52 @@ input, select, textarea {
             font-style: italic;
             display: none;
         }
+
+
+		/*日期*/
+input[type="date"] {
+    -moz-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    -webkit-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    -ms-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    border-radius: 4px;
+    border: solid 1px #ffffff;
+    background: transparent;
+    color: #ffffff;
+	width: 70%;
+    height: auto;
+    padding: 0.5rem;
+    font-size: medium;
+}
+
+input[type="date"]:focus {
+    background: rgba(255, 255, 255, 0.075);
+    border-color: #ffffff;
+    box-shadow: 0 0 0 1px #ffffff;
+    outline: none;
+}
+
+input[type="date"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
