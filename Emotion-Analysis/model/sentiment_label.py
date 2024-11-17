@@ -2,6 +2,7 @@ import os
 from snownlp import SnowNLP
 import pandas as pd
 
+
 # 加载原始评论数据
 def load_raw_comments(file_path):
     """
@@ -16,6 +17,7 @@ def load_raw_comments(file_path):
             if comment:
                 comments.append(comment)
     return comments
+
 
 # 标注情感标签
 def label_sentiments(comments):
@@ -32,12 +34,10 @@ def label_sentiments(comments):
             print(f"scores : {sentiment_score}")
 
             # 标注情感标签
-            if sentiment_score < 0.6:
+            if sentiment_score < 0.99:
                 label = 0  # 负面
-            elif sentiment_score <= 0.99:
-                label = 1  # 中性
             else:
-                label = 2  # 正面
+                label = 1  # 正面
 
             labeled_data.append((comment, label))
         except Exception as e:
@@ -46,6 +46,7 @@ def label_sentiments(comments):
     # 转为 DataFrame
     df = pd.DataFrame(labeled_data, columns=['Comment', 'Sentiment_Label'])
     return df
+
 
 # 保存标注结果
 def save_labeled_data(df, output_path):
@@ -56,10 +57,11 @@ def save_labeled_data(df, output_path):
     """
     df.to_csv(output_path, index=False, encoding='utf-8')
 
+
 if __name__ == '__main__':
     # 文件路径设置
-    input_file = r'D:\PythonProject\Emotion-Analysis-Project-main\Emotion-Analysis\model\train_texts.csv'  # 原始评论文件路径
-    output_file = 'labeled_train_comments.csv'  # 标注结果保存路径
+    input_file = 'model/columns.csv'  # 原始评论文件路径
+    output_file = 'model/labeled_comments.csv'  # 标注结果保存路径
 
     # 检查文件是否存在
     if not os.path.exists(input_file):

@@ -7,8 +7,7 @@ app = Flask(__name__)
 
 app.register_blueprint(page.pb)
 
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 
 
 @app.route('/')

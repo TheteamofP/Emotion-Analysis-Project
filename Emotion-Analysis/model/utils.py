@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
+import os
+
 import jieba
 import re
 
 
 stopwords = []
-with open("data/stopwords.txt", "r", encoding="utf8") as f:
+# 获取当前文件的目录
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 构建 stopwords.txt 的绝对路径
+stopwords_path = os.path.join(current_dir, 'stopwords.txt')
+with open(stopwords_path, "r", encoding="utf8") as f:
     for w in f:
         stopwords.append(w.strip())
 

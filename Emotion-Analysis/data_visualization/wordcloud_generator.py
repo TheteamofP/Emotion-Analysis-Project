@@ -11,7 +11,22 @@ from data_visualization.logger_config import logger
 def load_text_data(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8-sig') as csvfile:
-            return " ".join(row[0] for row in csv.reader(csvfile)).strip()
+            # 初始化一个空列表来存储所有行的数据
+            text_data = []
+            # 使用csv.reader读取CSV文件
+            reader = csv.reader(csvfile)
+            # 逐行读取CSV文件
+            for row in reader:
+                try:
+                    # 检查行是否有足够的数据
+                    if len(row) > 0:
+                        # 将第一列的数据添加到列表中
+                        text_data.append(row[0])
+                except IndexError:
+                    logger.warning(
+                        "Row with missing data encountered and skipped.")
+            result_text = " ".join(text_data).strip()
+            return result_text
     except FileNotFoundError:
         logger.error(f"File {file_path} not found.")
         return None
@@ -88,24 +103,18 @@ def wordclouds_generator():
     data_files = {
         'all': {
             'text': 'all_words.csv',
-            'background': 'wordcloud_backgrounds/all_background(6).png'
+            'background': 'wordcloud_backgrounds/all_background.png'
         }
-        # ,
-        # 'negative': {
-        #     'text': 'data_for_wordcloud.csv',
-        #     'background': 'wordcloud_backgrounds'
-        #                   '/weibo(2).png'
-        # },
-        # 'neutral': {
-        #     'text': 'data_for_wordcloud.csv',
-        #     'background': 'wordcloud_backgrounds'
-        #                   '/weibo(3).png'
-        # },
-        # 'positive': {
-        #     'text': 'data_for_wordcloud.csv',
-        #     'background': 'wordcloud_backgrounds'
-        #                   '/weibo(4).png'
-        # }
+        ,
+        'positive': {
+            'text': 'positive_words.csv',
+            'background': 'wordcloud_backgrounds/positive_background.png'
+        },
+        'negative': {
+            'text': 'negative_words.csv',
+            'background': 'wordcloud_backgrounds/negative_background.png'
+        }
+
     }
 
     # 定义保存和字体路径
