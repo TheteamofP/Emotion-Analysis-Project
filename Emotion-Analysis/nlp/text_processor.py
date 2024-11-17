@@ -1,4 +1,3 @@
-import json
 import re
 import csv
 import emoji
@@ -98,7 +97,7 @@ def clean(text):
 
 # 数据预处理
 def process_data(data_list):
-    all_texts = []
+    # all_texts = []
     all_data = []  # 用于存储所有数据，包括文本和其他键值对
     all_words = set()
 
@@ -114,23 +113,24 @@ def process_data(data_list):
 
         cleaned_item = item.copy()  # 创建字典的副本以避免修改原始数据
         cleaned_item['text'] = " ".join(words)
-        all_texts.append(cleaned_item['text'])
         all_data.append(cleaned_item)  # 存储清理后的数据项
         all_words.update(words)
 
-    # 生成索引并划分数据集和测试集
-    train_indices, test_indices = train_test_split(
-        range(len(all_data)), test_size=0.2, random_state=42)
+    # # 生成索引并划分数据集和测试集
+    # train_indices, test_indices = train_test_split(
+    #     range(len(all_data)), test_size=0.2, random_state=42)
+    #
+    # # 使用索引来划分数据
+    # train_data = [all_data[i] for i in train_indices]
+    # test_data = [all_data[i] for i in test_indices]
+    #
+    # # 提取训练集和测试集的文本
+    # train_texts = [item['text'] for item in train_data]
+    # test_texts = [item['text'] for item in test_data]
+    #
+    # return list(all_words), train_data, test_data, train_texts, test_texts
 
-    # 使用索引来划分数据
-    train_data = [all_data[i] for i in train_indices]
-    test_data = [all_data[i] for i in test_indices]
-
-    # 提取训练集和测试集的文本
-    train_texts = [item['text'] for item in train_data]
-    test_texts = [item['text'] for item in test_data]
-
-    return list(all_words), train_data, test_data, train_texts, test_texts
+    return list(all_words), all_data
 
 
 # 存储整体文本数据字典给情感模型
@@ -149,12 +149,6 @@ def save_words_to_csv(words, csv_file_path):
             writer.writerow([word])
 
 
-# 存储词汇表
-def save_word_index_to_json(word_index, json_file_path):
-    with open(json_file_path, 'w', encoding='utf-8-sig') as jsonfile:
-        json.dump(word_index, jsonfile, ensure_ascii=False)
-
-
 # 文本预处理
 def text_processor():
     csv_file_path = '../weibo_crawler/weibo_data.csv'
@@ -162,15 +156,20 @@ def text_processor():
 
     if data_list:
         # all_texts
-        all_words, train_data, test_data, train_texts, test_texts = process_data(data_list)
+        # all_words, train_data, test_data, train_texts, test_texts = (
+        #     process_data(data_list))
+        all_words, all_data = process_data(data_list)
 
         # 保存训练集和测试集
-        save_words_to_csv(train_texts, '../model/train_texts.csv')
-        save_words_to_csv(test_texts, '../model/test_texts.csv')
-        save_to_csv(train_data, '../model/train_data.csv',
-                    ['keyword', 'region', 'text', 'created_at',
-                     'source', 'sentiment_label', 'sentiment_score'])
-        save_to_csv(test_data, '../model/test_data.csv',
+        # save_words_to_csv(train_texts, '../model/train_texts.csv')
+        # save_words_to_csv(test_texts, '../model/test_texts.csv')
+        # save_to_csv(train_data, '../model/train_data.csv',
+        #             ['keyword', 'region', 'text', 'created_at',
+        #              'source', 'sentiment_label', 'sentiment_score'])
+        # save_to_csv(test_data, '../model/test_data.csv',
+        #             ['keyword', 'region', 'text', 'created_at',
+        #              'source', 'sentiment_label', 'sentiment_score'])
+        save_to_csv(all_data, '../model/processed_data.csv',
                     ['keyword', 'region', 'text', 'created_at',
                      'source', 'sentiment_label', 'sentiment_score'])
 

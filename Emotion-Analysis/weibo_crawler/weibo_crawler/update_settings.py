@@ -53,7 +53,10 @@ def main(cookie, keywords, start_date, end_date, regions, weibo_type_input,
     keyword_list = [kw.strip() for kw in keywords.split(",")]
 
     if regions.strip() == "":
-        region_list = []
+        region_list = ["北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江",
+                       "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北",
+                       "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏",
+                       "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"]
     else:
         region_list = [region.strip() for region in regions.split(",")]
 
@@ -73,7 +76,7 @@ def main(cookie, keywords, start_date, end_date, regions, weibo_type_input,
 
     # 更新 settings.py 中的 KEYWORD_LIST 和 REGION
     update_settings("KEYWORD_LIST", keyword_list, settings_path)
-    update_settings("REGION", region_list, settings_path)
+    update_settings("REGIONS", region_list, settings_path)
 
     # 更新 settings.py 中的 START_DATE 和 END_DATE
     update_settings("START_DATE", f"'{start_date}'",

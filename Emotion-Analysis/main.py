@@ -3,8 +3,9 @@ import subprocess
 
 from weibo_crawler.weibo_crawler.update_settings import main
 from nlp.text_processor import text_processor
-# from model.svm import predict
+from model.model_svm import model_svm
 from data_visualization.logger_config import logger
+from data_visualization.classification import classifcation
 from data_visualization.wordcloud_generator import wordclouds_generator
 
 
@@ -45,15 +46,18 @@ def emotion_analyzer(cookie, keywords, start_date, end_date, regions,
                                         is_scrapy=False):
         return None
 
+    if not change_directory_and_execute(original_dir, 'model',
+                                        model_svm, is_scrapy=False):
+        return None
+
+    if not change_directory_and_execute(original_dir, 'data_visualization',
+                                        classifcation, is_scrapy=False):
+        return None
+
     if not change_directory_and_execute(original_dir,
                                         'data_visualization',
                                         wordclouds_generator, is_scrapy=False):
         return None
-
-    # if not change_directory_and_execute(original_dir,
-    #                                     'model',
-    #                                     predict, is_scrapy=False):
-    #     return None
 
     logger.info("Emotion analysis completed successfully")
     return 1

@@ -181,13 +181,16 @@ class SearchSpider(scrapy.Spider):
             weibo['id'] = sel.xpath('@mid').get()
             weibo['user'] = sel.xpath('.//a[@class="name"]/text()').get()
             # 微博内容
-            txt_sel = sel.xpath('.//p[@class="txt"]')[0]
-            content_full = sel.xpath('.//p[@node-type="feed_list_content_full"]')
+            txt_sel = sel.xpath('.//p[@class="txt"]')
+            if not txt_sel:
+                continue  # 如果没有找到微博内容，跳过当前迭代
+            content_full = sel.xpath(
+                './/p[@node-type="feed_list_content_full"]')
             is_long_weibo = False
 
             # 如果存在长微博内容
             if content_full:
-                txt_sel = content_full[0]
+                txt_sel = content_full
                 is_long_weibo = True
 
             weibo['text'] = txt_sel.xpath('string(.)').get().replace('\u200b', '').replace('\ue627', '').strip()

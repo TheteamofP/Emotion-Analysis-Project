@@ -71,15 +71,51 @@
                                     <div class="fields">
                                         <div class="field">
                                             <label for="topic_cookie">COOKIE</label>
-                                            <input type="text" id="topic_cookie" name="cookie" required>
+                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: medium" placeholder="请输入 Cookie" required ></textarea>
                                         </div>
                                         <div class="field">
                                             <label for="topic_keyword">关键词</label>
-                                            <input type="text" id="topic_keyword" name="keyword" required>
+                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用逗号分隔" style="font-size: medium" required>
                                         </div>
-                                    </div>
+                                        <div class="field half">
+                                            <label for="start_date">起始日期</label>
+                                            <input type="date" name="start_date" id="start_date" value="" placeholder="请输入搜索的起始日期" required/>
+                                        </div>
+                                        <div class="field half">
+                                            <label for="end_date">终止日期</label>
+                                            <input type="date" name="end_date" id="end_date" value="" placeholder="请输入搜索的终止日期" required/>
+                                        </div>
+                                        <div class="field">
+                                            <label for="regions">地区筛选</label>
+                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入想要筛选的微博发布的地区，用逗号分隔" style="font-size: medium" required/>
+                                        </div>
+                                        <div class="field half">
+                                            <label for="weibo_type_input">微博类型</label>
+                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: medium" >
+                                                <option value="全部微博">全部微博</option>
+                                                <option value="全部原创微博">全部原创微博</option>
+                                                <option value="热门微博">热门微博</option>
+                                                <option value="关注人微博">关注人微博</option>
+                                                <option value="认证用户微博">认证用户微博</option>
+                                                <option value="媒体微博">媒体微博</option>
+                                                <option value="观点微博">观点微博</option>
+                                            </select>
+                                        </div>
+                                        <div class="field half">
+                                            <label for="contain_type_input">筛选类型</label>
+                                            <select name="contain_type_input" id="contain_type_input" style="font-size: medium">
+                                                <option value="不筛选">不筛选</option>
+                                                <option value="包含图片">包含图片</option>
+                                                <option value="包含视频">包含视频</option>
+                                                <option value="包含音乐">包含音乐</option>
+                                                <option value="包含短链接">包含短链接</option>
+                                            </select>
+                                        </div>
+                                     </div>
+
                                     <ul class="actions">
                                         <li><button type="submit" id="topic_submit" disabled>开始分析</button></li>
+                                        <li><input type="reset" value="重置"/></li>
                                     </ul>
                                 </form>
                                 <div id="topic_result"></div>
@@ -169,23 +205,20 @@
                             data: formData,
                             success: function(response) {
                                 console.log("话题分析返回的数据：", response);
-                                if(response.error) {
-                                    $('#topic_result').html('<h3 class="error">' + response.error + '</h3>');
+                                if(response.status === 'failed') {
+                                    $('#topic_result').html('<h3 class="error">' + response.message + '</h3>');
                                 } else {
                                     // 构建并显示话题分析结果，包括词云图片
                                     let resultHTML = '<h3 class="major">话题分析结果:</h3>';
                                     resultHTML += '<div class="result-content">';
                                     resultHTML += '<p><strong>关键词:</strong> ' + response.result.keyword + '</p>';
-                                    resultHTML += '<p><strong>情感倾向:</strong> ' + response.result.sentiment + '</p>';
+                                    resultHTML += '<p><strong>日期范围:</strong> ' + response.result.start_date + '~' + response.result.end_date + '</p>';
                                     resultHTML += '</div>';
 
                                     // 插入词云图片
-                                    resultHTML +=  '<h3 class="major">词云展示:</h3>';
+                                    resultHTML += '<h3 class="major">词云展示:</h3>';
                                     resultHTML += '<div class="image-grid">';
                                     resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图1" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_negative.png") }}" alt="词云图2" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_neutral.png") }}" alt="词云图3" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_positive.png") }}" alt="词云图4" class="wordcloud"></div>';
                                     resultHTML += '</div>';
 
                                     // 添加按钮
@@ -206,6 +239,8 @@
                         });
                     });
                 });
+
+
             </script>
 
 
