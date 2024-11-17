@@ -106,26 +106,31 @@ def process_data(data_list):
         text_value = item.get('text', '')
         text_value = clean(text_value)
         words = rm_stopwords(cut_words(text_value).split())
-        item['text'] = " ".join(words)
-        all_texts.append(item['text'])
-        all_data.append(item)  # 存储原始数据项
-        all_words.update(words)
 
         item.pop('id', None)
         item.pop('user', None)
         item['sentiment_label'] = None
         item['sentiment_score'] = 0
 
-    # 划分数据集和测试集，同时保留所有其他键值对
-    train_data, test_data, train_texts, test_texts = train_test_split(
-        all_data, all_texts, test_size=0.2, random_state=42)
+        cleaned_item = item.copy()  # 创建字典的副本以避免修改原始数据
+        cleaned_item['text'] = " ".join(words)
+        all_texts.append(cleaned_item['text'])
+        all_data.append(cleaned_item)  # 存储清理后的数据项
+        all_words.update(words)
 
-    # 从训练集和测试集中提取文本
+    # 生成索引并划分数据集和测试集
+    train_indices, test_indices = train_test_split(
+        range(len(all_data)), test_size=0.2, random_state=42)
+
+    # 使用索引来划分数据
+    train_data = [all_data[i] for i in train_indices]
+    test_data = [all_data[i] for i in test_indices]
+
+    # 提取训练集和测试集的文本
     train_texts = [item['text'] for item in train_data]
     test_texts = [item['text'] for item in test_data]
 
-    # all_texts,
-    return list(all_words), train_texts, test_texts
+    return list(all_words), train_data, test_data, train_texts, test_texts
 
 
 # 存储整体文本数据字典给情感模型
@@ -157,11 +162,17 @@ def text_processor():
 
     if data_list:
         # all_texts
-        all_words, train_texts, test_texts = process_data(data_list)
+        all_words, train_data, test_data, train_texts, test_texts = process_data(data_list)
 
         # 保存训练集和测试集
         save_words_to_csv(train_texts, '../model/train_texts.csv')
         save_words_to_csv(test_texts, '../model/test_texts.csv')
+        save_to_csv(train_data, '../model/train_data.csv',
+                    ['keyword', 'region', 'text', 'created_at',
+                     'source', 'sentiment_label', 'sentiment_score'])
+        save_to_csv(test_data, '../model/test_data.csv',
+                    ['keyword', 'region', 'text', 'created_at',
+                     'source', 'sentiment_label', 'sentiment_score'])
 
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')
