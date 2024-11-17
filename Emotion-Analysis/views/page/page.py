@@ -3,7 +3,6 @@ import openai
 import os
 import json
 
-
 pb = Blueprint('page', __name__, url_prefix='/page', template_folder='templates')
 
 
@@ -20,17 +19,31 @@ def text_analysis():
 @pb.route('/spider_analysis/topic', methods=['POST'])
 def spider_analysis_topic():
     cookie = request.form.get('cookie')
-    keyword = request.form.get('keyword')
+    keywords = request.form.get('keyword')
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+    regions = request.form.get('regions')
+    weibo_type_input = request.form.get('weibo_type_input')
+    contain_type_input = request.form.get('contain_type_input')
 
     analysis_result = {
         'cookie': cookie,
-        'keyword': keyword,
-        'discussion_count': 120,
-        'participant_count': 45,
-        'popularity_score': 7.8,
-        'sentiment': '积极'
+        'keyword': keywords,
+        'start_date': start_date,
+        'end_date': end_date,
+        'regions': regions,
+        'weibo_type': weibo_type_input,
+        'contain_type': contain_type_input
     }
-    return jsonify(result=analysis_result)
+
+    from main import emotion_analyzer
+    result = emotion_analyzer(cookie, keywords, start_date, end_date, regions,
+                              weibo_type_input, contain_type_input)
+    if result == 1:
+        return jsonify({'status': 'success', 'result': analysis_result})
+    else:
+        return jsonify({'status': 'failed', 'message': '情绪分析未成功完成'})
+
 
 
 @pb.route('/gpt_suggestion', methods=['GET', 'POST'])
@@ -66,7 +79,3 @@ def gpt_suggestion():
         return jsonify(result={'error': f"GPT API 调用出错: {str(e)}"})
     except Exception as e:
         return jsonify(result={'error': f"出现未知错误: {str(e)}"})
-
-
-
-
