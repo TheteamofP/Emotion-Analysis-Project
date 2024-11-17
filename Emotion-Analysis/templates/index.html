@@ -71,27 +71,39 @@
                                     <div class="fields">
                                         <div class="field">
                                             <label for="topic_cookie">COOKIE</label>
-                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: medium" placeholder="请输入 Cookie" required ></textarea>
+                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: medium" placeholder="请输入 Cookie" required></textarea>
+                                            <small id="topic_cookieError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
+
                                         <div class="field">
                                             <label for="topic_keyword">关键词</label>
-                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用逗号分隔" style="font-size: medium" required>
+                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用英文逗号分隔" style="font-size: medium" required>
+                                            <small id="topic_keywordError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
-                                        <div class="field half">
-                                            <label for="start_date">起始日期</label>
-                                            <input type="date" name="start_date" id="start_date" value="" placeholder="请输入搜索的起始日期" required/>
-                                        </div>
-                                        <div class="field half">
-                                            <label for="end_date">终止日期</label>
-                                            <input type="date" name="end_date" id="end_date" value="" placeholder="请输入搜索的终止日期" required/>
-                                        </div>
+
                                         <div class="field">
                                             <label for="regions">地区筛选</label>
-                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入想要筛选的微博发布的地区，用逗号分隔" style="font-size: medium" required/>
+                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入想要筛选的微博发布的地区，用英文逗号分隔" style="font-size: medium" required />
+                                            <small id="regionsError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
+
+                                        <div class="field half">
+                                            <label for="start_date">起始日期</label>
+                                            <input type="date" name="start_date" id="start_date" value="" placeholder="请输入搜索的起始日期" required />
+                                            <small id="start_dateError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+                                        <div class="field half">
+                                            <label for="end_date">终止日期</label>
+                                            <input type="date" name="end_date" id="end_date" value="" placeholder="请输入搜索的终止日期" required />
+                                            <small id="end_dateError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+
+
                                         <div class="field half">
                                             <label for="weibo_type_input">微博类型</label>
-                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: medium" >
+                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: medium;width: 80%">
                                                 <option value="全部微博">全部微博</option>
                                                 <option value="全部原创微博">全部原创微博</option>
                                                 <option value="热门微博">热门微博</option>
@@ -100,18 +112,21 @@
                                                 <option value="媒体微博">媒体微博</option>
                                                 <option value="观点微博">观点微博</option>
                                             </select>
+                                            <small id="weibo_type_inputError" class="error-message" style="color: #ff3860; display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
+
                                         <div class="field half">
                                             <label for="contain_type_input">筛选类型</label>
-                                            <select name="contain_type_input" id="contain_type_input" style="font-size: medium">
+                                            <select name="contain_type_input" id="contain_type_input" style="font-size: medium;width: 80%">
                                                 <option value="不筛选">不筛选</option>
                                                 <option value="包含图片">包含图片</option>
                                                 <option value="包含视频">包含视频</option>
                                                 <option value="包含音乐">包含音乐</option>
                                                 <option value="包含短链接">包含短链接</option>
                                             </select>
+                                            <small id="contain_type_inputError" class="error-message" style="color: #ff3860; display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
-                                     </div>
+                                    </div>
 
                                     <ul class="actions">
                                         <li><button type="submit" id="topic_submit" disabled>开始分析</button></li>
@@ -176,25 +191,157 @@
 
             <!-- topic -->
             <script>
-                $(document).ready(function() {
-                    const submitButton = document.getElementById('topic_submit');
-                    const inputs = document.querySelectorAll('#topicAnalysisForm .field input[required]');
+            $(document).ready(function () {
+                const submitButton = document.getElementById('topic_submit');
+                const form = document.getElementById('topicAnalysisForm');
+                const inputs = form.querySelectorAll('input[required], textarea[required]');
+                const startDateInput = document.getElementById("start_date");
+                const endDateInput = document.getElementById("end_date");
 
-                    // 检查是否所有必填字段都有值
-                    function checkFormValidity() {
-                        const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-                        submitButton.disabled = !allFilled;
+                // 验证单个字段
+                function validateField(field) {
+                    const fieldValue = field.value.trim();
+                    const errorElem = document.getElementById(field.id + "Error");
+                    let isValid = true;
+
+                    // 移除之前的错误样式
+                    field.classList.remove('error');
+                    errorElem.textContent = "";
+
+                    // 只检查格式错误，不检查空值
+                     if (fieldValue !== "") {
+                        if (field.id === 'topic_keyword') {
+                            // 检查是否包含中文逗号、英文句号或中文句号
+                            if (/[，。.]/.test(fieldValue)) {
+                                errorElem.textContent = "关键词列表请使用英文逗号分隔";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                            // 检查格式：不允许连续逗号、开头结尾逗号、空格+逗号或逗号+空格的组合
+                            else if (/(^,|,$|,,|\s,|,\s)/.test(fieldValue)) {
+                                errorElem.textContent = "关键词列表格式不正确，请用英文逗号分隔且避免空项";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                        } else if (field.id === 'regions') {
+                            // 检查是否包含中文逗号、英文句号或中文句号
+                            if (/[，。.]/.test(fieldValue)) {
+                                errorElem.textContent = "地区列表请使用英文逗号分隔";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                            // 检查格式：不允许连续逗号、开头结尾逗号、空格+逗号或逗号+空格的组合
+                            else if (/(^,|,$|,,|\s,|,\s)/.test(fieldValue)) {
+                                errorElem.textContent = "地区列表格式不正确，请用英文逗号分隔且避免空项";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                        }
                     }
 
-                    // 页面加载时立即检查一次按钮状态
-                    checkFormValidity();
+                    return isValid;
+                }
 
-                    // 监听输入事件
+                // 验证日期
+                function validateDateFields() {
+                    const startDateErrorElem = document.getElementById("start_dateError");
+                    const endDateErrorElem = document.getElementById("end_dateError");
+                    let isValid = true;
+
+                    // 清除之前的错误样式和消息
+                    startDateInput.classList.remove('error');
+                    endDateInput.classList.remove('error');
+                    startDateErrorElem.textContent = "";
+                    endDateErrorElem.textContent = "";
+
+                    // 只在两个日期都有值的情况下才进行比较
+                    if (startDateInput.value && endDateInput.value) {
+                        if (new Date(startDateInput.value) > new Date(endDateInput.value)) {
+                            startDateErrorElem.textContent = "起始日期不能晚于终止日期";
+                            endDateErrorElem.textContent = "终止日期不能早于起始日期";
+                            startDateInput.classList.add('error');
+                            endDateInput.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+
+                    return isValid;
+                }
+
+                // 检查表单是否可提交
+                function checkFormValidity() {
+                    let isFormValid = true;
+
+                    // 检查所有必填字段是否有值
                     inputs.forEach(input => {
-                        input.addEventListener('input', checkFormValidity);
+                        if (!input.value.trim()) {
+                            isFormValid = false;
+                        }
                     });
 
-                    // 监听表单提交
+                    // 检查格式错误
+                    inputs.forEach(input => {
+                        if (!validateField(input)) {
+                            isFormValid = false;
+                        }
+                    });
+
+                    // 检查日期
+                    if (!validateDateFields()) {
+                        isFormValid = false;
+                    }
+
+                    // 更新提交按钮状态
+                    submitButton.disabled = !isFormValid;
+                }
+
+                // 为所有输入字段添加验证事件监听
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        validateField(input);
+                        checkFormValidity();
+                    });
+
+                    // 失焦时验证
+                    input.addEventListener('blur', () => {
+                        validateField(input);
+                        checkFormValidity();
+                    });
+                });
+
+                // 为日期输入添加事件监听
+                [startDateInput, endDateInput].forEach(input => {
+                    input.addEventListener('input', () => {
+                        validateDateFields();
+                        checkFormValidity();
+                    });
+
+                    input.addEventListener('blur', () => {
+                        validateDateFields();
+                        checkFormValidity();
+                    });
+                });
+
+                // 表单重置处理
+                form.addEventListener('reset', () => {
+                    // 清除所有错误消息
+                    document.querySelectorAll('.error-message').forEach(elem => {
+                        elem.textContent = "";
+                    });
+                    // 移除所有错误样式
+                    document.querySelectorAll('.error').forEach(elem => {
+                        elem.classList.remove('error');
+                    });
+                    // 禁用提交按钮
+                    submitButton.disabled = true;
+                    // 延迟检查表单有效性，等待重置完成
+                    setTimeout(checkFormValidity, 0);
+                });
+
+                // 页面加载时检查表单有效性
+                checkFormValidity();
+
+
                     $('#topicAnalysisForm').on('submit', function(event) {
                         event.preventDefault();
                         var formData = $(this).serialize();
@@ -218,7 +365,7 @@
                                     // 插入词云图片
                                     resultHTML += '<h3 class="major">词云展示:</h3>';
                                     resultHTML += '<div class="image-grid">';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图1" class="wordcloud"></div>';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图" class="wordcloud"></div>';
                                     resultHTML += '</div>';
 
                                     // 添加按钮
