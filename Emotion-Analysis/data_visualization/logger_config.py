@@ -1,6 +1,7 @@
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from datetime import datetime, timedelta
 
 # 确保日志文件存放的目录存在
 log_directory = '../logs'
@@ -25,6 +26,22 @@ fh.setFormatter(formatter)
 
 # 将logger添加到handler里面
 logger.addHandler(fh)
+
+
+# 定义一个函数来检查并删除过旧的日志文件
+def delete_old_logs(log_directory, days=1):
+    current_time = datetime.now()
+    for filename in os.listdir(log_directory):
+        file_path = os.path.join(log_directory, filename)
+        if os.path.isfile(file_path):
+            file_age = current_time - datetime.fromtimestamp(os.path.getmtime(file_path))
+            if file_age > timedelta(days=days):
+                os.remove(file_path)
+                logger.info(f"Deleted old log file: {filename}")
+
+
+# 调用函数，例如每天删除一次过旧的日志
+delete_old_logs(log_directory)
 
 # # 日志测试
 # logger.debug('this is a logger debug message')
