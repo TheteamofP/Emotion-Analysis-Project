@@ -1,8 +1,0 @@
-﻿2024-11-17 17:12:03,444 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
-2024-11-17 17:12:03,451 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
-2024-11-17 17:12:03,452 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
-2024-11-17 17:12:03,454 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
-2024-11-17 17:12:03,455 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
-2024-11-17 17:12:12,926 - main.py[line:58] - INFO: Emotion analysis completed successfully
-2024-11-17 17:12:12,928 - _internal.py[line:97] - INFO: 127.0.0.1 - - [17/Nov/2024 17:12:12] "POST /page/spider_analysis/topic HTTP/1.1" 200 -
-2024-11-17 17:12:12,940 - _internal.py[line:97] - INFO: 127.0.0.1 - - [17/Nov/2024 17:12:12] "GET /static/wordclouds/wordcloud_all.png HTTP/1.1" 200 -
