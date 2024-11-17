@@ -177,33 +177,6 @@ def text_processor():
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')
 
-        # save_to_csv(data_list, '../model/processed_data.csv',
-        #             ['keyword', 'region', 'text', 'created_at',
-        #              'source', 'sentiment_label', 'sentiment_score'])
-
-        # word_index = {word: i for i, word in enumerate(all_words)}
-        # save_word_index_to_json(word_index, '../model/word_index.json')
-        #
-        # sequences = [[word_index[word] for word in text.split()] for text in
-        #              all_texts]
-        # save_words_to_csv(sequences, '../model/sequences.csv')
-
-    # # 词汇表大小
-    # vocab_size = len(word_index)
-    # # 嵌入向量的维度
-    # embedding_dim = 4
-
-    # # 创建一个Embedding层
-    # embedding = nn.Embedding(vocab_size, embedding_dim)
-
-    # # 输入转换为索引
-    # input_sequences = [torch.tensor(sequence, dtype=torch.long) for sequence
-    #                    in sequences]
-
-    # # 词嵌入
-    # embedding_sequences = [embedding(sequence) for sequence
-    #                        in input_sequences]
-
 
 if __name__ == "__main__":
     text_processor()

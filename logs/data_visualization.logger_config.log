@@ -1,0 +1,5 @@
+﻿2024-11-17 17:42:10,223 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 17:42:10,231 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 17:42:10,233 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 17:42:10,234 - get_stopwords.py[line:19] - ERROR: File stopwords.txt not found.
+2024-11-17 17:42:21,681 - main.py[line:58] - INFO: Emotion analysis completed successfully
