@@ -3,7 +3,7 @@ $(document).ready(function () {
     const defaultTextareaHeight = 100;
     const $textInput = $('#text');
     const $chatContainer = $('#chat-container');
-    const $typingIndicator = $('#typing-indicator');
+    const $typingIndicator = $('#AI-typing-indicator');
 
     localStorage.removeItem('chatHistory');
 
