@@ -98,8 +98,7 @@ def wordcloud_generator(sentiment, file_info, save_path, font_path):
 
 # 整体词云图生成器
 def wordclouds_generator():
-    # 参数data_file
-    # 定义文本数据文件路径
+    # 参数data_file    # 定义文本数据文件路径
     data_files = {
         'all': {
             'text': 'all_words.csv',

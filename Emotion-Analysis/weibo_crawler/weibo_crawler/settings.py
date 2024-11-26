@@ -40,7 +40,7 @@ TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1CcUq3sV3c5dtweyE_0KLzhDxG284iH-fa0mt9rzvZ8QI.; SINAGLOBAL=1916809708458.338.1719030194211; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5z5Z0v84wIB6-Em2Gk.ks_5JpX5KzhUgL.Foq41h5R1K-f1K.2dJLoIp.LxK-LB.eLBK-LxKqL1-eL1hnEeKMN1K.f; _s_tentry=-; Apache=1991403594901.8105.1731777757974; ULV=1731777757987:2:1:1:1991403594901.8105.1731777757974:1719030194507; SUB=_2A25KPcUHDeRhGeBH41IZ-SvJwjWIHXVpM1jPrDV8PUNbmtAGLWKgkW9NQbiraH9kznGLkUhoGI6ov_iIkcXTlgXx; ALF=02_1734427225'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWs8lEP7Z2HETzXkl9CX0i-5NHD95QcShn7Shz4SKn7Ws4Dqcj-i--fi-2fiKnNi--NiKnEi-z4H8Bt; SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1CyVvjcFU1zyi6dURDa55q5xCX6Y9XG7tfKDix4m10HxU.; SUB=_2A25KQV_rDeRhGeBK41IV8ifJwzyIHXVpP90jrDV6PUJbktANLWXXkW1NR24akACnCIzZh-meMNYSGdaRlwOqLbJ-; SSOLoginState=1732587451; ALF=1735179451; _T_WM=a39ca70b1a7c6409e8c8e52d134afc72'}
 
 KEYWORD_LIST = ['广东工业大学']
 
@@ -54,16 +54,10 @@ WEIBO_TYPE = 0
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-<<<<<<< HEAD
-START_DATE = '2024-10-26'
+START_DATE = '2024-11-16'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-10-26'
+END_DATE = '2024-11-17'
 
-=======
-START_DATE = '2024-11-03'
-# 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-11-03'
->>>>>>> 25b4399b09c6827ff6ddc9bb8882000033d2ba91
 
 # 进一步细分搜索的阈值，若结果页数大于等于该值，则认为结果没有完全展示，细分搜索条件重新搜索以获取更多微博。数值越大速度越快，也越有可能漏掉微博；数值越小速度越慢，获取的微博就越多。
 # 建议数值大小设置在40到50之间。
@@ -119,4 +113,3 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 FEED_EXPORT_ENCODING = "utf-8"
 
 TWISTED_REACTOR = "twisted.internet.selectreactor.SelectReactor"
-

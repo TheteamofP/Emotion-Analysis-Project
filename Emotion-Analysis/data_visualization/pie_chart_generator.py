@@ -1,44 +1,84 @@
-import json
+import csv
 import matplotlib.pyplot as plt
+from data_visualization.logger_config import logger
 from matplotlib.font_manager import FontProperties
-from wordcloud_generator import beautify_images
+from data_visualization.wordcloud_generator import beautify_images
 
 
 def pie_chart_generator():
-    # 读取文件并解析每行的字典
-    data = []
-    with (open('../data/emotion_analysis_result.txt', 'r',
-               encoding='utf-8-sig')
-          as file):
-        for line in file:
-            data.append(json.loads(line))
+    # 读取文本数据与读取异常处理
+    file_path = 'predicted_results.csv'
+    sentiment_results = []
+    try:
+        with open(file_path, 'r', encoding='utf-8-sig') as file:
+            reader = csv.DictReader(file)
+            sentiment_results.extend(reader)
+    except FileNotFoundError:
+        logger.error(f"CSV File {file_path} not found.")
+        return  # 文件未找到时直接退出
 
-    # 统计情感极性的数量
-    sentiment_counts = {'正面': 0, '负面': 0, '中性': 0}
-    for item in data:
-        sentiment = item['sentiment']
-        if sentiment in sentiment_counts:
-            sentiment_counts[sentiment] += 1
+    try:
+        # 统计情感极性的数量
+        sentiment_counts = {'正面': 0, '负面': 0}
+        for sentiment_result in sentiment_results:
+            # 使用get方法获取'sentiment_label'，如果不存在则默认为None
+            label = sentiment_result.get('sentiment_label')
 
-    # 准备绘图数据
-    labels = list(sentiment_counts.keys())
-    sizes = list(sentiment_counts.values())
-    # 为每种情感选择颜色
-    colors = ['gold', 'lightcoral', 'lightskyblue']
+            # 跳过没有标签的情感结果
+            if label == '0':
+                sentiment_counts['负面'] += 1
+            elif label == '1':
+                sentiment_counts['正面'] += 1
+            else:
+                continue
 
-    # 创建折线图
-    # 设置中文字体
-    font_path = 'fonts/NotoSansSC-Regular.ttf'
-    font = FontProperties(fname=font_path, size=14)
-    plt.figure(figsize=(20, 18), dpi=300)
-    plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
-            startangle=140)
-    # 添加标题和轴标签
-    plt.title('情感极性分布', fontproperties=font)
-    plt.axis('equal')  # 使饼图为圆形
-    # 保存
-    plt.savefig("../output/line_chart.png", dpi=300)
-    beautify_images('line_chart', '../output/')
+        # 准备绘图数据
+        labels = list(sentiment_counts.keys())
+        sizes = list(sentiment_counts.values())
+        # 为每种情感选择颜色
+        colors = ['#F08080', '#66CDAA']  # 柔和的绿色和红色
+        explode = [0.05, 0.05]  # 突出显示每个块（稍微分离）
+
+        # 创建饼图
+        # 设置中文字体
+        font_path = 'fonts/NotoSansSC-Regular.ttf'
+        font = FontProperties(fname=font_path, size=14)
+        label_font = FontProperties(fname=font_path, size=18)  # 放大标签字体
+        percentage_font = FontProperties(fname=font_path, size=16)  # 放大百分比字体
+        plt.figure(figsize=(10, 8))  # 调整图表大小
+        wedges, texts, autotexts = plt.pie(
+            sizes,
+            labels=labels,
+            colors=colors,
+            explode=explode,
+            autopct='%1.1f%%',  # 仅显示百分比
+            # 显示百分比和具体数量
+            startangle=140,
+            textprops={'fontproperties': percentage_font, 'fontsize': 12},  # 设置标签字体
+            shadow=True  # 添加阴影
+        )
+        # 设置标题
+        plt.title('情感正负性分布情况', fontproperties=font, fontsize=20)
+
+        # 调整标签字体：放大正负面的标签
+        for text in texts:
+            text.set_fontproperties(label_font)
+            text.set_size(18)  # 调整正负面标签字体大小
+
+        # 调整百分比字体
+        for autotext in autotexts:
+            autotext.set_fontproperties(percentage_font)
+            autotext.set_size(16)  # 调整百分比字体大小
+
+        # 使饼图为圆形
+        plt.axis('equal')
+        # 保存
+        output_path = "../static/wordclouds/pie_chart.png"
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
+        logger.info(f"Pie chart saved at {output_path}")
+        beautify_images('pie_chart', '../static/wordclouds/')
+    except Exception as e:
+        logger.error(f"Error generating pie_chart: {e}")
 
 
 if __name__ == "__main__":

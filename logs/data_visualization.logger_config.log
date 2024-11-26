@@ -1,0 +1,46 @@
+﻿2024-11-26 10:25:22,398 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_positive.png
+2024-11-26 10:25:22,401 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_negative.png
+2024-11-26 10:25:22,865 - _internal.py[line:97] - INFO:  * Detected change in 'E:\\github_repositories\\Emotion-Analysis-Project\\Emotion-Analysis\\weibo_crawler\\weibo_crawler\\settings.py', reloading
+2024-11-26 10:26:42,382 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\all_words.csv
+2024-11-26 10:26:42,382 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\all_words.csv
+2024-11-26 10:26:42,383 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\predicted_results.csv
+2024-11-26 10:26:42,383 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\predicted_results.csv
+2024-11-26 10:26:42,420 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\positive_words.csv
+2024-11-26 10:26:42,421 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\positive_words.csv
+2024-11-26 10:26:42,422 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\negative_words.csv
+2024-11-26 10:26:42,423 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\negative_words.csv
+2024-11-26 10:26:42,424 - main.py[line:36] - ERROR: 文件路径不存在：model\processed_data.csv
+2024-11-26 10:26:42,425 - main.py[line:36] - ERROR: 文件路径不存在：model\processed_data.csv
+2024-11-26 10:26:42,426 - main.py[line:53] - ERROR: 无法删除 weibo_crawler\weibo_data.csv：[WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'weibo_crawler\\weibo_data.csv'
+2024-11-26 10:26:42,427 - main.py[line:53] - ERROR: 无法删除 weibo_crawler\weibo_data.csv：[WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'weibo_crawler\\weibo_data.csv'
+2024-11-26 10:26:42,427 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\pie_chart.png
+2024-11-26 10:26:42,428 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\pie_chart.png
+2024-11-26 10:26:42,429 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_all.png
+2024-11-26 10:26:42,430 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_all.png
+2024-11-26 10:26:42,431 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_positive.png
+2024-11-26 10:26:42,432 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_positive.png
+2024-11-26 10:26:42,432 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_negative.png
+2024-11-26 10:26:42,433 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_negative.png
+2024-11-26 10:26:43,401 - _internal.py[line:97] - INFO:  * Detected change in 'E:\\github_repositories\\Emotion-Analysis-Project\\Emotion-Analysis\\weibo_crawler\\weibo_crawler\\settings.py', reloading
+2024-11-26 10:29:19,562 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\all_words.csv
+2024-11-26 10:29:19,562 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\predicted_results.csv
+2024-11-26 10:29:19,564 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\positive_words.csv
+2024-11-26 10:29:19,564 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\negative_words.csv
+2024-11-26 10:29:19,565 - main.py[line:36] - ERROR: 文件路径不存在：model\processed_data.csv
+2024-11-26 10:29:19,566 - main.py[line:44] - INFO: 已删除文件：weibo_crawler\weibo_data.csv
+2024-11-26 10:29:19,566 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\pie_chart.png
+2024-11-26 10:29:19,567 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_all.png
+2024-11-26 10:29:19,567 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_positive.png
+2024-11-26 10:29:19,568 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_negative.png
+2024-11-26 10:29:19,587 - _internal.py[line:97] - INFO:  * Detected change in 'E:\\github_repositories\\Emotion-Analysis-Project\\Emotion-Analysis\\weibo_crawler\\weibo_crawler\\settings.py', reloading
+2024-11-26 10:32:04,687 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\all_words.csv
+2024-11-26 10:32:04,688 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\predicted_results.csv
+2024-11-26 10:32:04,688 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\positive_words.csv
+2024-11-26 10:32:04,689 - main.py[line:36] - ERROR: 文件路径不存在：data_visualization\negative_words.csv
+2024-11-26 10:32:04,689 - main.py[line:36] - ERROR: 文件路径不存在：model\processed_data.csv
+2024-11-26 10:32:04,690 - main.py[line:44] - INFO: 已删除文件：weibo_crawler\weibo_data.csv
+2024-11-26 10:32:04,691 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\pie_chart.png
+2024-11-26 10:32:04,691 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_all.png
+2024-11-26 10:32:04,692 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_positive.png
+2024-11-26 10:32:04,692 - main.py[line:36] - ERROR: 文件路径不存在：static\wordclouds\wordcloud_negative.png
+2024-11-26 10:32:05,432 - _internal.py[line:97] - INFO:  * Detected change in 'E:\\github_repositories\\Emotion-Analysis-Project\\Emotion-Analysis\\weibo_crawler\\weibo_crawler\\settings.py', reloading

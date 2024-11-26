@@ -42,6 +42,8 @@ def main(cookie, keywords, start_date, end_date, regions, weibo_type_input,
     # contain_type_input = input("请输入筛选类型（不筛选，包含图片，包含视频，包含音乐，包含短链接）: ")
 
     # 检查日期格式是否符合要求
+    print(start_date)
+    print(end_date)
     try:
         datetime.strptime(start_date, "%Y-%m-%d")
         datetime.strptime(end_date, "%Y-%m-%d")

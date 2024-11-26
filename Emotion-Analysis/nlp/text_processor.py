@@ -4,7 +4,6 @@ import emoji
 import jieba
 import unicodedata
 from bs4 import BeautifulSoup
-from sklearn.model_selection import train_test_split
 
 from nlp.stopwords.get_stopwords import get_stopwords
 from data_visualization.logger_config import logger
@@ -116,20 +115,6 @@ def process_data(data_list):
         all_data.append(cleaned_item)  # 存储清理后的数据项
         all_words.update(words)
 
-    # # 生成索引并划分数据集和测试集
-    # train_indices, test_indices = train_test_split(
-    #     range(len(all_data)), test_size=0.2, random_state=42)
-    #
-    # # 使用索引来划分数据
-    # train_data = [all_data[i] for i in train_indices]
-    # test_data = [all_data[i] for i in test_indices]
-    #
-    # # 提取训练集和测试集的文本
-    # train_texts = [item['text'] for item in train_data]
-    # test_texts = [item['text'] for item in test_data]
-    #
-    # return list(all_words), train_data, test_data, train_texts, test_texts
-
     return list(all_words), all_data
 
 
@@ -155,20 +140,8 @@ def text_processor():
     data_list = load_scraped_data(csv_file_path)
 
     if data_list:
-        # all_texts
-        # all_words, train_data, test_data, train_texts, test_texts = (
-        #     process_data(data_list))
         all_words, all_data = process_data(data_list)
 
-        # 保存训练集和测试集
-        # save_words_to_csv(train_texts, '../model/train_texts.csv')
-        # save_words_to_csv(test_texts, '../model/test_texts.csv')
-        # save_to_csv(train_data, '../model/train_data.csv',
-        #             ['keyword', 'region', 'text', 'created_at',
-        #              'source', 'sentiment_label', 'sentiment_score'])
-        # save_to_csv(test_data, '../model/test_data.csv',
-        #             ['keyword', 'region', 'text', 'created_at',
-        #              'source', 'sentiment_label', 'sentiment_score'])
         save_to_csv(all_data, '../model/processed_data.csv',
                     ['keyword', 'region', 'text', 'created_at',
                      'source', 'sentiment_label', 'sentiment_score'])
