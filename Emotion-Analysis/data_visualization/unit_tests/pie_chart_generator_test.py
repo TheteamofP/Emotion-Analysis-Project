@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import patch, mock_open
 from io import StringIO
 import matplotlib.pyplot as plt
-from data_visualization.logger_config import logger
 from data_visualization.pie_chart_generator import pie_chart_generator
 
 

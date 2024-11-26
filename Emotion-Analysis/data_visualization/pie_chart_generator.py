@@ -1,6 +1,5 @@
 import csv
 import matplotlib.pyplot as plt
-from data_visualization.logger_config import logger
 from matplotlib.font_manager import FontProperties
 from data_visualization.wordcloud_generator import beautify_images
 
@@ -14,7 +13,7 @@ def pie_chart_generator():
             reader = csv.DictReader(file)
             sentiment_results.extend(reader)
     except FileNotFoundError:
-        logger.error(f"CSV File {file_path} not found.")
+        print(f"CSV File {file_path} not found.")
         return  # 文件未找到时直接退出
 
     try:
@@ -32,11 +31,15 @@ def pie_chart_generator():
             else:
                 continue
 
+        # 计算总数量和百分比
+        total = sum(sentiment_counts.values())
+        sentiment_percentages = {key: (value / total) * 100 for key, value in sentiment_counts.items()}
+
         # 准备绘图数据
         labels = list(sentiment_counts.keys())
         sizes = list(sentiment_counts.values())
         # 为每种情感选择颜色
-        colors = ['#F08080', '#66CDAA']  # 柔和的绿色和红色
+        colors = ['#0786CC', '#B91B1B']  # 柔和的绿色和红色
         explode = [0.05, 0.05]  # 突出显示每个块（稍微分离）
 
         # 创建饼图
@@ -75,10 +78,22 @@ def pie_chart_generator():
         # 保存
         output_path = "../static/wordclouds/pie_chart.png"
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        logger.info(f"Pie chart saved at {output_path}")
+        print(f"Pie chart saved at {output_path}")
         beautify_images('pie_chart', '../static/wordclouds/')
+
+        # 存储百分比数据到CSV文件
+        csv_output_path = "sentiment_percentages.csv"
+        with open(csv_output_path, 'w', newline='',
+                  encoding='utf-8-sig') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['Sentiment', 'Percentage'])
+            for sentiment, percentage in sentiment_percentages.items():
+                writer.writerow([sentiment, round(percentage, 2)])
+
+        print(f"Sentiment percentages saved at {csv_output_path}")
+
     except Exception as e:
-        logger.error(f"Error generating pie_chart: {e}")
+        print(f"Error generating pie_chart: {e}")
 
 
 if __name__ == "__main__":
