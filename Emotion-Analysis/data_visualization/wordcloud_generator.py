@@ -78,11 +78,14 @@ def save_top_words(wc, filename, save_path=''):
     words_freq = wc.words_
     # 去除重复词汇，只保留频次最高的词汇
     unique_words = set(word for word, freq in words_freq.items())
-    # 根据频次排序并选择前50个词汇
-    top_50_words = sorted(unique_words, key=words_freq.get, reverse=True)[:50]
+    # 根据频次排序并选择前20个词汇，如果unique_words不足20个，则取所有词汇
+    top_words = sorted(unique_words, key=words_freq.get, reverse=True)[
+                :20] if len(unique_words) >= 20 else sorted(unique_words,
+                                                            key=words_freq.get,
+                                                            reverse=True)
     # 将词汇写入文件
     with open(f"{save_path}{filename}.txt", "w", encoding="utf-8-sig") as f:
-        for word in top_50_words:
+        for word in top_words:
             f.write(word + "\n")
 
 

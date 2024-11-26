@@ -4,7 +4,8 @@ from nltk.corpus import stopwords as nltk_stopwords
 
 
 def get_stopwords():
-    nltk.download('stopwords')
+    project_stopwords_path = '../nltk_stopwords'
+    nltk.data.path.append(project_stopwords_path)
     # 路径处理
     # 获取当前文件的目录
     current_dir = os.path.dirname(os.path.abspath(__file__))
