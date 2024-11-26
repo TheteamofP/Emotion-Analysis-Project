@@ -45,6 +45,10 @@ def pie_chart_generator():
         # 创建饼图
         # 设置中文字体
         font_path = 'fonts/NotoSansSC-Regular.ttf'
+        # 测试使用
+        # font_path = ('E:/github_repositories/Emotion-Analysis-Project'
+        #              '/Emotion-Analysis/data_visualization/fonts'
+        #              '/NotoSansSC-Regular.ttf')
         font = FontProperties(fname=font_path, size=14)
         label_font = FontProperties(fname=font_path, size=18)  # 放大标签字体
         percentage_font = FontProperties(fname=font_path, size=16)  # 放大百分比字体
@@ -57,7 +61,7 @@ def pie_chart_generator():
             autopct='%1.1f%%',  # 仅显示百分比
             # 显示百分比和具体数量
             startangle=140,
-            textprops={'fontproperties': percentage_font, 'fontsize': 12},  # 设置标签字体
+            textprops={'fontproperties': percentage_font, 'fontsize': 12},
             shadow=True  # 添加阴影
         )
         # 设置标题
@@ -77,6 +81,9 @@ def pie_chart_generator():
         plt.axis('equal')
         # 保存
         output_path = "../static/wordclouds/pie_chart.png"
+        # 测试使用
+        # output_path = ("E:/github_repositories/Emotion-Analysis-Project"
+        #                "/Emotion-Analysis/static/wordclouds/pie_chart.png")
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
         print(f"Pie chart saved at {output_path}")
         beautify_images('pie_chart', '../static/wordclouds/')

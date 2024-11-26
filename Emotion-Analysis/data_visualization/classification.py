@@ -20,18 +20,6 @@ def classifcation():
         'negative': 'negative_words.csv'
     }
 
-    # 确保CSV文件存在
-    for filename in csv_files.values():
-        open(filename, 'a').close()
-        # 检查文件是否为空
-        if os.path.getsize(filename) == 0:
-            # 写入默认内容
-            default_words = "无,对应,中文,文本,数据,内容"
-            with open(filename, 'a', encoding='utf-8-sig') as csvfile:
-                writer = csv.writer(csvfile)
-                for word in default_words.split(','):
-                    writer.writerow([word.strip()])  # 按逗号分词并写入
-
     # 根据情感标签将文本写入对应的CSV文件
     for sentiment_result in sentiment_results:
         # 使用get方法获取'sentiment_label'，如果不存在则默认为None
@@ -59,6 +47,18 @@ def classifcation():
                 for word in text.split():
                     if word:  # 确保单词不为空
                         writer.writerow([word])
+
+    # 确保CSV文件存在
+    for filename in csv_files.values():
+        open(filename, 'a').close()
+        # 检查文件是否为空
+        if os.path.getsize(filename) == 0:
+            # 写入默认内容
+            default_words = "无,对应,中文,文本,数据,内容"
+            with open(filename, 'a', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile)
+                for word in default_words.split(','):
+                     writer.writerow([word.strip()])  # 按逗号分词并写入
 
     print("情感文本已根据情感标签分类并保存到CSV文件。")
 
