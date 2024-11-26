@@ -81,8 +81,20 @@ def rm_stopwords(words):
     return [word for word in words if word.strip() and word not in stopwords]
 
 
+# 清理文本
+def clean_text(text):
+    # 移除 HTML 标签
+    text = re.sub(r'<.*?>', '', text)
+    # 移除非中文、字母、数字的字符
+    text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9]', ' ', text)
+    # 移除多余的空格
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
 # 数据清洗
 def clean(text):
+    text = clean_text(text)
     text = explain_emojis(text)
     text = rm_url_html(text)
     text = rm_punctuation_symbols(text)
@@ -185,20 +197,24 @@ def text_processor():
         if isinstance(min_date, datetime):
             min_date_str = min_date.strftime("%Y-%m-%d %H:%M")
         else:
-            min_date_str = min_date
+            min_date_str = str(min_date)
 
         if isinstance(max_date, datetime):
             max_date_str = max_date.strftime("%Y-%m-%d %H:%M")
         else:
-            max_date_str = max_date
+            max_date_str = str(max_date)
 
         # 存储最早和最晚的时间字符串
-        with open(date_file_path, 'w', newline='',
-                  encoding='utf-8-sig') as csvfile:
-            # 写入 'min_date' 键值对
-            csvfile.write('min_date: ' + min_date_str + '\n')
-            # 写入 'max_date' 键值对
-            csvfile.write('max_date: ' + max_date_str + '\n')
+        try:
+            with open(date_file_path, 'w', newline='',
+                      encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile)
+                # 写入 'min_date' 键值对
+                writer.writerow(['min_date', min_date_str])
+                # 写入 'max_date' 键值对
+                writer.writerow(['max_date', max_date_str])
+        except IOError as e:
+            print(f"Error writing to file: {e}")
 
 
 if __name__ == "__main__":
