@@ -10,16 +10,25 @@ def get_stopwords():
     # 获取当前文件的目录
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # 构建 stopwords.txt 的绝对路径
-    stopwords_path = os.path.join(current_dir, 'stopwords.txt')
+    stopwords_path1 = os.path.join(current_dir, 'stopwords.txt')
+    stopwords_path2 = os.path.join(current_dir, '.../model/stopwords.txt')
 
     try:
-        with open(stopwords_path, 'r', encoding='utf-8-sig') as f:
+        with open(stopwords_path1, 'r', encoding='utf-8-sig') as f:
             file_stopwords = set(f.read().splitlines())
     except FileNotFoundError:
         print("File stopwords.txt not found.")
         file_stopwords = set()
 
+    try:
+        with open(stopwords_path2, 'r', encoding='utf-8-sig') as f:
+            file_stopwords2 = set(f.read().splitlines())
+    except FileNotFoundError:
+        print("File stopwords.txt not found.")
+        file_stopwords2 = set()
+
     # 合并去重
+    file_stopwords = file_stopwords.union(file_stopwords2)
     nltk_stopwords_cn = set(nltk_stopwords.words('chinese'))
     return file_stopwords.union(nltk_stopwords_cn)
 

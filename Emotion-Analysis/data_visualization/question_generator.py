@@ -20,7 +20,6 @@ def read_csv_file(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8-sig') as file:
             reader = csv.reader(file)
-            next(reader, None)
             data = {rows[0]: rows[1] for rows in reader}
             return data
     except FileNotFoundError:
@@ -70,9 +69,9 @@ def load_params():
 def form_question(all_words, positive_words, negative_words, keywords, time_interval, regions,
                   source, positive_percentage, negative_percentage):
     question = (
-        f"根据最近的情感分析结果，我们得到了以下信息：整体中文文本数据（词频从大到小前250个）为'{all_words}'"
-        f"，正面情感中文文本数据（词频从大到小前250个）为'{positive_words}'，"
-        f"负面情感中文文本数据（词频从大到小前250个）为'{negative_words}'。用户关注的关键词是'{keywords}'，"
+        f"根据最近的情感分析结果，我们得到了以下信息：整体中文文本数据（词频从大到小前20个或者更少）为'{all_words}'"
+        f"，正面情感中文文本数据（词频从大到小前前20个或者更少）为'{positive_words}'，"
+        f"负面情感中文文本数据（词频从大到小前前20个或者更少）为'{negative_words}'。用户关注的关键词是'{keywords}'，"
         f"收集的时间区间为'{time_interval}'，这些文本数据主要发布于{regions}，并且每条数据的来源是'{source}'"
         f"。正面文本数据占整体的{positive_percentage}%，"
         f"负面文本数据占{negative_percentage}%。请分析这些结果，"
@@ -89,3 +88,7 @@ def question_generator():
                              keywords, time_interval, regions, sources,
                              positive_percentage, negative_percentage)
     print(question)
+
+
+if __name__ == "__main__":
+    question_generator()
