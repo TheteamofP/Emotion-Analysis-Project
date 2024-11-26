@@ -1,7 +1,6 @@
 import os
 import nltk
 from nltk.corpus import stopwords as nltk_stopwords
-from data_visualization.logger_config import logger
 
 
 def get_stopwords():
@@ -16,7 +15,7 @@ def get_stopwords():
         with open(stopwords_path, 'r', encoding='utf-8-sig') as f:
             file_stopwords = set(f.read().splitlines())
     except FileNotFoundError:
-        logger.error("File stopwords.txt not found.")
+        print("File stopwords.txt not found.")
         file_stopwords = set()
 
     # 合并去重

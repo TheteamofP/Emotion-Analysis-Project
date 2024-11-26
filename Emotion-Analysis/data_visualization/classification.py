@@ -1,5 +1,5 @@
 import csv
-from data_visualization.logger_config import logger
+import os
 
 
 def classifcation():
@@ -12,7 +12,7 @@ def classifcation():
             reader = csv.DictReader(file)
             sentiment_results.extend(reader)
     except FileNotFoundError:
-        logger.error(f"CSV File {file_path} not found.")
+        print(f"CSV File {file_path} not found.")
 
     # 准备三个CSV文件，分别存储正面、负面和中性的情感文本
     csv_files = {
@@ -23,6 +23,14 @@ def classifcation():
     # 确保CSV文件存在
     for filename in csv_files.values():
         open(filename, 'a').close()
+        # 检查文件是否为空
+        if os.path.getsize(filename) == 0:
+            # 写入默认内容
+            default_words = "无,对应,中文,文本,数据,内容"
+            with open(filename, 'a', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile)
+                for word in default_words.split(','):
+                    writer.writerow([word.strip()])  # 按逗号分词并写入
 
     # 根据情感标签将文本写入对应的CSV文件
     for sentiment_result in sentiment_results:
