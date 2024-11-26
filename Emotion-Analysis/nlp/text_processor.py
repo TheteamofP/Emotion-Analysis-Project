@@ -98,9 +98,9 @@ def process_data(data_list):
     # all_texts = []
     all_data = []  # 用于存储所有数据，包括文本和其他键值对
     all_words = set()
-    keywords = set()
-    regions = set()
-    sources = set()
+    keywords = []
+    regions = []
+    sources = []
     min_date = None
     max_date = None
 
@@ -115,9 +115,9 @@ def process_data(data_list):
         item['sentiment_label'] = None
         item['sentiment_score'] = 0
 
-        keywords.update(item['keyword'])
-        regions.update(item['region'])
-        sources.update(item['source'])
+        keywords.append(item['keyword'])
+        regions.append(item['region'])
+        sources.append(item['source'])
         item.pop('keyword', None)
         item.pop('region', None)
         item.pop('source', None)
@@ -163,7 +163,7 @@ def text_processor():
     data_list = load_scraped_data(csv_file_path)
 
     if data_list:
-        all_words, all_data, keywords, regions, sources, min_date, max_date  = (
+        all_words, all_data, keywords, regions, sources, min_date, max_date = (
             process_data(data_list))
 
         save_to_csv(all_data, '../model/processed_data.csv',
@@ -172,9 +172,15 @@ def text_processor():
 
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')
-        save_words_to_csv(keywords, '../data_visualization/keywords.csv')
-        save_words_to_csv(regions, '../data_visualization/regions.csv')
-        save_words_to_csv(sources, '../data_visualization/sources.csv')
+
+        # 去重
+        unique_keywords = list(set(keywords))
+        unique_regions = list(set(regions))
+        unique_sources = list(set(sources))
+
+        save_words_to_csv(unique_keywords, '../data_visualization/keywords.csv')
+        save_words_to_csv(unique_regions, '../data_visualization/regions.csv')
+        save_words_to_csv(unique_sources, '../data_visualization/sources.csv')
         # 确保 min_date 和 max_date 是 datetime 对象
         if isinstance(min_date, datetime):
             min_date_str = min_date.strftime("%Y-%m-%d %H:%M")
@@ -192,7 +198,7 @@ def text_processor():
             # 写入 'min_date' 键值对
             csvfile.write('min_date: ' + min_date_str + '\n')
             # 写入 'max_date' 键值对
-            csvfile.write('max_date: ' + min_date_str + '\n')
+            csvfile.write('max_date: ' + max_date_str + '\n')
 
 
 if __name__ == "__main__":
