@@ -1,11 +1,11 @@
 import os
 import nltk
 from nltk.corpus import stopwords as nltk_stopwords
-from data_visualization.logger_config import logger
 
 
 def get_stopwords():
-    nltk.download('stopwords')
+    project_stopwords_path = '../nltk_stopwords'
+    nltk.data.path.append(project_stopwords_path)
     # 路径处理
     # 获取当前文件的目录
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -16,7 +16,7 @@ def get_stopwords():
         with open(stopwords_path, 'r', encoding='utf-8-sig') as f:
             file_stopwords = set(f.read().splitlines())
     except FileNotFoundError:
-        logger.error("File stopwords.txt not found.")
+        print("File stopwords.txt not found.")
         file_stopwords = set()
 
     # 合并去重

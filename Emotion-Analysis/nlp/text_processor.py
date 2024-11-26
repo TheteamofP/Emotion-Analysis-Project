@@ -4,10 +4,8 @@ import emoji
 import jieba
 import unicodedata
 from bs4 import BeautifulSoup
-from sklearn.model_selection import train_test_split
-
+from datetime import datetime
 from nlp.stopwords.get_stopwords import get_stopwords
-from data_visualization.logger_config import logger
 
 
 # 加载爬取数据
@@ -18,7 +16,7 @@ def load_scraped_data(csv_path):
             reader = csv.DictReader(file)
             data.extend(reader)
     except FileNotFoundError:
-        logger.error(f"CSV File {csv_path} not found.")
+        print(f"CSV File {csv_path} not found.")
     return data
 
 
@@ -100,6 +98,11 @@ def process_data(data_list):
     # all_texts = []
     all_data = []  # 用于存储所有数据，包括文本和其他键值对
     all_words = set()
+    keywords = []
+    regions = []
+    sources = []
+    min_date = None
+    max_date = None
 
     for item in data_list:
         text_value = item.get('text', '')
@@ -108,29 +111,33 @@ def process_data(data_list):
 
         item.pop('id', None)
         item.pop('user', None)
+
         item['sentiment_label'] = None
         item['sentiment_score'] = 0
+
+        keywords.append(item['keyword'])
+        regions.append(item['region'])
+        sources.append(item['source'])
+        item.pop('keyword', None)
+        item.pop('region', None)
+        item.pop('source', None)
+
+        created_at = item.get('created_at')
+        if created_at:
+            created_at_dt = datetime.strptime(created_at, "%Y-%m-%d %H:%M")
+            if min_date is None or created_at_dt < min_date:
+                min_date = created_at_dt
+            if max_date is None or created_at_dt > max_date:
+                max_date = created_at_dt
+        item.pop('created_at', None)
 
         cleaned_item = item.copy()  # 创建字典的副本以避免修改原始数据
         cleaned_item['text'] = " ".join(words)
         all_data.append(cleaned_item)  # 存储清理后的数据项
         all_words.update(words)
 
-    # # 生成索引并划分数据集和测试集
-    # train_indices, test_indices = train_test_split(
-    #     range(len(all_data)), test_size=0.2, random_state=42)
-    #
-    # # 使用索引来划分数据
-    # train_data = [all_data[i] for i in train_indices]
-    # test_data = [all_data[i] for i in test_indices]
-    #
-    # # 提取训练集和测试集的文本
-    # train_texts = [item['text'] for item in train_data]
-    # test_texts = [item['text'] for item in test_data]
-    #
-    # return list(all_words), train_data, test_data, train_texts, test_texts
-
-    return list(all_words), all_data
+    return (list(all_words), all_data, keywords, regions, sources, min_date,
+            max_date)
 
 
 # 存储整体文本数据字典给情感模型
@@ -152,29 +159,46 @@ def save_words_to_csv(words, csv_file_path):
 # 文本预处理
 def text_processor():
     csv_file_path = '../weibo_crawler/weibo_data.csv'
+    date_file_path = '../data_visualization/dates.csv'
     data_list = load_scraped_data(csv_file_path)
 
     if data_list:
-        # all_texts
-        # all_words, train_data, test_data, train_texts, test_texts = (
-        #     process_data(data_list))
-        all_words, all_data = process_data(data_list)
+        all_words, all_data, keywords, regions, sources, min_date, max_date = (
+            process_data(data_list))
 
-        # 保存训练集和测试集
-        # save_words_to_csv(train_texts, '../model/train_texts.csv')
-        # save_words_to_csv(test_texts, '../model/test_texts.csv')
-        # save_to_csv(train_data, '../model/train_data.csv',
-        #             ['keyword', 'region', 'text', 'created_at',
-        #              'source', 'sentiment_label', 'sentiment_score'])
-        # save_to_csv(test_data, '../model/test_data.csv',
-        #             ['keyword', 'region', 'text', 'created_at',
-        #              'source', 'sentiment_label', 'sentiment_score'])
         save_to_csv(all_data, '../model/processed_data.csv',
                     ['keyword', 'region', 'text', 'created_at',
                      'source', 'sentiment_label', 'sentiment_score'])
 
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')
+
+        # 去重
+        unique_keywords = list(set(keywords))
+        unique_regions = list(set(regions))
+        unique_sources = list(set(sources))
+
+        save_words_to_csv(unique_keywords, '../data_visualization/keywords.csv')
+        save_words_to_csv(unique_regions, '../data_visualization/regions.csv')
+        save_words_to_csv(unique_sources, '../data_visualization/sources.csv')
+        # 确保 min_date 和 max_date 是 datetime 对象
+        if isinstance(min_date, datetime):
+            min_date_str = min_date.strftime("%Y-%m-%d %H:%M")
+        else:
+            min_date_str = min_date
+
+        if isinstance(max_date, datetime):
+            max_date_str = max_date.strftime("%Y-%m-%d %H:%M")
+        else:
+            max_date_str = max_date
+
+        # 存储最早和最晚的时间字符串
+        with open(date_file_path, 'w', newline='',
+                  encoding='utf-8-sig') as csvfile:
+            # 写入 'min_date' 键值对
+            csvfile.write('min_date: ' + min_date_str + '\n')
+            # 写入 'max_date' 键值对
+            csvfile.write('max_date: ' + max_date_str + '\n')
 
 
 if __name__ == "__main__":

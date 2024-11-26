@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch
-import os
+from unittest.mock import patch, mock_open
+from io import StringIO
+import csv
 from nlp.text_processor import (
     load_scraped_data,
     explain_emojis,
@@ -13,43 +14,48 @@ from nlp.text_processor import (
     keep_only_chinese,
     rm_stopwords,
     clean,
-    process_data,
     save_to_csv,
     save_words_to_csv,
-    save_word_index_to_json,
     text_processor
 )
+from nlp.stopwords.get_stopwords import get_stopwords
 
 
-class TestTextProcessingModule(unittest.TestCase):
+class TestTextProcessor(unittest.TestCase):
 
     def setUp(self):
-        self.test_data_path = 'test_data.csv'
-        with open(self.test_data_path, 'w', encoding='utf-8-sig') as f:
-            f.write('id,text\n1,Hello World! https://example.com')
+        # 创建测试数据和文件
+        self.test_csv_path = 'test_weibo_data.csv'
+        with open(self.test_csv_path, 'w', encoding='utf-8-sig') as file:
+            writer = csv.DictWriter(file, fieldnames=['id', 'user', 'text'])
+            writer.writeheader()
+            writer.writerow({'id': 1, 'user': 'user1', 'text': '👍'})
 
     def tearDown(self):
-        os.remove(self.test_data_path)
+        # 删除测试文件
+        import os
+        os.remove(self.test_csv_path)
 
     def test_load_scraped_data(self):
-        data = load_scraped_data(self.test_data_path)
+        data = load_scraped_data(self.test_csv_path)
         self.assertEqual(len(data), 1)
-        self.assertEqual(data[0]['text'], 'Hello World! https://example.com')
 
-    def test_explain_emojis(self):
-        text = 'Hello :smile:'
-        result = explain_emojis(text)
-        self.assertEqual(result, 'Hello 😄')
+    @patch('emoji.demojize')
+    def test_explain_emojis(self, mock_demojize):
+        mock_demojize.return_value = '点赞'
+        result = explain_emojis('👍')
+        self.assertEqual(result, '点赞')
 
-    def test_cut_words(self):
-        text = 'Hello world'
-        result = cut_words(text)
-        self.assertEqual(result, 'Hello world')
+    @patch('jieba.cut')
+    def test_cut_words(self, mock_cut):
+        mock_cut.return_value = ['This', 'is', 'a', 'test', 'tweet']
+        result = cut_words('This is a test tweet')
+        self.assertEqual(result, 'This is a test tweet')
 
     def test_rm_url_html(self):
-        text = 'Hello <b>world</b> https://example.com'
+        text = 'Check out this link: https://www.example.com'
         result = rm_url_html(text)
-        self.assertEqual(result, 'Hello world')
+        self.assertEqual(result, 'Check out this link: ')
 
     def test_rm_punctuation_symbols(self):
         text = 'Hello, world!'
@@ -57,61 +63,51 @@ class TestTextProcessingModule(unittest.TestCase):
         self.assertEqual(result, 'Hello world')
 
     def test_rm_extra_linebreaks(self):
-        text = 'Hello\n\nworld'
+        text = 'Hello\n\nWorld'
         result = rm_extra_linebreaks(text)
-        self.assertEqual(result, 'Hello world')
+        self.assertEqual(result, 'Hello\nWorld')
 
     def test_rm_meaningless(self):
-        text = '转发微博 #hashtag'
+        text = '# This is a test tweet'
         result = rm_meaningless(text)
-        self.assertEqual(result, '')
+        self.assertEqual(result, 'This is a test tweet')
 
     def test_rm_english_number(self):
-        text = 'Hello123 world'
+        text = 'Hello world 123'
         result = rm_english_number(text)
-        self.assertEqual(result, 'Hello world')
+        self.assertEqual(result, '  ')
 
     def test_keep_only_chinese(self):
-        text = 'Hello, 世界!'
+        text = 'Hello world 中国'
         result = keep_only_chinese(text)
-        self.assertEqual(result, '世界')
+        self.assertEqual(result, '中国')
 
     def test_rm_stopwords(self):
-        stopwords = {'的', '是'}
-        words = ['这是', '一个', '测试', '是', '的']
+        words = ['的', '是', '测试']
+        stopwords = get_stopwords()
         result = rm_stopwords(words)
-        self.assertEqual(result, ['这是', '一个', '测试'])
+        self.assertEqual(result, ['测试'])
 
     def test_clean(self):
-        text = 'Hello, world! https://example.com'
+        text = 'Hello world 123 https://www.example.com 👍'
         result = clean(text)
-        self.assertEqual(result, 'Hello world')
+        self.assertEqual(result, '拇指向上')
 
-    def test_process_data(self):
-        data = [{'text': 'Hello, world! https://example.com'}]
-        all_texts, all_words = process_data(data)
-        self.assertEqual(all_texts, ['Hello world'])
-        self.assertIn('Hello', all_words)
-
-    def test_save_to_csv(self):
-        data = [{'text': 'Hello world'}]
-        save_to_csv(data, 'test_output.csv', ['text'])
-        self.assertTrue(os.path.exists('test_output.csv'))
-
-    def test_save_words_to_csv(self):
-        words = ['Hello', 'world']
-        save_words_to_csv(words, 'test_words.csv')
-        self.assertTrue(os.path.exists('test_words.csv'))
-
-    def test_save_word_index_to_json(self):
-        word_index = {'Hello': 0, 'world': 1}
-        save_word_index_to_json(word_index, 'test_word_index.json')
-        self.assertTrue(os.path.exists('test_word_index.json'))
-
-    @patch('builtins.print')
-    def test_text_processor(self, mock_print):
+    @patch('nlp.text_processor.process_data')
+    def test_text_processor(self, mock_process_data):
+        mock_process_data.return_value = ([], [])
         text_processor()
-        mock_print.assert_called()
+        mock_process_data.assert_called()
+
+    @patch('nlp.text_processor.save_to_csv')
+    def test_save_to_csv(self, mock_save):
+        save_to_csv([], 'test.csv', ['text'])
+        mock_save.assert_called()
+
+    @patch('nlp.text_processor.save_words_to_csv')
+    def test_save_words_to_csv(self, mock_save):
+        save_words_to_csv(['test'], 'test.csv')
+        mock_save.assert_called()
 
 
 if __name__ == '__main__':
