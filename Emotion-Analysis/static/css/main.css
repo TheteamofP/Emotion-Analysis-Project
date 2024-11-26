@@ -1971,10 +1971,17 @@ input, select, textarea {
 			font-size: 0.8em;
 			min-height: 1em;
 		}
+<<<<<<< HEAD
+=======
 
 		input.error, textarea.error, select.error {
 			border-color: rgba(255, 0, 0, 0.3) !important;
 			background-color: rgba(255, 0, 0, 0.1) !important;
 		}
 
+>>>>>>> 4a312c24d8f68bd43806bfdb4943ca0aab106dda
 
+		input.error, textarea.error, select.error {
+			border-color: rgba(255, 0, 0, 0.3) !important;
+			background-color: rgba(255, 0, 0, 0.1) !important;
+		}

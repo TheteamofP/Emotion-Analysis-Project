@@ -41,7 +41,7 @@ def delete_old_logs(log_directory, days=1):
 
 
 # 调用函数，例如每天删除一次过旧的日志
-delete_old_logs(log_directory)
+# delete_old_logs(log_directory)
 
 # # 日志测试
 # logger.debug('this is a logger debug message')

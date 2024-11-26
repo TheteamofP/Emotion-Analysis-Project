@@ -1,2 +1,0 @@
-2024-11-16 23:44:17+0800 [-] Log opened.
-2024-11-16 23:44:17+0800 [-] E:\github_repositories\Emotion-Analysis-Project\Emotion-Analysis\nlp\text_processor.py:36: bs4.MarkupResemblesLocatorWarning: The input looks more like a filename than markup. You may want to open this file and pass the filehandle into Beautiful Soup.
