@@ -53,7 +53,7 @@
                                     <div class="fields">
                                         <div class="field">
                                             <label for="single_text">要分析的文本</label>
-                                            <textarea id="single_text" name="text" required style="overflow: hidden"></textarea>
+                                            <textarea id="single_text" name="text" required style="overflow: hidden; font-size: medium"  placeholder="请输入您要分析的文本..." ></textarea>
                                         </div>
                                     </div>
                                     <ul class="actions">
@@ -133,6 +133,13 @@
                                         <li><input type="reset" value="重置"/></li>
                                     </ul>
                                 </form>
+                                <div id="loading_indicator" class="typing-indicator" style="display: none;">
+                                    <div class="loading"></div>
+                                    <div class="text-container">
+                                        <p>正在分析数据，请稍候...</p>
+                                        <p>关键词越普遍，时间长度越长，收集时间越长，请耐心等待</p>
+                                    </div>
+                                </div>
                                 <div id="topic_result"></div>
                             </article>
 
@@ -140,12 +147,17 @@
                             <article id="gpt_suggestion">
                                 <h2 class="major">AI 建议</h2>
                                 <div id="chat-container" class="chat-container"></div>
-                                <div id="typing-indicator" class="typing-indicator">AI 正在思考...</div>
+                                <div id="AI-typing-indicator" class="typing-indicator" style="display: none;">
+                                    <div class="loading"></div>
+                                    <div class="text-container">
+                                        <p>AI 正在思考...</p>
+                                    </div>
+                                </div>
                                 <form id="gpt-form">
                                     <div class="fields">
                                         <div class="field">
                                             <label for="text">输入消息</label>
-                                            <textarea id="text" name="text" rows="3" style="height: 300px" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
+                                            <textarea id="text" name="text" rows="3" style="height: 300px; font-size: medium" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
                                         </div>
                                     </div>
                                     <div class="actions">
@@ -346,11 +358,18 @@
                         event.preventDefault();
                         var formData = $(this).serialize();
 
+                        // 仅在表单提交时显示加载提示
+                        $('#loading_indicator').fadeIn();  // 使用fadeIn效果使显示更平滑
+                        $('#topic_result').html(''); // 清空之前的结果
+
                         $.ajax({
                             type: 'POST',
                             url: '{{ url_for("page.spider_analysis_topic") }}',
                             data: formData,
                             success: function(response) {
+                                // 隐藏加载提示
+                                 $('#loading_indicator').fadeOut();
+
                                 console.log("话题分析返回的数据：", response);
                                 if(response.status === 'failed') {
                                     $('#topic_result').html('<h3 class="error">' + response.message + '</h3>');
@@ -364,8 +383,14 @@
 
                                     // 插入词云图片
                                     resultHTML += '<h3 class="major">词云展示:</h3>';
+                                    resultHTML += '<p><strong>总词云</strong></p>';
                                     resultHTML += '<div class="image-grid">';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图" class="wordcloud"></div>';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图_总" class="wordcloud"></div>';
+                                    resultHTML += '</div>';
+                                    resultHTML += '<p><strong>负面词云/正面词云</strong></p>';
+                                    resultHTML += '<div class="image-grid">';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_negative.png") }}" alt="词云图_负面" class="wordcloud"></div>';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_positive.png") }}" alt="词云图_正面" class="wordcloud"></div>';
                                     resultHTML += '</div>';
 
                                     // 添加按钮
@@ -381,6 +406,8 @@
                                 }
                             },
                             error: function(xhr) {
+                                 // 隐藏加载提示
+                                 $('#loading_indicator').fadeOut();
                                 $('#topic_result').html('<h3 class="error">分析失败，请重试</h3>');
                             }
                         });

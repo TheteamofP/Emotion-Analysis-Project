@@ -1841,7 +1841,7 @@ input, select, textarea {
         #clear-chat:hover {
             background: rgba(255, 0, 0, 0.2);
         }
-        .typing-indicator {
+        .AI-typing-indicator {
             padding: 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 4px;
@@ -1851,67 +1851,128 @@ input, select, textarea {
             display: none;
         }
 
+		.typing-indicator {
+			padding: 20px 30px; /* 增加整体内边距 */
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 4px;
+			margin: 10px 0;
+			color: rgba(255, 255, 255, 0.7);
+			font-style: italic;
+			display: flex;
+			align-items: center;
+			gap: 40px; /* 增加音频条和文本之间的间距 */
+		}
 
-		/*日期*/
-input[type="date"] {
-    -moz-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    -webkit-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    -ms-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    border-radius: 4px;
-    border: solid 1px #ffffff;
-    background: transparent;
-    color: #ffffff;
-	width: 80%;
-    height: auto;
-    padding: 0.5rem;
-    font-size: medium;
-}
+		/* 音频条动画容器 */
+		.typing-indicator .loading {
+			display: block;
+			position: relative;
+			width: 6px;
+			height: 10px;
+			animation: rectangle infinite 1s ease-in-out -0.2s;
+			background-color: rgba(255, 255, 255, 0.7);
+			margin-top: 10px;
+			margin-left: 10px; /* 增加左侧间距 */
+		}
 
-input[type="date"]:focus {
-    background: rgba(255, 255, 255, 0.075);
-    border-color: #ffffff;
-    box-shadow: 0 0 0 1px #ffffff;
-    outline: none;
-}
+		.typing-indicator .loading:before,
+		.typing-indicator .loading:after {
+			position: absolute;
+			width: 6px;
+			height: 10px;
+			content: "";
+			background-color: rgba(255, 255, 255, 0.7);
+		}
 
-input[type="date"]::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-}
+		.typing-indicator .loading:before {
+			left: -14px;
+			animation: rectangle infinite 1s ease-in-out -0.4s;
+		}
 
-::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-}
+		.typing-indicator .loading:after {
+			right: -14px;
+			animation: rectangle infinite 1s ease-in-out;
+		}
 
-:-moz-placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-}
+		/* 文字容器 */
+		.typing-indicator .text-container {
+			flex-grow: 1;
+		}
 
-::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-}
+		.typing-indicator .text-container p {
+			margin: 5px 0;
+		}
 
-:-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-}
+		@keyframes rectangle {
+			0%,
+			80%,
+			100% {
+				height: 20px;
+				box-shadow: 0 0 rgba(255, 255, 255, 0.7);
+			}
+			40% {
+				height: 30px;
+				box-shadow: 0 -20px rgba(255, 255, 255, 0.7);
+			}
+		}
+
+		input[type="date"] {
+			-moz-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+			-webkit-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+			-ms-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+			transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+			border-radius: 4px;
+			border: solid 1px #ffffff;
+			background: transparent;
+			color: #ffffff;
+			width: 80%;
+			height: auto;
+			padding: 0.5rem;
+			font-size: medium;
+		}
+
+		input[type="date"]:focus {
+			background: rgba(255, 255, 255, 0.075);
+			border-color: #ffffff;
+			box-shadow: 0 0 0 1px #ffffff;
+			outline: none;
+		}
+
+		input[type="date"]::placeholder {
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
+
+		::-webkit-input-placeholder {
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
+
+		:-moz-placeholder {
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
+
+		::-moz-placeholder {
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
+
+		:-ms-input-placeholder {
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+		}
 
 
-.error-message {
-    color: rgba(255, 0, 0, 0.7);
-    display: block;
-    margin-top: 5px;
-    font-size: 0.8em;
-    min-height: 1em;
-}
+		.error-message {
+			color: rgba(255, 0, 0, 0.7);
+			display: block;
+			margin-top: 5px;
+			font-size: 0.8em;
+			min-height: 1em;
+		}
 
-input.error, textarea.error, select.error {
-    border-color: rgba(255, 0, 0, 0.3) !important;
-    background-color: rgba(255, 0, 0, 0.1) !important;
-}
-
-
+		input.error, textarea.error, select.error {
+			border-color: rgba(255, 0, 0, 0.3) !important;
+			background-color: rgba(255, 0, 0, 0.1) !important;
+		}

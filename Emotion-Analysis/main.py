@@ -63,7 +63,7 @@ def initialization(original_dir):
     # 清空爬虫配置
     if not change_directory_and_execute(original_dir, 'weibo_crawler',
                                         main, "", "",
-                                        "", "", "",
+                                        '2024-11-16', '2024-11-17', "",
                                         "", "",
                                         is_scrapy=False):
         return None
