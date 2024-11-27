@@ -1,6 +1,6 @@
 # Emotion-Analysis-Project
 
-# 项目冲刺集合贴：https://www.cnblogs.com/doublettian75/p/18535611
+# [测试与发布（Alpha版本）](https://www.cnblogs.com/doublettian75/p/18555487)
 
 ### 队名：p人大联盟
 
