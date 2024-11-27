@@ -40,7 +40,7 @@ TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWs8lEP7Z2HETzXkl9CX0i-5NHD95QcShn7Shz4SKn7Ws4Dqcj-i--fi-2fiKnNi--NiKnEi-z4H8Bt; _T_WM=a39ca70b1a7c6409e8c8e52d134afc72; SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1C7sd_-TTxVgKUmNd5hiR8AHvcGQtcRrY5p5qVbL4_BFc.; SUB=_2A25KQdnDDeRhGeBK41IV8ifJwzyIHXVpP1MLrDV6PUJbktAGLXLdkW1NR24akJKM2ZOk4LdA-Mcdm4g5TFQ564ul; SSOLoginState=1732618644; ALF=1735210644'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': '_T_WM=775de8235a95de5a67af821744375e23; SCF=AtEMPpfclPEqIdUhSh6JH_2upbnzUJvOqxlGkLko5KJDq2ZjkZaZW4d13DgfDmXomh2D0mME6VfVDTqg0RJ53tk.; SUB=_2A25KQEo0DeRhGeBN6FIV9ijFyTqIHXVpPMP8rDV6PUJbktANLUH5kW1NRJb3xU0MF7YTxACvXkogwcztXEEN55c5; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhQLu.5JxqRkvxGEVyLkCi75JpX5KMhUgL.Foq0e05XSoq4eoq2dJLoIpxhdcSyg-HK-sH7McL1K02peK2peBtt; ALF=1735116644'}
 
 KEYWORD_LIST = ['广东工业大学']
 
@@ -48,15 +48,15 @@ KEYWORD_LIST = ['广东工业大学']
 REGIONS = ['广东']
 
 # 要搜索的微博类型，0代表搜索全部微博，1代表搜索全部原创微博，2代表热门微博，3代表关注人微博，4代表认证用户微博，5代表媒体微博，6代表观点微博
-WEIBO_TYPE = 1
+WEIBO_TYPE = 0
 
 # 筛选结果微博中必需包含的内容，0代表不筛选，获取全部微博，1代表搜索包含图片的微博，2代表包含视频的微博，3代表包含音乐的微博，4代表包含短链接的微博
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-11-01'
+START_DATE = '2024-11-26'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-11-10'
+END_DATE = '2024-11-26'
 
 
 

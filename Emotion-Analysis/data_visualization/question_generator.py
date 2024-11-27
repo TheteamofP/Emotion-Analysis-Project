@@ -108,13 +108,13 @@ def form_question(all_words, positive_words, negative_words, keywords,
     else:
         question_parts.append(default_texts["negative_words"] + '.')
 
-    # 添加关键词
-    if keywords is not None:
-        question_parts.append(f"用户关注的关键词是'{keywords}'，")
-
-    # 添加时间区间
-    if time_interval is not None:
-        question_parts.append(f"收集的时间区间为'{time_interval}'，")
+    # # 添加关键词
+    # if keywords is not None:
+    #     question_parts.append(f"用户关注的关键词是'{keywords}'，")
+    #
+    # # 添加时间区间
+    # if time_interval is not None:
+    #     question_parts.append(f"收集的时间区间为'{time_interval}'，")
 
     # 添加地区
     if regions is not None:
@@ -126,12 +126,12 @@ def form_question(all_words, positive_words, negative_words, keywords,
 
     # 添加正面和负面百分比
     if positive_percentage is not None:
-        question_parts.append(f"正面文本数据占整体的{positive_percentage}%，")
+        question_parts.append(f"正面文本数据占整体的'0.{positive_percentage}'，")
     else:
         question_parts.append(default_texts["positive_percentage"] + ',')
 
     if negative_percentage is not None:
-        question_parts.append(f"负面文本数据占{negative_percentage}%。")
+        question_parts.append(f"负面文本数据占'0.{negative_percentage}'。")
     else:
         question_parts.append(default_texts["negative_percentage"] + '.')
 
@@ -153,6 +153,8 @@ def question_generator():
                              keywords, time_interval, regions, sources,
                              positive_percentage, negative_percentage)
     print(question)
+
+    return question
 
 
 if __name__ == "__main__":
