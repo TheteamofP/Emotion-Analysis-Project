@@ -1,13 +1,12 @@
-
 import csv
 import sys
 from datetime import datetime,timedelta
-from ..utils.util import standardize_date
-from time import strftime
+from weibo_crawler.utils.util import standardize_date
+
 import scrapy
 from scrapy.utils.project import get_project_settings
 
-from ..utils.region import region_dict
+from weibo_crawler.utils.region import region_dict
 
 class SearchSpider(scrapy.Spider):
     name = "search"
@@ -182,7 +181,12 @@ class SearchSpider(scrapy.Spider):
             weibo['id'] = sel.xpath('@mid').get()
             weibo['user'] = sel.xpath('.//a[@class="name"]/text()').get()
             # 微博内容
-            txt_sel = sel.xpath('.//p[@class="txt"]')[0]
+            txt_sel_list = sel.xpath('.//p[@class="txt"]')
+            if txt_sel_list:
+                txt_sel = txt_sel_list[0]
+            else:
+                txt_sel = None
+
             content_full = sel.xpath('.//p[@node-type="feed_list_content_full"]')
             is_long_weibo = False
 
@@ -190,16 +194,22 @@ class SearchSpider(scrapy.Spider):
             if content_full:
                 txt_sel = content_full[0]
                 is_long_weibo = True
-
-            weibo['text'] = txt_sel.xpath('string(.)').get().replace('\u200b', '').replace('\ue627', '').strip()
-            if is_long_weibo:
-                weibo['text'] = weibo['text'][:-4]  # 移除长微博末尾的省略符
+            content = txt_sel.xpath('string(.)').get() if txt_sel else None  # 检查 txt_sel 是否为 None
+            if content:
+                weibo['text'] = content.replace('\u200b', '').replace('\ue627', '').strip()
+                if is_long_weibo:
+                    weibo['text'] = weibo['text'][:-4]  # 移除长微博末尾的省略符
+            else:
+                weibo['text'] = "内容缺失"  # 如果内容解析失败，设置默认值
             # 发布时间和来源
-            created_at = sel.xpath(
-                './/div[@class="from"]/a[1]/text()').extract_first(
-            ).replace(' ', '').replace('\n', '').split('前')[0]
-            weibo['created_at'] = standardize_date(created_at) if created_at else None
-            weibo['source'] = sel.xpath('.//div[@class="from"]/a[2]/text()').get()
+            created_at = sel.xpath('.//div[@class="from"]/a[1]/text()').get()
+            if created_at:
+                created_at = created_at.replace(' ', '').replace('\n', '').split('前')[0]
+                weibo['created_at'] = standardize_date(created_at)
+            else:
+                weibo['created_at'] = None
+
+            weibo['source'] = sel.xpath('.//div[@class="from"]/a[2]/text()').get()  or "未知来源"
 
             # 打印微博信息，验证数据抓取是否成功
             print(weibo)
