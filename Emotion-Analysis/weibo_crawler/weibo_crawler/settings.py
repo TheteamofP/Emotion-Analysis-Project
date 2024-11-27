@@ -40,23 +40,23 @@ TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWs8lEP7Z2HETzXkl9CX0i-5NHD95QcShn7Shz4SKn7Ws4Dqcj-i--fi-2fiKnNi--NiKnEi-z4H8Bt; _T_WM=a39ca70b1a7c6409e8c8e52d134afc72; SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1C7sd_-TTxVgKUmNd5hiR8AHvcGQtcRrY5p5qVbL4_BFc.; SUB=_2A25KQdnDDeRhGeBK41IV8ifJwzyIHXVpP1MLrDV6PUJbktAGLXLdkW1NR24akJKM2ZOk4LdA-Mcdm4g5TFQ564ul; SSOLoginState=1732618644; ALF=1735210644'}
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWs8lEP7Z2HETzXkl9CX0i-5NHD95QcShn7Shz4SKn7Ws4Dqcj-i--fi-2fiKnNi--NiKnEi-z4H8Bt; _T_WM=a39ca70b1a7c6409e8c8e52d134afc72; MLOGIN=1; M_WEIBOCN_PARAMS=luicode%3D10000011%26lfid%3D102803_ctg1_8999_-_ctg1_8999_home; SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1Cs1N4lwOkuxI7BdaZPKYxjGdd8oDQk2sOzqjPG9B9uZ0.; SUB=_2A25KQuo7DeRhGeBK41IV8ifJwzyIHXVpPmPzrDV6PUJbktANLWX4kW1NR24akKHiiZbeQbpuNqr3NQPs4ILmVSHI; SSOLoginState=1732680299; ALF=1735272299'}
 
 KEYWORD_LIST = ['广东工业大学']
 
 
-REGIONS = ['广东']
+REGIONS = ['北京']
 
 # 要搜索的微博类型，0代表搜索全部微博，1代表搜索全部原创微博，2代表热门微博，3代表关注人微博，4代表认证用户微博，5代表媒体微博，6代表观点微博
-WEIBO_TYPE = 1
+WEIBO_TYPE = 0
 
 # 筛选结果微博中必需包含的内容，0代表不筛选，获取全部微博，1代表搜索包含图片的微博，2代表包含视频的微博，3代表包含音乐的微博，4代表包含短链接的微博
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-11-01'
+START_DATE = '2024-01-01'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-11-10'
+END_DATE = '2024-02-01'
 
 
 
