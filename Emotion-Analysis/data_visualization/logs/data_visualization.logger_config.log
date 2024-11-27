@@ -1,0 +1,36 @@
+﻿2024-11-26 00:37:57,184 - wordcloud_generator.py[line:31] - ERROR: File negative_words.csv not found.
+2024-11-26 00:37:57,188 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: negative_words.csv
+2024-11-26 00:38:29,387 - wordcloud_generator.py[line:31] - ERROR: File non_existent_file.txt not found.
+2024-11-26 00:38:30,176 - wordcloud_generator.py[line:31] - ERROR: File ./unit_tests/test_data.csv not found.
+2024-11-26 00:38:30,176 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: ./unit_tests/test_data.csv
+2024-11-26 00:38:30,181 - wordcloud_generator.py[line:31] - ERROR: File all_words.csv not found.
+2024-11-26 00:38:30,181 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: all_words.csv
+2024-11-26 00:38:30,218 - wordcloud_generator.py[line:31] - ERROR: File positive_words.csv not found.
+2024-11-26 00:38:30,219 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: positive_words.csv
+2024-11-26 00:38:30,219 - wordcloud_generator.py[line:31] - ERROR: File negative_words.csv not found.
+2024-11-26 00:38:30,221 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: negative_words.csv
+2024-11-26 00:38:51,817 - wordcloud_generator.py[line:31] - ERROR: File non_existent_file.txt not found.
+2024-11-26 00:38:52,562 - wordcloud_generator.py[line:31] - ERROR: File ./unit_tests/_trial_temp/test_data.csv not found.
+2024-11-26 00:38:52,562 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: ./unit_tests/_trial_temp/test_data.csv
+2024-11-26 00:38:52,568 - wordcloud_generator.py[line:31] - ERROR: File all_words.csv not found.
+2024-11-26 00:38:52,569 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: all_words.csv
+2024-11-26 00:38:52,569 - wordcloud_generator.py[line:31] - ERROR: File positive_words.csv not found.
+2024-11-26 00:38:52,570 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: positive_words.csv
+2024-11-26 00:38:52,570 - wordcloud_generator.py[line:31] - ERROR: File negative_words.csv not found.
+2024-11-26 00:38:52,570 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: negative_words.csv
+2024-11-26 00:39:09,027 - wordcloud_generator.py[line:31] - ERROR: File non_existent_file.txt not found.
+2024-11-26 00:39:27,176 - wordcloud_generator.py[line:31] - ERROR: File ./unit_tests/_trial_temp/test_data.csv not found.
+2024-11-26 00:39:27,177 - wordcloud_generator.py[line:82] - ERROR: Failed to load data file: ./unit_tests/_trial_temp/test_data.csv
+2024-11-26 00:40:17,570 - wordcloud_generator.py[line:31] - ERROR: File non_existent_file.txt not found.
+2024-11-26 00:40:25,316 - classification.py[line:15] - ERROR: CSV File predicted_results.csv not found.
+2024-11-26 00:41:02,482 - classification.py[line:15] - ERROR: CSV File predicted_results.csv not found.
+2024-11-26 00:41:30,951 - classification.py[line:15] - ERROR: CSV File predicted_results.csv not found.
+2024-11-26 00:42:56,316 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: cannot identify image file 'E:\\Python\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\matplotlib.png'
+2024-11-26 00:42:56,581 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: [Errno 2] No such file or directory: 'E:\\github_repositories\\Emotion-Analysis-Project\\Emotion-Analysis\\data_visualization\\unit_tests\\_trial_temp\\fonts\\NotoSansSC-Regular.ttf'
+2024-11-26 00:42:56,584 - pie_chart_generator.py[line:17] - ERROR: CSV File predicted_results.csv not found.
+2024-11-26 00:42:56,690 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: not enough values to unpack (expected 3, got 0)
+2024-11-26 00:42:56,815 - pie_chart_generator.py[line:78] - INFO: Pie chart saved at ../static/wordclouds/pie_chart.png
+2024-11-26 00:42:56,816 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: [Errno 2] No such file or directory: '../static/wordclouds/pie_chart.png'
+2024-11-26 00:43:59,882 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: not enough values to unpack (expected 3, got 0)
+2024-11-26 00:44:00,009 - pie_chart_generator.py[line:78] - INFO: Pie chart saved at ../static/wordclouds/pie_chart.png
+2024-11-26 00:44:00,010 - pie_chart_generator.py[line:81] - ERROR: Error generating pie_chart: [Errno 2] No such file or directory: '../static/wordclouds/pie_chart.png'

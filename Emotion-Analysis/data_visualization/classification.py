@@ -1,41 +1,67 @@
-import json
 import csv
+import os
 
 
-def classifcation(json_file_path):
-    # 读取JSON文件
-    with open(json_file_path, 'r', encoding='utf-8-sig') as jsonfile:
-        sentiment_results = json.load(jsonfile)
+def classifcation():
+    file_path = 'predicted_results.csv'
+
+    # 读取csv文件
+    sentiment_results = []
+    try:
+        with open(file_path, 'r', encoding='utf-8-sig') as file:
+            reader = csv.DictReader(file)
+            sentiment_results.extend(reader)
+    except FileNotFoundError:
+        print(f"CSV File {file_path} not found.")
 
     # 准备三个CSV文件，分别存储正面、负面和中性的情感文本
     csv_files = {
-        'positive': 'positive_texts.csv',
-        'negative': 'negative_texts.csv',
-        'neutral': 'neutral_texts.csv'
+        'positive': 'positive_words.csv',
+        'negative': 'negative_words.csv'
     }
+
+    # 根据情感标签将文本写入对应的CSV文件
+    for sentiment_result in sentiment_results:
+        # 使用get方法获取'sentiment_label'，如果不存在则默认为None
+        label = sentiment_result.get('sentiment_label')
+
+        # 使用get方法获取'text'，如果不存在则默认为None
+        text = sentiment_result.get('text')
+
+        # 跳过没有标签的情感结果
+        if label == '0':
+            label = 'negative'
+        elif label == '1':
+            label = 'positive'
+        else:
+            continue
+
+        # 跳过空文本
+        if not text or not text.strip():
+            continue
+
+        if label and text:
+            # 将文本按空格分词并写入对应的CSV文件
+            with open(csv_files[label], 'a', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile)
+                for word in text.split():
+                    if word:  # 确保单词不为空
+                        writer.writerow([word])
 
     # 确保CSV文件存在
     for filename in csv_files.values():
         open(filename, 'a').close()
-
-    # 根据情感标签将文本写入对应的CSV文件
-    for sentiment_result in sentiment_results:
-        label = sentiment_result['sentiment_label']
-        text = sentiment_result['text']
-
-        # 跳过没有标签的情感结果
-        if label not in csv_files:
-            continue
-
-        # 将文本按空格分词并写入对应的CSV文件
-        with open(csv_files[label], 'a', encoding='utf-8-sig') as csvfile:
-            writer = csv.writer(csvfile)
-            for word in text.split():
-                writer.writerow([word])  # 每个词单独一行
+        # 检查文件是否为空
+        if os.path.getsize(filename) == 0:
+            # 写入默认内容
+            default_words = "无,对应,中文,文本,数据,内容"
+            with open(filename, 'a', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile)
+                for word in default_words.split(','):
+                     writer.writerow([word.strip()])  # 按逗号分词并写入
 
     print("情感文本已根据情感标签分类并保存到CSV文件。")
 
 
 if __name__ == "__main__":
-    json_file_path = '../model/sentiment_results.json'
-    classifcation(json_file_path)
+    classifcation()

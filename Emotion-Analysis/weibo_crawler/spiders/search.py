@@ -3,10 +3,12 @@ import sys
 from datetime import datetime,timedelta
 from weibo_crawler.utils.util import standardize_date
 
+
 import scrapy
 from scrapy.utils.project import get_project_settings
 
 from weibo_crawler.utils.region import region_dict
+
 
 class SearchSpider(scrapy.Spider):
     name = "search"
@@ -181,6 +183,7 @@ class SearchSpider(scrapy.Spider):
             weibo['id'] = sel.xpath('@mid').get()
             weibo['user'] = sel.xpath('.//a[@class="name"]/text()').get()
             # 微博内容
+
             txt_sel_list = sel.xpath('.//p[@class="txt"]')
             if txt_sel_list:
                 txt_sel = txt_sel_list[0]
@@ -192,7 +195,7 @@ class SearchSpider(scrapy.Spider):
 
             # 如果存在长微博内容
             if content_full:
-                txt_sel = content_full[0]
+                txt_sel = content_full
                 is_long_weibo = True
             content = txt_sel.xpath('string(.)').get() if txt_sel else None  # 检查 txt_sel 是否为 None
             if content:

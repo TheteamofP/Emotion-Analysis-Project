@@ -27,7 +27,8 @@
 						<nav>
 							<ul>
                                 <li><a href="#intro">项目介绍</a></li>
-                                <li><a href="#text_analysis">文本分析</a></li>
+                                <li><a href="#instruction">使用说明</a></li>
+                                <!--<li><a href="#text_analysis">文本分析</a></li>-->
                                 <li><a href="#topic_analysis">爬虫分析</a></li>
                                 <li><a href="#gpt_suggestion">AI建议</a></li>
 							</ul>
@@ -45,6 +46,22 @@
 								<p>系统实现目标为对用户输入的想要分析的微博词条网址链接里的文字数据进行情感分析，然后得出关于该微博词条的情感是正向，负向还是中立结果，并给出关于该词条的文字数据的词云图。</p>
 							</article>
 
+                        <!-- instruction -->
+							<article id="instruction">
+								<h2 class="major">使用说明</h2>
+                                <ol>
+                                    <li>使用自己的账号登录<code>weibo.cn</code></li>
+								       <p class="image main"><img src="/static/images/cookie0.png" alt="" /></p>
+                                    <li>按下<code>F12</code>打开<b>控制台</b>，选中网络</li>
+								       <p class="image main"><img src="/static/images/cookie1.png" alt="" /></p>
+                                    <li>将微博网页拉到底部，点击<b>下页</b></li>
+								       <p class="image main"><img src="/static/images/cookie2.png" alt="" /></p>
+                                    <li>点击控制台出现的内容，找到请求标头，复制<b>cookie</b></li>
+								       <p class="image main"><img src="/static/images/cookie3.png" alt="" /></p>
+                                </ol>
+
+							</article>
+
 
                         <!-- 文本分析 -->
                             <article id="text_analysis">
@@ -53,7 +70,7 @@
                                     <div class="fields">
                                         <div class="field">
                                             <label for="single_text">要分析的文本</label>
-                                            <textarea id="single_text" name="text" required style="overflow: hidden"></textarea>
+                                            <textarea id="single_text" name="text" required style="overflow: hidden; font-size: medium"  placeholder="请输入您要分析的文本..." ></textarea>
                                         </div>
                                     </div>
                                     <ul class="actions">
@@ -70,18 +87,76 @@
                                 <form id="topicAnalysisForm" method="post">
                                     <div class="fields">
                                         <div class="field">
-                                            <label for="topic_cookie">COOKIE</label>
-                                            <input type="text" id="topic_cookie" name="cookie" required>
+                                            <label for="topic_cookie">COOKIE <a href="#instruction" style="font-size: 0.8em">如何获取？</a></label>
+                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: 0.9em" placeholder="请输入 Cookie" required></textarea>
+                                            <small id="topic_cookieError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
+
                                         <div class="field">
                                             <label for="topic_keyword">关键词</label>
-                                            <input type="text" id="topic_keyword" name="keyword" required>
+                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用英文逗号分隔" style="font-size: 0.9em" required>
+                                            <small id="topic_keywordError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="regions">地区筛选</label>
+                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入要筛选的微博发布的地区，用英文逗号分隔" style="font-size: 0.9em" required />
+                                            <small id="regionsError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+                                        <div class="field half">
+                                            <label for="start_date">起始日期</label>
+                                            <input type="date" name="start_date" id="start_date" value="" placeholder="请输入搜索的起始日期" required />
+                                            <small id="start_dateError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+                                        <div class="field half">
+                                            <label for="end_date">终止日期</label>
+                                            <input type="date" name="end_date" id="end_date" value="" placeholder="请输入搜索的终止日期" required />
+                                            <small id="end_dateError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+
+
+                                        <div class="field half">
+                                            <label for="weibo_type_input">微博类型</label>
+                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: 0.9em;width: 80%">
+                                                <option value="全部微博">全部微博</option>
+                                                <option value="全部原创微博">全部原创微博</option>
+                                                <option value="热门微博">热门微博</option>
+                                                <option value="关注人微博">关注人微博</option>
+                                                <option value="认证用户微博">认证用户微博</option>
+                                                <option value="媒体微博">媒体微博</option>
+                                                <option value="观点微博">观点微博</option>
+                                            </select>
+                                            <small id="weibo_type_inputError" class="error-message" style="color: #ff3860; display: block; margin-top: 5px; font-size: 0.7em;"></small>
+                                        </div>
+
+                                        <div class="field half">
+                                            <label for="contain_type_input">筛选类型</label>
+                                            <select name="contain_type_input" id="contain_type_input" style="font-size: 0.9em;width: 80%">
+                                                <option value="不筛选">不筛选</option>
+                                                <option value="包含图片">包含图片</option>
+                                                <option value="包含视频">包含视频</option>
+                                                <option value="包含音乐">包含音乐</option>
+                                                <option value="包含短链接">包含短链接</option>
+                                            </select>
+                                            <small id="contain_type_inputError" class="error-message" style="color: #ff3860; display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
                                     </div>
-                                    <ul class="actions">
-                                        <li><button type="submit" id="topic_submit" disabled>开始分析</button></li>
-                                    </ul>
+
+                                    <div class="actions">
+                                        <button type="submit" id="topic_submit" disabled>开始分析</button>
+                                        <input type="reset" value="重置"/>
+                                    </div>
                                 </form>
+                                <div id="loading_indicator" class="typing-indicator" style="display: none;">
+                                    <div class="loading"></div>
+                                    <div class="text-container">
+                                        <p>正在分析数据，请稍候...</p>
+                                        <p>关键词越普遍，时间长度越长，收集时间越长，请耐心等待</p>
+                                    </div>
+                                </div>
                                 <div id="topic_result"></div>
                             </article>
 
@@ -89,12 +164,17 @@
                             <article id="gpt_suggestion">
                                 <h2 class="major">AI 建议</h2>
                                 <div id="chat-container" class="chat-container"></div>
-                                <div id="typing-indicator" class="typing-indicator">AI 正在思考...</div>
+                                <div id="AI-typing-indicator" class="typing-indicator" style="display: none;">
+                                    <div class="loading"></div>
+                                    <div class="text-container">
+                                        <p>AI 正在思考...</p>
+                                    </div>
+                                </div>
                                 <form id="gpt-form">
                                     <div class="fields">
                                         <div class="field">
                                             <label for="text">输入消息</label>
-                                            <textarea id="text" name="text" rows="3" style="height: 300px" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
+                                            <textarea id="text" name="text" rows="3" style="height: 300px; font-size: medium" placeholder="请输入您的问题...">{{ preset_text }}</textarea>
                                         </div>
                                     </div>
                                     <div class="actions">
@@ -140,52 +220,199 @@
 
             <!-- topic -->
             <script>
-                $(document).ready(function() {
-                    const submitButton = document.getElementById('topic_submit');
-                    const inputs = document.querySelectorAll('#topicAnalysisForm .field input[required]');
+            $(document).ready(function () {
+                const submitButton = document.getElementById('topic_submit');
+                const form = document.getElementById('topicAnalysisForm');
+                const inputs = form.querySelectorAll('input[required], textarea[required]');
+                const startDateInput = document.getElementById("start_date");
+                const endDateInput = document.getElementById("end_date");
 
-                    // 检查是否所有必填字段都有值
-                    function checkFormValidity() {
-                        const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
-                        submitButton.disabled = !allFilled;
+                // 验证单个字段
+                function validateField(field) {
+                    const fieldValue = field.value.trim();
+                    const errorElem = document.getElementById(field.id + "Error");
+                    let isValid = true;
+
+                    // 移除之前的错误样式
+                    field.classList.remove('error');
+                    errorElem.textContent = "";
+
+                    // 只检查格式错误，不检查空值
+                     if (fieldValue !== "") {
+                        if (field.id === 'topic_keyword') {
+                            // 检查是否包含中文逗号、英文句号或中文句号
+                            if (/[，。.]/.test(fieldValue)) {
+                                errorElem.textContent = "关键词列表请使用英文逗号分隔";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                            // 检查格式：不允许连续逗号、开头结尾逗号、空格+逗号或逗号+空格的组合
+                            else if (/(^,|,$|,,|\s,|,\s)/.test(fieldValue)) {
+                                errorElem.textContent = "关键词列表格式不正确，请用英文逗号分隔且避免空项";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                        } else if (field.id === 'regions') {
+                            // 检查是否包含中文逗号、英文句号或中文句号
+                            if (/[，。.]/.test(fieldValue)) {
+                                errorElem.textContent = "地区列表请使用英文逗号分隔";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                            // 检查格式：不允许连续逗号、开头结尾逗号、空格+逗号或逗号+空格的组合
+                            else if (/(^,|,$|,,|\s,|,\s)/.test(fieldValue)) {
+                                errorElem.textContent = "地区列表格式不正确，请用英文逗号分隔且避免空项";
+                                field.classList.add('error');
+                                isValid = false;
+                            }
+                        }
                     }
 
-                    // 页面加载时立即检查一次按钮状态
-                    checkFormValidity();
+                    return isValid;
+                }
 
-                    // 监听输入事件
+                // 验证日期
+                function validateDateFields() {
+                    const startDateErrorElem = document.getElementById("start_dateError");
+                    const endDateErrorElem = document.getElementById("end_dateError");
+                    let isValid = true;
+
+                    // 清除之前的错误样式和消息
+                    startDateInput.classList.remove('error');
+                    endDateInput.classList.remove('error');
+                    startDateErrorElem.textContent = "";
+                    endDateErrorElem.textContent = "";
+
+                    // 只在两个日期都有值的情况下才进行比较
+                    if (startDateInput.value && endDateInput.value) {
+                        if (new Date(startDateInput.value) > new Date(endDateInput.value)) {
+                            startDateErrorElem.textContent = "起始日期不能晚于终止日期";
+                            endDateErrorElem.textContent = "终止日期不能早于起始日期";
+                            startDateInput.classList.add('error');
+                            endDateInput.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+
+                    return isValid;
+                }
+
+                // 检查表单是否可提交
+                function checkFormValidity() {
+                    let isFormValid = true;
+
+                    // 检查所有必填字段是否有值
                     inputs.forEach(input => {
-                        input.addEventListener('input', checkFormValidity);
+                        if (!input.value.trim()) {
+                            isFormValid = false;
+                        }
                     });
 
-                    // 监听表单提交
+                    // 检查格式错误
+                    inputs.forEach(input => {
+                        if (!validateField(input)) {
+                            isFormValid = false;
+                        }
+                    });
+
+                    // 检查日期
+                    if (!validateDateFields()) {
+                        isFormValid = false;
+                    }
+
+                    // 更新提交按钮状态
+                    submitButton.disabled = !isFormValid;
+                }
+
+                // 为所有输入字段添加验证事件监听
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        validateField(input);
+                        checkFormValidity();
+                    });
+
+                    // 失焦时验证
+                    input.addEventListener('blur', () => {
+                        validateField(input);
+                        checkFormValidity();
+                    });
+                });
+
+                // 为日期输入添加事件监听
+                [startDateInput, endDateInput].forEach(input => {
+                    input.addEventListener('input', () => {
+                        validateDateFields();
+                        checkFormValidity();
+                    });
+
+                    input.addEventListener('blur', () => {
+                        validateDateFields();
+                        checkFormValidity();
+                    });
+                });
+
+                // 表单重置处理
+                form.addEventListener('reset', () => {
+                    // 清除所有错误消息
+                    document.querySelectorAll('.error-message').forEach(elem => {
+                        elem.textContent = "";
+                    });
+                    // 移除所有错误样式
+                    document.querySelectorAll('.error').forEach(elem => {
+                        elem.classList.remove('error');
+                    });
+                    // 禁用提交按钮
+                    submitButton.disabled = true;
+                    // 延迟检查表单有效性，等待重置完成
+                    setTimeout(checkFormValidity, 0);
+                });
+
+                // 页面加载时检查表单有效性
+                checkFormValidity();
+
+
                     $('#topicAnalysisForm').on('submit', function(event) {
                         event.preventDefault();
                         var formData = $(this).serialize();
+
+                        // 仅在表单提交时显示加载提示
+                        $('#loading_indicator').fadeIn();  // 使用fadeIn效果使显示更平滑
+                        $('#topic_result').html(''); // 清空之前的结果
 
                         $.ajax({
                             type: 'POST',
                             url: '{{ url_for("page.spider_analysis_topic") }}',
                             data: formData,
                             success: function(response) {
+                                // 隐藏加载提示
+                                 $('#loading_indicator').fadeOut();
+
                                 console.log("话题分析返回的数据：", response);
-                                if(response.error) {
-                                    $('#topic_result').html('<h3 class="error">' + response.error + '</h3>');
+                                if(response.status === 'failed') {
+                                    $('#topic_result').html('<h3 class="error">' + response.message + '</h3>');
                                 } else {
                                     // 构建并显示话题分析结果，包括词云图片
                                     let resultHTML = '<h3 class="major">话题分析结果:</h3>';
                                     resultHTML += '<div class="result-content">';
                                     resultHTML += '<p><strong>关键词:</strong> ' + response.result.keyword + '</p>';
-                                    resultHTML += '<p><strong>情感倾向:</strong> ' + response.result.sentiment + '</p>';
+                                    resultHTML += '<p><strong>日期范围:</strong> ' + response.result.start_date + '~' + response.result.end_date + '</p>';
+                                    resultHTML += '<p><strong>总体分析:</strong> ' + response.result.question + '</p>';
                                     resultHTML += '</div>';
 
                                     // 插入词云图片
-                                    resultHTML +=  '<h3 class="major">词云展示:</h3>';
+                                    resultHTML += '<h3 class="major">词云展示:</h3>';
+                                    resultHTML += '<p><strong>总词云</strong></p>';
                                     resultHTML += '<div class="image-grid">';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图1" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_negative.png") }}" alt="词云图2" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_neutral.png") }}" alt="词云图3" class="wordcloud"></div>';
-                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_positive.png") }}" alt="词云图4" class="wordcloud"></div>';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_all.png") }}" alt="词云图_总" class="wordcloud"></div>';
+                                    resultHTML += '</div>';
+                                    resultHTML += '<p><strong>负面词云/正面词云</strong></p>';
+                                    resultHTML += '<div class="image-grid">';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_negative.png") }}" alt="词云图_负面" class="wordcloud"></div>';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_positive.png") }}" alt="词云图_正面" class="wordcloud"></div>';
+                                    resultHTML += '</div>';
+                                    resultHTML += '<p><strong>分析饼图</strong></p>';
+                                    resultHTML += '<div class="image-grid">';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/pie_chart.png") }}" alt="分析饼图" class="wordcloud"></div>';
                                     resultHTML += '</div>';
 
                                     // 添加按钮
@@ -194,18 +421,22 @@
 
                                     $('#gpt_suggest').on('click', function() {
                                         var resultText = $('#topic_result .result-content').text();
-                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请对此进行分析和建议";
+                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请分析这些结果，并针对用户关心的关键词，提出相关结论与建议。";
 
                                         window.open('{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion', '_blank');
                                     });
                                 }
                             },
                             error: function(xhr) {
+                                 // 隐藏加载提示
+                                 $('#loading_indicator').fadeOut();
                                 $('#topic_result').html('<h3 class="error">分析失败，请重试</h3>');
                             }
                         });
                     });
                 });
+
+
             </script>
 
 
