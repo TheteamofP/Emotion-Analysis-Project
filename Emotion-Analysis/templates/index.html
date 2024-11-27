@@ -21,14 +21,15 @@
 						<div class="content">
 							<div class="inner">
 								<h1>情感分析系统</h1>
-								<p>自动从社交媒体、客户评论等文本数据中识别用户情感倾向，帮助企业及时把握市场反馈、提升客户满意度，并进行舆情管理</p>
+								<p>自动从微博发布的评论数据中识别用户情感倾向，帮助企业及时把握市场反馈、提升客户满意度，并进行舆情管理</p>
                             </div>
 						</div>
 						<nav>
 							<ul>
                                 <li><a href="#intro">项目介绍</a></li>
-                                <li><a href="#text_analysis">文本分析</a></li>
-                                <li><a href="#topic_analysis">爬虫分析</a></li>
+                                <li><a href="#instruction">使用说明</a></li>
+                                <!--<li><a href="#text_analysis">文本分析</a></li>-->
+                                <li><a href="#topic_analysis">话题分析</a></li>
                                 <li><a href="#gpt_suggestion">AI建议</a></li>
 							</ul>
 						</nav>
@@ -41,8 +42,24 @@
 							<article id="intro">
 								<h2 class="major">项目介绍</h2>
 								<span class="image main"><img src="/static/images/pic04.jpg" alt="" /></span>
-								<p>随着社交媒体和在线评论平台的迅猛发展，用户在社交网络、电子商务网站、论坛等平台上发布大量的文本评论和反馈。</p>
-								<p>系统实现目标为对用户输入的想要分析的微博词条网址链接里的文字数据进行情感分析，然后得出关于该微博词条的情感是正向，负向还是中立结果，并给出关于该词条的文字数据的词云图。</p>
+								<p>随着社交媒体和在线评论平台的迅猛发展，用户在社交网络、电子商务网站、论坛等平台上发布了大量的文本评论和反馈。</p>
+								<p>微博情感分析系统致力于帮助用户更全面更方便地了解微博舆论的情感倾向。在此系统中，用户输入想要查询的微博关键词，然后据此关键词，系统爬取相关微博评论，并对评论进行情感极性分析，最后给出舆论对于该话题关键词的总词云图、正面情感词云图、负面情感词云图和情感分布饼状图。在分析完成后，用户可点击按钮选择跳转到AI建议模块，询问AI对此舆情分析结果的建议，建议文本已预先填好在输入框中。</p>
+							</article>
+
+                        <!-- instruction -->
+							<article id="instruction">
+								<h2 class="major">使用说明</h2>
+                                <ol>
+                                    <li>使用自己的账号登录<a href="https://weibo.cn" target="_blank">weibo.cn</a></li>
+								       <p class="image main"><img src="/static/images/cookie0.png" alt="" /></p>
+                                    <li>按下<code>F12</code>打开<b>开发者工具</b>，选中网络</li>
+								       <p class="image main"><img src="/static/images/cookie1.png" alt="" /></p>
+                                    <li>将微博网页拉到底部，点击<b>下页</b></li>
+								       <p class="image main"><img src="/static/images/cookie2.png" alt="" /></p>
+                                    <li>点击开发者工具出现的内容，找到请求标头，复制<b>cookie</b></li>
+								       <p class="image main"><img src="/static/images/cookie3.png" alt="" /></p>
+                                </ol>
+
 							</article>
 
 
@@ -70,20 +87,20 @@
                                 <form id="topicAnalysisForm" method="post">
                                     <div class="fields">
                                         <div class="field">
-                                            <label for="topic_cookie">COOKIE</label>
-                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: medium" placeholder="请输入 Cookie" required></textarea>
+                                            <label for="topic_cookie">COOKIE <a href="#instruction" style="font-size: 0.8em">如何获取？</a></label>
+                                            <textarea id="topic_cookie" name="cookie" style="height:100px; resize:none; font-size: 0.9em" placeholder="请输入 COOKIE" required></textarea>
                                             <small id="topic_cookieError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
 
                                         <div class="field">
                                             <label for="topic_keyword">关键词</label>
-                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用英文逗号分隔" style="font-size: medium" required>
+                                            <input type="text" id="topic_keyword" name="keyword" value="" placeholder="请输入关键词列表，用英文逗号分隔" style="font-size: 0.9em" required>
                                             <small id="topic_keywordError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
 
                                         <div class="field">
                                             <label for="regions">地区筛选</label>
-                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入想要筛选的微博发布的地区，用英文逗号分隔" style="font-size: medium" required />
+                                            <input type="text" name="regions" id="regions" value="" placeholder="请输入要筛选的微博发布的地区，用英文逗号分隔" style="font-size: 0.9em" required />
                                             <small id="regionsError" class="error-message" style="color: rgba(255, 0, 0, 0.7); display: block; margin-top: 5px; font-size: 0.7em;"></small>
                                         </div>
 
@@ -103,7 +120,7 @@
 
                                         <div class="field half">
                                             <label for="weibo_type_input">微博类型</label>
-                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: medium;width: 80%">
+                                            <select name="weibo_type_input" id="weibo_type_input" style="font-size: 0.9em;width: 80%">
                                                 <option value="全部微博">全部微博</option>
                                                 <option value="全部原创微博">全部原创微博</option>
                                                 <option value="热门微博">热门微博</option>
@@ -117,7 +134,7 @@
 
                                         <div class="field half">
                                             <label for="contain_type_input">筛选类型</label>
-                                            <select name="contain_type_input" id="contain_type_input" style="font-size: medium;width: 80%">
+                                            <select name="contain_type_input" id="contain_type_input" style="font-size: 0.9em;width: 80%">
                                                 <option value="不筛选">不筛选</option>
                                                 <option value="包含图片">包含图片</option>
                                                 <option value="包含视频">包含视频</option>
@@ -128,10 +145,10 @@
                                         </div>
                                     </div>
 
-                                    <ul class="actions">
-                                        <li><button type="submit" id="topic_submit" disabled>开始分析</button></li>
-                                        <li><input type="reset" value="重置"/></li>
-                                    </ul>
+                                    <div class="actions">
+                                        <button type="submit" id="topic_submit" disabled>开始分析</button>
+                                        <input type="reset" value="重置"/>
+                                    </div>
                                 </form>
                                 <div id="loading_indicator" class="typing-indicator" style="display: none;">
                                     <div class="loading"></div>
@@ -379,6 +396,7 @@
                                     resultHTML += '<div class="result-content">';
                                     resultHTML += '<p><strong>关键词:</strong> ' + response.result.keyword + '</p>';
                                     resultHTML += '<p><strong>日期范围:</strong> ' + response.result.start_date + '~' + response.result.end_date + '</p>';
+                                    resultHTML += '<p><strong>总体分析:</strong> ' + response.result.question + '</p>';
                                     resultHTML += '</div>';
 
                                     // 插入词云图片
@@ -392,6 +410,10 @@
                                     resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_negative.png") }}" alt="词云图_负面" class="wordcloud"></div>';
                                     resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/wordcloud_positive.png") }}" alt="词云图_正面" class="wordcloud"></div>';
                                     resultHTML += '</div>';
+                                    resultHTML += '<p><strong>分析饼图</strong></p>';
+                                    resultHTML += '<div class="image-grid">';
+                                    resultHTML += '<div class="image"><img src="{{ url_for("static", filename="wordclouds/pie_chart.png") }}" alt="分析饼图" class="wordcloud"></div>';
+                                    resultHTML += '</div>';
 
                                     // 添加按钮
                                     resultHTML += '<button id="gpt_suggest" style="display:block;">点击查看AI助手建议</button>';
@@ -399,7 +421,7 @@
 
                                     $('#gpt_suggest').on('click', function() {
                                         var resultText = $('#topic_result .result-content').text();
-                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请对此进行分析和建议";
+                                        var suggestionText = "话题分析结果：\n" + resultText + "\n请分析这些结果，并针对用户关心的关键词，提出相关结论与建议。";
 
                                         window.open('{{ url_for("home") }}?text=' + encodeURIComponent(suggestionText) + '#gpt_suggestion', '_blank');
                                     });

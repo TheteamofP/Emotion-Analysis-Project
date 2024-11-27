@@ -40,12 +40,13 @@ TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 
-DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': 'SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWs8lEP7Z2HETzXkl9CX0i-5NHD95QcShn7Shz4SKn7Ws4Dqcj-i--fi-2fiKnNi--NiKnEi-z4H8Bt; _T_WM=a39ca70b1a7c6409e8c8e52d134afc72; MLOGIN=1; M_WEIBOCN_PARAMS=luicode%3D10000011%26lfid%3D102803_ctg1_8999_-_ctg1_8999_home; SCF=Ah8N2XFNAtVeCwsxcZfDOfb0yQtwxwDbSX09wjKTim1Cs1N4lwOkuxI7BdaZPKYxjGdd8oDQk2sOzqjPG9B9uZ0.; SUB=_2A25KQuo7DeRhGeBK41IV8ifJwzyIHXVpPmPzrDV6PUJbktANLWX4kW1NR24akKHiiZbeQbpuNqr3NQPs4ILmVSHI; SSOLoginState=1732680299; ALF=1735272299'}
-
-KEYWORD_LIST = ['广东工业大学']
+DEFAULT_REQUEST_HEADERS = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-US;q=0.7', 'cookie': ''}
 
 
-REGIONS = ['北京']
+KEYWORD_LIST = ['']
+
+
+REGIONS = ['北京', '天津', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '上海', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '重庆', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '香港', '澳门', '台湾']
 
 # 要搜索的微博类型，0代表搜索全部微博，1代表搜索全部原创微博，2代表热门微博，3代表关注人微博，4代表认证用户微博，5代表媒体微博，6代表观点微博
 WEIBO_TYPE = 0
@@ -54,9 +55,10 @@ WEIBO_TYPE = 0
 CONTAIN_TYPE = 0
 
 # 搜索的起始日期，为yyyy-mm-dd形式，搜索结果包含该日期
-START_DATE = '2024-01-01'
+START_DATE = '2024-11-16'
 # 搜索的终止日期，为yyyy-mm-dd形式，搜索结果包含该日期
-END_DATE = '2024-02-01'
+END_DATE = '2024-11-17'
+
 
 
 

@@ -124,7 +124,7 @@ def process_data(data_list):
         item.pop('id', None)
         item.pop('user', None)
 
-        item['sentiment_label'] = None
+        item['sentiment_label'] = 2
         item['sentiment_score'] = 0
 
         keywords.append(item['keyword'])
@@ -179,8 +179,7 @@ def text_processor():
             process_data(data_list))
 
         save_to_csv(all_data, '../model/processed_data.csv',
-                    ['keyword', 'region', 'text', 'created_at',
-                     'source', 'sentiment_label', 'sentiment_score'])
+                    ['text', 'sentiment_label', 'sentiment_score'])
 
         save_words_to_csv(all_words, '../data_visualization'
                                      '/all_words.csv')

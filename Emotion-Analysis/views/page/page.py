@@ -26,6 +26,14 @@ def spider_analysis_topic():
     weibo_type_input = request.form.get('weibo_type_input')
     contain_type_input = request.form.get('contain_type_input')
 
+    from main import emotion_analyzer
+    result = emotion_analyzer(cookie, keywords, start_date, end_date, regions,
+                              weibo_type_input, contain_type_input)
+
+    from data_visualization.question_generator import question_generator
+    question = question_generator()
+    print(question)
+
     analysis_result = {
         'cookie': cookie,
         'keyword': keywords,
@@ -33,17 +41,14 @@ def spider_analysis_topic():
         'end_date': end_date,
         'regions': regions,
         'weibo_type': weibo_type_input,
-        'contain_type': contain_type_input
+        'contain_type': contain_type_input,
+        'question': question
     }
 
-    from main import emotion_analyzer
-    result = emotion_analyzer(cookie, keywords, start_date, end_date, regions,
-                              weibo_type_input, contain_type_input)
     if result == 1:
         return jsonify({'status': 'success', 'result': analysis_result})
     else:
         return jsonify({'status': 'failed', 'message': '情绪分析未成功完成'})
-
 
 
 @pb.route('/gpt_suggestion', methods=['GET', 'POST'])
