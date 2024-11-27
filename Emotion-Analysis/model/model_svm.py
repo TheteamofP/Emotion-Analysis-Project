@@ -54,6 +54,10 @@ def model_svm():
     if "text" not in predict_df.columns:
         raise ValueError("CSV 文件中必须包含 'text' 列")
 
+    # 数据清洗：填充缺失值并确保所有值为字符串
+    predict_df["text"] = predict_df["text"].fillna("").astype(str)
+
+    # 应用文本预处理
     predict_texts = predict_df["text"].apply(processing).tolist()
 
     # 转换测试文本为特征向量

@@ -1,53 +1,98 @@
 import unittest
-import csv
-import os
-from pie_chart_generator import pie_chart_generator
+from unittest.mock import patch, mock_open
+from io import StringIO
+import question_generator
 
 
-class TestPieChartGenerator(unittest.TestCase):
+class TestQuestionGenerator(unittest.TestCase):
 
-    def setUp(self):
-        # 创建测试文件和目录
-        with open('predicted_results.csv', 'w', encoding='utf-8-sig') as file:
-            writer = csv.writer(file)
-            writer.writerow(['sentiment_label'])
-            writer.writerow(['1'])  # 正面情感
-            writer.writerow(['0'])  # 负面情感
+    @patch('question_generator.read_text_file')
+    def test_read_text_file_sources(self, mock_read_text_file):
+        # 测试 read_text_file 函数，模拟 sources 文件
+        mock_read_text_file.return_value = 'line1,line2,line3'
+        result = question_generator.read_text_file('sources.csv', True)
+        self.assertEqual(result, 'line1,line2,line3')  # 假设文件中少于20行
 
-    def tearDown(self):
-        # 清理生成的图像和CSV文件
-        pie_chart_path = ("E:\\github_repositories\\Emotion-Analysis-Project"
-                          "\\Emotion-Analysis\\static\\wordclouds"
-                          "\\pie_chart.png")
-        csv_output_path = ("'E:\\github_repositories\\Emotion-Analysis-Project"
-                           "\\Emotion-Analysis\\data_visualization"
-                           "\\sentiment_percentages.csv")
-        if os.path.exists(pie_chart_path):
-            os.remove(pie_chart_path)
-        if os.path.exists(csv_output_path):
-            os.remove(csv_output_path)
+    @patch('question_generator.read_text_file')
+    def test_read_text_file_sources_full(self, mock_read_text_file):
+        # 测试 read_text_file 函数，模拟 sources 文件满20行
+        mock_lines = ['line' + str(i) for i in range(50)]  # 创建50行数据
+        mock_read_text_file.return_value = ','.join(
+            mock_lines[:20])  # 模拟函数返回前20行
+        result = question_generator.read_text_file('sources.csv', True)
+        self.assertEqual(result, ','.join(mock_lines[:20]))  # 只返回前20行
 
-    def test_pie_chart_generator(self):
-        # 调用函数
-        pie_chart_generator()
+    @patch('question_generator.read_text_file')
+    def test_read_text_file_not_sources(self, mock_read_text_file):
+        # 测试 read_text_file 函数，模拟非 sources 文件
+        mock_read_text_file.return_value = 'line1,line2,line3'
+        result = question_generator.read_text_file('other.txt', False)
+        self.assertEqual(result, 'line1,line2,line3')
 
-        # 检查饼图是否生成
-        pie_chart_path = ("E:\\github_repositories\\Emotion-Analysis-Project"
-                          "\\Emotion-Analysis\\static\\wordclouds"
-                          "\\pie_chart.png")
-        self.assertTrue(os.path.exists(pie_chart_path))
+    @patch('question_generator.read_csv_file')
+    def test_read_csv_file(self, mock_read_csv_file):
+        # 测试 read_csv_file 函数
+        mock_read_csv_file.return_value = {'key1': 'value1', 'key2': 'value2'}
+        result = question_generator.read_csv_file('data.csv')
+        self.assertEqual(result, {'key1': 'value1', 'key2': 'value2'})
 
-        # 检查百分比数据是否保存到CSV文件
-        csv_output_path = ("E:\\github_repositories\\Emotion-Analysis-Project"
-                           "\\Emotion-Analysis\\data_visualization"
-                           "\\sentiment_percentages.csv")
-        self.assertTrue(os.path.exists(csv_output_path))
-        with open(csv_output_path, 'r', encoding='utf-8-sig') as csvfile:
-            reader = csv.reader(csvfile)
-            data = list(reader)
-            self.assertEqual(data[0], ['Sentiment', 'Percentage'])
-            self.assertEqual(data[1][0], '正面')
-            self.assertEqual(data[2][0], '负面')
+    @patch('question_generator.read_text_file')
+    @patch('question_generator.read_csv_file')
+    def test_load_params(self, mock_read_csv_file, mock_read_text_file):
+        # 模拟 read_text_file 返回值
+        mock_read_text_file.side_effect = [
+            'all_words_data', 'positive_words_data', 'negative_words_data',
+            'keywords_data', 'regions_data', 'sources_data'
+        ]
+
+        # 模拟 read_csv_file 返回值
+        mock_read_csv_file.side_effect = [
+            {'正面': '0.6', '负面': '0.4'},  # sentiment_percentages_data
+            {'min_date': '2024-01-01', 'max_date': '2024-12-31'}
+            # time_interval_data
+        ]
+
+        # 调用 load_params 函数
+        result = question_generator.load_params()
+
+        # 验证返回值
+        expected_result = (
+            'all_words_data', 'positive_words_data', 'negative_words_data',
+            'keywords_data', '2024-01-01 到 2024-12-31', 'regions_data',
+            'sources_data', '0.6', '0.4'
+        )
+        self.assertEqual(result, expected_result)
+
+    @patch('question_generator.read_text_file')
+    @patch('question_generator.read_csv_file')
+    def test_load_params_file_not_found(self, mock_read_csv_file,
+                                        mock_read_text_file):
+        # 模拟文件未找到的情况
+        mock_read_text_file.side_effect = FileNotFoundError
+        mock_read_csv_file.side_effect = FileNotFoundError
+
+        # 调用 load_params 函数
+        result = question_generator.load_params()
+
+        # 验证返回值是否为 None 或符合预期的默认值
+        expected_result = (
+            None, None, None, None, '', None, None, '0', '0'
+        )
+        self.assertEqual(result, expected_result)
+
+    @patch('question_generator.form_question')
+    def test_form_question(self, mock_form_question):
+        # 测试 form_question 函数
+        mock_form_question.return_value = 'Generated question'
+        result = question_generator.form_question('all_words', 'positive_words', 'negative_words', 'keywords', 'time_interval', 'regions', 'sources', 'positive_percentage', 'negative_percentage')
+        self.assertEqual(result, 'Generated question')
+
+    @patch('question_generator.question_generator')
+    def test_question_generator(self, mock_question_generator):
+        # 测试 question_generator 函数
+        mock_question_generator.return_value = 'Generated question'
+        result = question_generator.question_generator()
+        self.assertEqual(result, 'Generated question')
 
 
 if __name__ == '__main__':

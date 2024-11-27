@@ -32,6 +32,7 @@ def spider_analysis_topic():
 
     from data_visualization.question_generator import question_generator
     question = question_generator()
+    print(question)
 
     analysis_result = {
         'cookie': cookie,
@@ -48,9 +49,6 @@ def spider_analysis_topic():
         return jsonify({'status': 'success', 'result': analysis_result})
     else:
         return jsonify({'status': 'failed', 'message': '情绪分析未成功完成'})
-
-
-
 
 
 @pb.route('/gpt_suggestion', methods=['GET', 'POST'])

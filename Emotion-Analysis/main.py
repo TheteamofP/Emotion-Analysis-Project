@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from weibo_crawler.weibo_crawler.update_settings import main
@@ -70,6 +71,35 @@ def initialization(original_dir):
     delete_files_in_folder('data_visualization/dates.csv')
     delete_files_in_folder('model/processed_data.csv')
     delete_files_in_folder('weibo_crawler/weibo_data.csv')
+
+    # 定义源目录和目标目录
+    source_dir = os.path.join(original_dir, 'static/wordclouds')
+    target_dir = os.path.join(original_dir, 'result')
+
+    # 检查源目录是否存在
+    if os.path.exists(source_dir):
+        # 检查目标目录是否已存在，如果存在，则先删除
+        if os.path.exists(target_dir):
+            for filename in os.listdir(source_dir):
+                source_file = os.path.join(source_dir, filename)
+                target_file = os.path.join(target_dir, filename)
+
+                # 如果目标文件已存在，则重命名新文件
+                count = 1
+                while os.path.exists(target_file):
+                    base, extension = os.path.splitext(target_file)
+                    target_file = f"{base}({count}){extension}"
+                    count += 1
+
+                # 复制文件
+                shutil.copy2(source_file, target_file)
+        else:
+            # 复制目录
+            shutil.copytree(source_dir, target_dir)
+        print("Directory copied successfully.")
+    else:
+        print("Source directory does not exist.")
+
     delete_files_in_folder('static/wordclouds/pie_chart.png')
     delete_files_in_folder('static/wordclouds/wordcloud_all.png')
     delete_files_in_folder('static/wordclouds/wordcloud_positive.png')
@@ -141,3 +171,7 @@ if __name__ == "__main__":
         print("成功！")
     else:
         print("情绪分析未成功完成")
+    # # 调试清理
+    # original_dir = os.getcwd()
+    #
+    # initialization(original_dir)
