@@ -2,8 +2,8 @@
 
 ## 软件工程作业博客链接如下：
 * [团队作业1——团队展示&选题](https://www.cnblogs.com/doublettian75/p/18486470)
-* [团队作业2-《需求规格说明书》](https://www.cnblogs.com/doublettian75/p/18508828)
-* [团队作业3--需求改进&系统设计](https://www.cnblogs.com/doublettian75/p/18525034)
+* [团队作业2——《需求规格说明书》](https://www.cnblogs.com/doublettian75/p/18508828)
+* [团队作业3——需求改进&系统设计](https://www.cnblogs.com/doublettian75/p/18525034)
 * [团队作业4——项目冲刺集合贴](https://www.cnblogs.com/doublettian75/p/18535611)
 * [团队作业5——测试与发布（Alpha版本）](https://www.cnblogs.com/doublettian75/p/18555487)
 
