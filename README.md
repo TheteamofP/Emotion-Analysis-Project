@@ -1,6 +1,6 @@
 # Emotion-Analysis-Project
 
-## 软件工程作业博客链接如下：
+## 团队项目作业博客链接如下：
 * [团队作业1——团队展示&选题](https://www.cnblogs.com/doublettian75/p/18486470)
 * [团队作业2——《需求规格说明书》](https://www.cnblogs.com/doublettian75/p/18508828)
 * [团队作业3——需求改进&系统设计](https://www.cnblogs.com/doublettian75/p/18525034)
